@@ -1,6 +1,7 @@
 import 'package:consultation/modules/login/cubit/cubit.dart';
 import 'package:consultation/modules/login/cubit/states.dart';
 import 'package:consultation/modules/login/login_screan1.dart';
+import 'package:consultation/modules/register/user_regester_screan.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,9 @@ class Login_Screan extends StatelessWidget{
                     navigateTo(context, Login_Screan1());
                   },Background: Colors.red,radius: 15),
                   SizedBox(height: 30,),
-                  defultButton(text: 'signup', function: (){},Background: Colors.blue,radius: 15),
+                  defultButton(text: 'signup', function: (){
+                    navigateTo(context, User_Regester_Screan());
+                  },Background: Colors.blue,radius: 15),
                   SizedBox(height: 30,),
                   Row(
                     children: [
