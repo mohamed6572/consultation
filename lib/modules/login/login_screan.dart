@@ -1,5 +1,6 @@
 import 'package:consultation/modules/login/cubit/cubit.dart';
 import 'package:consultation/modules/login/cubit/states.dart';
+import 'package:consultation/modules/login/login_screan1.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,9 @@ class Login_Screan extends StatelessWidget{
                 children: [
                   Image(image: AssetImage('assets/images/logo1.png')),
                   SizedBox(height: 100,),
-                  defultButton(text: 'login', function: (){},Background: Colors.red,radius: 15),
+                  defultButton(text: 'login', function: (){
+                    navigateTo(context, Login_Screan1());
+                  },Background: Colors.red,radius: 15),
                   SizedBox(height: 30,),
                   defultButton(text: 'signup', function: (){},Background: Colors.blue,radius: 15),
                   SizedBox(height: 30,),
