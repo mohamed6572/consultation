@@ -82,9 +82,14 @@ Widget defultFormField({
       keyboardType: type,
       controller: controller,
       decoration: InputDecoration(
+fillColor: Colors.grey.shade200,
+        filled: true,
         labelText: label,
         prefixIcon: Icon(prefix),
-        border: OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: BorderSide(color: Colors.transparent)
+        ),
         suffixIcon: suffix != null
             ? IconButton(
                 icon: Icon(suffix),
