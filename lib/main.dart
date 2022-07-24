@@ -1,5 +1,6 @@
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
+import 'package:consultation/modules/register/user_regester_screan.dart';
 import 'package:consultation/shared/Bloc_Observer.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';

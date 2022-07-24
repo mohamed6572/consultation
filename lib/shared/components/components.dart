@@ -59,12 +59,13 @@ borderRadius: BorderRadius.circular(15),
         color: Colors.transparent,
       ),
     );
+DropdownMenuItem dropItem(text,image)=>DropdownMenuItem(child: Row(children: [Text('$text'),Image(image: AssetImage(''))],));
 
 Widget defultFormField({
   required TextInputType type,
   required TextEditingController controller,
   required String label,
-  required IconData prefix,
+   IconData? prefix,
   IconData? suffix,
   bool isPassword = false,
   required String? Function(String? val)? validator,
