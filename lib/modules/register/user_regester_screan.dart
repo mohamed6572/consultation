@@ -2,11 +2,13 @@ import 'package:consultation/modules/register/consultant/consultant_register_scr
 import 'package:consultation/modules/register/cubit/cubit.dart';
 import 'package:consultation/modules/register/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
+import 'package:consultation/shared/components/constens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class User_Regester_Screan extends StatelessWidget {
   var namecontroller = TextEditingController();
+  var name2controller = TextEditingController();
   var emailcontroller = TextEditingController();
   var re_passcontroller = TextEditingController();
   var passcontroller = TextEditingController();
@@ -22,7 +24,7 @@ class User_Regester_Screan extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'SignUp',
+                'إنشاء حساب',
                 style: TextStyle(height: 3),
               ),
               centerTitle: true,
@@ -38,10 +40,10 @@ class User_Regester_Screan extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     Text(
-                      'Please enter the required details for the registration process',
+                      'برجاء إدخال التفاصيل المطلوبة لعملية التسجيل',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
@@ -55,30 +57,34 @@ class User_Regester_Screan extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         defultButton(
-                            text: 'User',
+                            text: 'مستخدم',
                             width: 120,
                             function: () {
                               cubit.changeUserRegister();
                               print(cubit.isUser);
                             },
                             radius: 0.0,
-                            Background: cubit.isUser ?Colors.blue : Colors.grey),
+                            Background: cubit.isUser
+                                ? Colors.blue
+                                : Colors.grey.shade400),
                         defultButton(
-                            text: 'Consultant',
+                            text: 'مستشار',
                             radius: 0.0,
                             width: 120,
                             function: () {
                               cubit.changeUserRegister();
                               print(cubit.isUser);
                             },
-                            Background:  cubit.isUser ?  Colors.grey:Colors.blue)
+                            Background: cubit.isUser
+                                ? Colors.grey.shade400
+                                : Colors.blue)
                       ],
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
-                    if (cubit.isUser) User_regster(cubit,context),
-                    if (!cubit.isUser) consultant_regster(cubit,context),
+                    if (cubit.isUser) User_regster(cubit, context),
+                    if (!cubit.isUser) consultant_regster(cubit, context),
                   ],
                 ),
               ),
@@ -89,42 +95,47 @@ class User_Regester_Screan extends StatelessWidget {
     );
   }
 
-  Widget User_regster(cubit,context) => Column(
+  Widget User_regster(cubit, context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          itemregister('الإسم'),
           defultFormField(
               type: TextInputType.name,
               controller: namecontroller,
-              label: 'Name',
+              label: 'الإسم ',
               prefix: Icons.person,
               validator: (v) {}),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
+          itemregister('البريد الإلكتروني'),
           defultFormField(
               type: TextInputType.emailAddress,
               controller: emailcontroller,
-              label: 'E-mail',
+              label: 'البريد الإلكتروني',
               prefix: Icons.email,
               validator: (v) {}),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
+          itemregister('كلمة السر'),
           defultFormField(
               type: TextInputType.visiblePassword,
               controller: passcontroller,
-              label: 'password',
+              label: '*****************',
               suffix: cubit.suffix,
               isPassword: cubit.isPasword,
               passwordShow: () => cubit.changePasswordVisability(),
               prefix: Icons.lock,
               validator: (v) {}),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
+          itemregister('إعادة إدخال كلمة السر'),
           defultFormField(
               type: TextInputType.visiblePassword,
               controller: re_passcontroller,
-              label: 'Re-enter password',
+              label: '*****************',
               suffix: cubit.suffix,
               isPassword: cubit.isPasword,
               passwordShow: () => cubit.changePasswordVisability(),
@@ -134,58 +145,61 @@ class User_Regester_Screan extends StatelessWidget {
             height: 35,
           ),
           defultButton(
-              text: 'SignUp',
+              text: 'تسجيل',
               function: () {},
               Background: Colors.red,
               radius: 13),
         ],
       );
-  Widget consultant_regster(cubit,context) => Column(
+
+  Widget consultant_regster(cubit, context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          itemregister('الإسم الأول'),
           defultFormField(
               type: TextInputType.name,
               controller: namecontroller,
-              label: 'Name',
+              label: 'الإسم الأول  ',
+              validator: (v) {}),
+          SizedBox(
+            height: 20,
+          ),
+          itemregister('الإسم الأخير'),
+          defultFormField(
+              type: TextInputType.name,
+              controller: name2controller,
+              label: 'الإسم الأخير  ',
               prefix: Icons.person,
               validator: (v) {}),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
+          itemregister('البريد الإلكتروني'),
           defultFormField(
               type: TextInputType.emailAddress,
               controller: emailcontroller,
-              label: 'E-mail',
+              label: 'البريد الإلكتروني',
               prefix: Icons.email,
               validator: (v) {}),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
+          itemregister('كلمة السر'),
           defultFormField(
               type: TextInputType.visiblePassword,
               controller: passcontroller,
-              label: 'password',
+              label: '*****************',
               suffix: cubit.suffix,
               isPassword: cubit.isPasword,
               passwordShow: () => cubit.changePasswordVisability(),
               prefix: Icons.lock,
               validator: (v) {}),
-          SizedBox(
-            height: 30,
-          ),
-          defultFormField(
-              type: TextInputType.visiblePassword,
-              controller: re_passcontroller,
-              label: 'Re-enter password',
-              suffix: cubit.suffix,
-              isPassword: cubit.isPasword,
-              passwordShow: () => cubit.changePasswordVisability(),
-              prefix: Icons.lock,
-              validator: (v) {}),
+
           SizedBox(
             height: 35,
           ),
           defultButton(
-              text: 'following',
+              text: 'التالي',
               function: () {
                 navigateTo(context, Consultant_Register_Screan());
               },

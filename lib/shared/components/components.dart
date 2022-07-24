@@ -68,35 +68,48 @@ Widget defultFormField({
    IconData? prefix,
   IconData? suffix,
   bool isPassword = false,
+  int maxlines =1,
   required String? Function(String? val)? validator,
   void Function(String val)? onChanged,
   VoidCallback? passwordShow,
   VoidCallback? onTap,
   void Function(String)? onSubmeted,
 }) =>
-    TextFormField(
-      onTap: onTap,
-      onFieldSubmitted: onSubmeted,
-      onChanged: onChanged,
-      obscureText: isPassword,
-      validator: validator,
-      keyboardType: type,
-      controller: controller,
-      decoration: InputDecoration(
+    Directionality(
+      textDirection: TextDirection.rtl,
+
+      child: TextFormField(
+minLines: 1,
+        maxLines: maxlines,
+        onTap: onTap,
+        onFieldSubmitted: onSubmeted,
+        onChanged: onChanged,
+        obscureText: isPassword,
+        validator: validator,
+        keyboardType: type,
+        controller: controller,
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        decoration: InputDecoration(
+
 fillColor: Colors.grey.shade200,
-        filled: true,
-        labelText: label,
-        prefixIcon: Icon(prefix),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13),
-          borderSide: BorderSide(color: Colors.transparent)
+          filled: true,
+          labelStyle: TextStyle(
+
+          ),
+          labelText: label,
+          prefixIcon: Icon(prefix),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(13),
+            borderSide: BorderSide(color: Colors.transparent)
+          ),
+          suffixIcon: suffix != null
+              ? IconButton(
+                  icon: Icon(suffix),
+                  onPressed: passwordShow,
+                )
+              : null,
         ),
-        suffixIcon: suffix != null
-            ? IconButton(
-                icon: Icon(suffix),
-                onPressed: passwordShow,
-              )
-            : null,
       ),
     );
 
