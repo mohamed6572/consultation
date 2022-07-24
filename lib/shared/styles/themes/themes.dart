@@ -41,6 +41,7 @@ ThemeData lightTheme = ThemeData(
 
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
+
     titleSpacing: 20.0,
     elevation: 0.0,
     titleTextStyle: TextStyle(
@@ -61,10 +62,9 @@ ThemeData lightTheme = ThemeData(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     elevation: 20.0,
-    backgroundColor: Colors.white,
-    unselectedItemColor: Colors.grey,
-    selectedItemColor: Colors.blue,
+    backgroundColor: Color.fromRGBO(100, 185, 230, 1.0),
+    unselectedItemColor:  Color.fromRGBO(0, 82, 125, 1.0),
+    selectedItemColor: Colors.white,
   ),
-  textTheme: TextTheme(
-  )
+
 );

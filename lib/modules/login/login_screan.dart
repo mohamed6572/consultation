@@ -26,11 +26,11 @@ class Login_Screan extends StatelessWidget{
                 children: [
                   Image(image: AssetImage('assets/images/logo1.png')),
                   SizedBox(height: 100,),
-                  defultButton(text: 'login', function: (){
+                  defultButton(text: 'دخول', function: (){
                     navigateTo(context, Login_Screan1());
                   },Background: Colors.red,radius: 15),
                   SizedBox(height: 30,),
-                  defultButton(text: 'signup', function: (){
+                  defultButton(text: 'تسجيل حساب جديد', function: (){
                     navigateTo(context, User_Regester_Screan());
                   },Background: Colors.blue,radius: 15),
                   SizedBox(height: 30,),
@@ -43,7 +43,7 @@ class Login_Screan extends StatelessWidget{
                         ),
                       ),
                       Text(
-                        ' or sign by ',
+                        ' أو سجل بواسطة ',
                         style: TextStyle(fontStyle: FontStyle.italic,color: Colors.grey.shade500),
                       ),
                       Expanded(
@@ -55,8 +55,6 @@ class Login_Screan extends StatelessWidget{
                     ],
                   ),
                   SizedBox(height: 30,),
-                  authButton(text: 'Login with Facebook', logo: 'fac', function: (){},isUpperCase: false),
-                  SizedBox(height: 20,),
                   authButton(text: 'Login with Google', logo: 'google_logo', function: (){},isUpperCase: false)
                 ],
               ),

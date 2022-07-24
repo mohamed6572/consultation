@@ -26,19 +26,24 @@ class Login_Screan1 extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Image(image: AssetImage('assets/images/logo.png')),
+                    Image(
+                      image: AssetImage('assets/images/logo.png'),
+                      height: 90,
+                    ),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                     ),
                     Text(
-                      'Login',
+                      'تسجيل الدخول',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 26, height: 2),
                     ),
                     Text(
-                      'Welcome back to your account',
+                      'مرحبا مجددا لحسابك',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           height: 2,
@@ -47,6 +52,20 @@ class Login_Screan1 extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        'حسابك',
+                        style: TextStyle(
+
+                            fontSize: 16,
+                          ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 9,
                     ),
                     defultFormField(
                         type: TextInputType.emailAddress,
@@ -57,20 +76,43 @@ class Login_Screan1 extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        'كلمة السر',
+                        style: TextStyle(
+
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 9,
+                    ),
                     defultFormField(
                         type: TextInputType.visiblePassword,
                         controller: passcontroller,
-                        label: 'password',
+                        label: '*****************',
                         suffix: cubit.suffix,
                         isPassword: cubit.isPasword,
-                        passwordShow: ()=>cubit.changePasswordVisability(),
+                        passwordShow: () => cubit.changePasswordVisability(),
                         prefix: Icons.lock,
                         validator: (v) {}),
-                    Text('Forgot your password ?',style: TextStyle(height: 3,color: Colors.grey,fontSize: 13),),
+                    Text(
+                      'هل نسيت كلمة السر ؟',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                          height: 3, color: Colors.grey, fontSize: 13),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                    defultButton(text: 'login', function: (){},Background: Colors.red,radius: 13),
+                    defultButton(
+                        text: 'دخول',
+                        function: () {},
+                        Background: Colors.red,
+                        radius: 13),
                     SizedBox(
                       height: 30,
                     ),
@@ -83,7 +125,7 @@ class Login_Screan1 extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ' or sign by ',
+                          ' أو سجل بواسطة ',
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Colors.grey.shade500),
@@ -98,14 +140,6 @@ class Login_Screan1 extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 30,
-                    ),
-                    authButton(
-                        text: 'Login with Facebook',
-                        logo: 'fac',
-                        function: () {},
-                        isUpperCase: false),
-                    SizedBox(
-                      height: 20,
                     ),
                     authButton(
                         text: 'Login with Google',

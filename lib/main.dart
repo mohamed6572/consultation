@@ -1,12 +1,17 @@
+import 'package:consultation/layout/cubit/cubit.dart';
+import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
-import 'package:consultation/modules/register/user_regester_screan.dart';
 import 'package:consultation/shared/Bloc_Observer.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';
 import 'package:consultation/shared/styles/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'layout/home_layout.dart';
+import 'modules/login/login_screan.dart';
+import 'modules/onboard/onboarding.dart';
 
 void main() {
   BlocOverrides.runZoned(
@@ -40,12 +45,15 @@ class MyApp extends StatelessWidget {
   MyApp({required this.start});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'consaltation',
-      theme: lightTheme,
-      themeMode: ThemeMode.light,
-      debugShowCheckedModeBanner: false,
-      home: start ,
+    return BlocProvider(
+      create: (context) => AppCubit(),
+      child: MaterialApp(
+        title: 'consaltation',
+        theme: lightTheme,
+        themeMode: ThemeMode.light,
+        debugShowCheckedModeBanner: false,
+        home: Home_Layout() ,
+      ),
     );
   }
 }
