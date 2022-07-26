@@ -30,9 +30,9 @@ List<Widget> titles=[
       ),
     ],
   ),
-  Text('الدردشات'),
-  Text('الملف الشخصي'),
-  Text('رصيد الحساب')
+  Text('الدردشات',style: TextStyle(fontWeight: FontWeight.w500),),
+  Text('الملف الشخصي',style: TextStyle(fontWeight: FontWeight.w500),),
+  Text('رصيد الحساب',style: TextStyle(fontWeight: FontWeight.w500),)
 ];
 List<BottomNavigationBarItem> botItems=[
   BottomNavigationBarItem(icon: Icon(Icons.home_filled),label: 'الرئيسية'),

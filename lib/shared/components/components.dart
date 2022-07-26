@@ -118,10 +118,12 @@ Widget defultButton({
   Color Background = Colors.blue,
   bool isUpperCase = true,
   double radius = 3.0,
+  double height = 45.0,
   required String text,
   required VoidCallback function,
 }) =>
     Container(
+      height: height,
       width: width,
       child: MaterialButton(
         onPressed: function,
@@ -179,7 +181,7 @@ Widget myDivider()=> Padding(
   padding: const EdgeInsets.symmetric(vertical: 10),
   child: Container(
     width: double.infinity,
-    height: 1.0,
+    height: 4.0,
     color: Colors.grey[400],
   ),
 );

@@ -14,7 +14,7 @@ class Balance_Screan extends StatelessWidget{
           children: [
             paymentwidget(pay: '0.00',text: 'الرصيد الكلي'),
             paymentwidget(pay: '0.00',text: 'رصيد معلق'),
-            paymentwidget(pay: '0.00',text: 'أرباح بمكن سحبها'),
+            paymentwidget(pay: '0.00',text: 'أرباح يمكن سحبها'),
 
           ],
         ),
