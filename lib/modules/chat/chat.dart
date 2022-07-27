@@ -1,3 +1,4 @@
+import 'package:consultation/models/catI_tem_model.dart';
 import 'package:consultation/models/chat_item_model.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ List<Chat_Item_Model> items=[
   Chat_Item_Model(name: 'الدكتور محمد', message: 'وعليكم السلام', image: 'assets/images/im.png', time: 'Yesterday'),
   Chat_Item_Model(name: 'الدكتور محمد', message: 'وعليكم السلام', image: 'assets/images/im.png', time: 'Yesterday'),
 ];
+late catItem_model model1;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -34,7 +36,7 @@ List<Chat_Item_Model> items=[
 
   Widget ChatItem(model,context) => InkWell(
    onTap: (){
-     navigateTo(context, Chat_Detales_Screan(model:model));
+     navigateTo(context, Chat_Detales_Screan(model:model,));
    },
     child: Container(
             height: 110,

@@ -1,4 +1,5 @@
 import 'package:consultation/models/chat_item_model.dart';
+import 'package:consultation/modules/chat/rating_screan.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,9 @@ class Chat_Detales_Screan extends StatelessWidget {
                     width: 130),
                 defultButton(
                     text: 'إنهاء المحادثة',
-                    function: () {},
+                    function: () {
+                      navigateTo(context, Rating_Screan(model:model ));
+                    },
                     Background: Colors.red,
                     width: 130),
               ],

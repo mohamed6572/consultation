@@ -1,6 +1,8 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/modules/home/category_item.dart';
+import 'package:consultation/modules/support/support.dart';
+import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +37,30 @@ class Home_Layout extends StatelessWidget {
                 ),
                 InkWell(
                     onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.settings,
+                            size: 35,
+                          ),
+                          Text(
+                            'الاعدادات',
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                InkWell(
+                    onTap: () {
+                      navigateTo(context, support());
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 20),
@@ -77,7 +103,7 @@ class Home_Layout extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ))
+                    )),
               ],
             ),
           ),
