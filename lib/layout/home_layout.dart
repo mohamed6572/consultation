@@ -1,6 +1,8 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/modules/home/category_item.dart';
+import 'package:consultation/modules/notifiaction/notification.dart';
+import 'package:consultation/modules/settings/settings.dart';
 import 'package:consultation/modules/support/support.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
@@ -36,7 +38,9 @@ class Home_Layout extends StatelessWidget {
                   height: 50,
                 ),
                 InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      navigateTo(context, settings());
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 20),
@@ -126,7 +130,9 @@ class Home_Layout extends StatelessWidget {
                     color: Colors.lightBlue,
                     size: 33,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    navigateTo(context, Notification_Screen());
+                  },
                 ),
               )
             ],
