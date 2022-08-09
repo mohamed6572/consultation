@@ -1,4 +1,5 @@
 import 'package:consultation/models/chat_item_model.dart';
+import 'package:consultation/modules/chat/audio_call.dart';
 import 'package:consultation/modules/chat/rating_screan.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
@@ -20,8 +21,9 @@ class Chat_Detales_Screan extends StatelessWidget {
         title: Text(model.name ?? '',
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28)),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.call)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.videocam)),
+          IconButton(onPressed: () {
+navigateTo(context, AudioCallScreen());
+          }, icon: Icon(Icons.call)),
         ],
       ),
       body: Column(

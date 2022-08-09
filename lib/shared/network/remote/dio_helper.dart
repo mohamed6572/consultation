@@ -51,5 +51,6 @@ class Dio_Helper {
     };
 
     return await dio.put(url, queryParameters: query, data: data);
+
   }
 }

@@ -1,3 +1,4 @@
+import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/modules/login/cubit/cubit.dart';
 import 'package:consultation/modules/login/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -110,42 +111,44 @@ class Login_Screan1 extends StatelessWidget {
                     ),
                     defultButton(
                         text: 'دخول',
-                        function: () {},
+                        function: () {
+                          navigateTo(context, Home_Layout());
+                        },
                         Background: Colors.red,
                         radius: 13),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 0.5,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                        Text(
-                          ' أو سجل بواسطة ',
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.grey.shade500),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 0.5,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    authButton(
-                        text: 'Login with Google',
-                        logo: 'google_logo',
-                        function: () {},
-                        isUpperCase: false)
+                    // SizedBox(
+                    //   height: 30,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Container(
+                    //         height: 0.5,
+                    //         color: Colors.grey.shade400,
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       ' أو سجل بواسطة ',
+                    //       style: TextStyle(
+                    //           fontStyle: FontStyle.italic,
+                    //           color: Colors.grey.shade500),
+                    //     ),
+                    //     Expanded(
+                    //       child: Container(
+                    //         height: 0.5,
+                    //         color: Colors.grey.shade400,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: 30,
+                    // ),
+                    // authButton(
+                    //     text: 'Login with Google',
+                    //     logo: 'google_logo',
+                    //     function: () {},
+                    //     isUpperCase: false)
                   ],
                 ),
               ),

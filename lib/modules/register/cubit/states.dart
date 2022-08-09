@@ -9,3 +9,7 @@ class RegesterErrorState extends RegesterStates{}
 class RegesterChangePasswordState extends RegesterStates{}
 class RegesterChangeSelectedState extends RegesterStates{}
 class RegesterChangeregisterState extends RegesterStates{}
+
+class RegesterImagePickedSuccsessState extends RegesterStates{}
+class RegesterImagePickedErrorState extends RegesterStates{}
+

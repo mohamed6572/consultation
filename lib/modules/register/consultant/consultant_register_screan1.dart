@@ -1,3 +1,4 @@
+import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/modules/register/cubit/cubit.dart';
 import 'package:consultation/modules/register/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -18,6 +19,7 @@ class Consultant_Register_Screan1 extends StatelessWidget {
       child: BlocConsumer<RegesterCubit, RegesterStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          var profileImage = RegesterCubit.get(context).profileimage;
           var cubit = RegesterCubit.get(context);
           return Scaffold(
             appBar: AppBar(
@@ -40,17 +42,36 @@ class Consultant_Register_Screan1 extends StatelessWidget {
                       height: 20,
                     ),
                     Center(
-                      child: Container(
-                        height: 120,
-                        width: 120,
-                        margin: EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(60),
-                          color: Colors.grey.shade400
-                        ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            radius: 64,
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: profileImage == null
+                                  ? NetworkImage('https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg')
+                                  : FileImage(
+                                profileImage,
+                              ) as ImageProvider,
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                               RegesterCubit.get(context).getProfileImage();
+                              },
+                              icon: CircleAvatar(
+                                radius: 20,
+                                child: Icon(
+                                  Icons.camera,
+                                  size: 16,
+                                ),
+                              )),
+                        ],
                       ),
                     ),
-                    Text('رفع صورة',textAlign: TextAlign.center,),
                     SizedBox(
                       height: 10,
                     ),
