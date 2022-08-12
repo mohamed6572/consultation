@@ -3,6 +3,7 @@ import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
 import 'package:consultation/shared/Bloc_Observer.dart';
+import 'package:consultation/shared/components/constens.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';
 import 'package:consultation/shared/styles/themes/themes.dart';
@@ -20,12 +21,12 @@ void main() {
       Dio_Helper.init();
       await cash_helper.init();
       bool? onBoard = cash_helper.getData(key: 'onboard');
-      // token = cash_helper.getData(key: 'token');
-      // print(token);
+      token = cash_helper.getData(key: 'token');
+      print(token);
       Widget widget ;
       if(onBoard !=null){
-        // if(token !=null) widget = Home_Layout();
-        // else
+        if(token !=null) widget = Home_Layout();
+        else
           widget =  Login_Screan();
       }else{
         widget = onBoarding();
