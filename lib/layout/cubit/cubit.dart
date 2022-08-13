@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:consultation/layout/cubit/states.dart';
+import 'package:consultation/models/all_cosultant_model.dart';
+import 'package:consultation/models/consultant_model.dart';
 import 'package:consultation/models/update_model.dart';
 import 'package:consultation/modules/balance/balance.dart';
 import 'package:consultation/modules/chat/chat.dart';
@@ -147,12 +149,14 @@ print(response.body);
 
   }
 
-  LoginC_Model? usermodel;
+  Consultant_Model? usermodel;
 //get consltant data
   void GetConsaltant(){
+    print("$GetC'$ID'+$token");
     emit(getCLodingState());
     Dio_Helper.getData(url: GetC+ID!,token: token).then((value) {
-      usermodel = LoginC_Model.fromJson(value.data);
+      usermodel = Consultant_Model.fromJson(value.data);
+      print(usermodel?.others?.username);
       print("$GetC+'$ID'+$token");
       emit(getCSuccsessState());
     }).catchError((e){
@@ -162,51 +166,70 @@ print(response.body);
   }
 
   //get all consultant
-  catItem_details_model? consultant_model_for_loist;
-  List<catItem_details_model> law =[];
-  List<catItem_details_model> engeier =[];
-  List<catItem_details_model> man =[];
-  List<catItem_details_model> relashin =[];
-  List<catItem_details_model> family =[];
-  List<catItem_details_model> hear =[];
-  List<catItem_details_model> health =[];
-  List<catItem_details_model> programing =[];
+  all_consultant_model? consultant_model_for_loist;
+  List<Consultants> law =[];
+  List<Consultants> engeier =[];
+  List<Consultants> man =[];
+  List<Consultants> relashin =[];
+  List<Consultants> family =[];
+  List<Consultants> hear =[];
+  List<Consultants> health =[];
+  List<Consultants> programing =[];
   void GetAllConsaltant(){
+    law =[];
+    engeier =[];
+    man =[];
+    relashin =[];
+    family =[];
+    hear =[];
+    health =[];
+    programing =[];
+
     emit(getAllCLodingState());
-    Dio_Helper.getData(url: GetAllC).then((value) {
-      consultant_model_for_loist = catItem_details_model.fromJson(value.data);
-      if(consultant_model_for_loist?.details == 'استشارة قانونية')
-      law.forEach((element) {
-        law.add(element);
+    Dio_Helper.getData(url: GetAllC,token: token).then((value) {
+      consultant_model_for_loist = all_consultant_model.fromJson(value.data);
+      consultant_model_for_loist?.consultants?.forEach((element) {
+        if(element.counseling == 'استشارة قانونية')
+            law.add(element);
+
+        print(law.length);
+        if(element.counseling == 'استشارة معمارية')
+            engeier.add(element);
+
+        print(engeier.length);
+
+        if(element.counseling == 'استشارة رجل اعمال')
+            man.add(element);
+
+        print(man.length);
+
+        if(element.counseling == 'استشارة نفسية')
+            relashin.add(element);
+
+        print(relashin.length);
+
+        if(element.counseling == 'استشارة اسرية')
+            family.add(element);
+
+        print(family.length);
+
+        if(element.counseling == 'استشارة شعر وجمال')
+            hear.add(element);
+
+        print(hear.length);
+
+        if(element.counseling == 'استشارة تغذية')
+            health.add(element);
+
+        print(health.length);
+
+        if(element.counseling == 'استشارة برمجية')
+            programing.add(element);
+
+        print(programing.length);
+
       });
-      if(consultant_model_for_loist?.details == 'استشارة معمارية')
-        engeier.forEach((element) {
-          engeier.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة رجل اعمال')
-        man.forEach((element) {
-          man.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة نفسية')
-        relashin.forEach((element) {
-          relashin.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة اسرية')
-        family.forEach((element) {
-          family.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة شعر وجمال')
-        hear.forEach((element) {
-          hear.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة تغذية')
-        health.forEach((element) {
-          health.add(element);
-        });
-      if(consultant_model_for_loist?.details == 'استشارة برمجية')
-        programing.forEach((element) {
-          programing.add(element);
-        });
+
       emit(getAllCSuccsessState());
     }).catchError((e){
       print(e.toString());

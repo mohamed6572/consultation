@@ -30,10 +30,15 @@ class Login_Screan1 extends StatelessWidget {
           }
           if (state is LoginCSucssesState) {
             cash_helper
+                .saveData(key: 'ID', value: state.loginC_model?.sId)
+                .then((value) {
+            });
+            cash_helper
                 .saveData(key: 'token', value: state.loginC_model?.accessToken)
                 .then((value) {
               navigateToAndFinish(context, Home_Layout());
             });
+
           }
 
         },

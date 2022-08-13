@@ -22,11 +22,11 @@ class Edit_Profile extends StatelessWidget{
       var editImage = AppCubit.get(context).editprofileimage;
       var cubit =AppCubit.get(context);
       var model =AppCubit.get(context).usermodel;
-      phonecontroller.text =model?.phone as String ;
-      countrycontroller.text =model?.country ??'' ;
-      costcontroller.text =model?.price as String ;
-      discripcontroller.text =model?.about ??'' ;
-      //editImage = model?.profilePicture as File?;
+      phonecontroller.text ="${model?.others?.phone}"  ;
+      countrycontroller.text =model?.others?.country ??'' ;
+      costcontroller.text ="${model?.others?.price}"  ;
+      discripcontroller.text =model?.others?.about ??'' ;
+      //editImage = model?.others?.profilePicture as File?;
       return
           Scaffold(
             appBar: AppBar(
@@ -54,7 +54,7 @@ class Edit_Profile extends StatelessWidget{
                             child: CircleAvatar(
                               radius: 60,
                               backgroundImage: editImage == null
-                                  ? NetworkImage('${model?.profilePicture}')
+                                  ? NetworkImage('${model?.others?.profilePicture}')
                                   : FileImage(
                                 editImage,
                               ) as ImageProvider,

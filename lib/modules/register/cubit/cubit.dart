@@ -109,7 +109,6 @@ ID = register_model_c?.savedUser?.Id;
       "profilePicture":profilePicture,
       "About":About,
       "price":price,
-      "rating":0.0,
       "country":country,
       "phone":phone,
     },).then((value) {
