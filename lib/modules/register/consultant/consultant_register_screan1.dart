@@ -148,6 +148,7 @@ class Consultant_Register_Screan1 extends StatelessWidget {
                               if (formkey.currentState!.validate()) {
                                 cubit.UpdateCRegister1(
                                     phone: phonecontroller.text,
+                                    price: costcontroller.text,
                                     country: countrycontroller.text,
                                     About: discripcontroller.text,
                                     profilePicture: profileImage?.path);

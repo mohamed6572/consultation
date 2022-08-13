@@ -35,6 +35,8 @@ class UpdatedUser {
   String? qualification;
   String? counseling;
   String? country;
+  double? price;
+  double? rating;
   String? duration;
   int? phone;
 
@@ -42,6 +44,8 @@ class UpdatedUser {
       {this.profilePicture,
         this.cVPhoto,
         this.Id,
+        this.price,
+        this.rating,
         this.username,
         this.email,
         this.password,
@@ -60,6 +64,8 @@ class UpdatedUser {
     cVPhoto = json['CVPhoto'];
     Id = json['_id'];
     username = json['username'];
+    price = json['price'];
+    rating = json['rating'];
     email = json['email'];
     password = json['password'];
     createdAt = json['createdAt'];
@@ -80,6 +86,8 @@ class UpdatedUser {
     data['_id'] = this.Id;
     data['username'] = this.username;
     data['email'] = this.email;
+    data['rating'] = this.rating;
+    data['price'] = this.price;
     data['password'] = this.password;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

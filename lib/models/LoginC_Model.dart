@@ -2,6 +2,8 @@ class LoginC_Model {
   String? profilePicture;
   String? cVPhoto;
   String? sId;
+  double? rating;
+  int? price;
   String? username;
   String? email;
   String? createdAt;
@@ -23,6 +25,8 @@ class LoginC_Model {
         this.username,
         this.email,
         this.createdAt,
+        this.rating,
+        this.price,
         this.updatedAt,
         this.iV,
         this.about,
@@ -40,6 +44,8 @@ class LoginC_Model {
     sId = json['_id'];
     username = json['username'];
     email = json['email'];
+    price = json['price'];
+    rating = json['rating'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -58,6 +64,8 @@ class LoginC_Model {
     data['profilePicture'] = this.profilePicture;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
+    data['rating'] = this.rating;
+    data['price'] = this.price;
     data['username'] = this.username;
     data['email'] = this.email;
     data['createdAt'] = this.createdAt;

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 
+import '../../layout/homeU_layout.dart';
+
 class Login_Screan1 extends StatelessWidget {
   var emailcontroller = TextEditingController();
   var passcontroller = TextEditingController();
@@ -23,7 +25,7 @@ class Login_Screan1 extends StatelessWidget {
             cash_helper
                 .saveData(key: 'token', value: state.login_model.accessToken)
                 .then((value) {
-              navigateToAndFinish(context, Home_Layout());
+              navigateToAndFinish(context, HomeU_Layout());
             });
           }
           if (state is LoginCSucssesState) {

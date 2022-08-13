@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -14,10 +16,17 @@ class Edit_Profile extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(builder:(context, state) {
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context, state) {},
+      builder:(context, state) {
       var editImage = AppCubit.get(context).editprofileimage;
-
       var cubit =AppCubit.get(context);
+      var model =AppCubit.get(context).usermodel;
+      phonecontroller.text =model?.phone as String ;
+      countrycontroller.text =model?.country ??'' ;
+      costcontroller.text =model?.price as String ;
+      discripcontroller.text =model?.about ??'' ;
+      //editImage = model?.profilePicture as File?;
       return
           Scaffold(
             appBar: AppBar(
@@ -45,7 +54,7 @@ class Edit_Profile extends StatelessWidget{
                             child: CircleAvatar(
                               radius: 60,
                               backgroundImage: editImage == null
-                                  ? NetworkImage('https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg')
+                                  ? NetworkImage('${model?.profilePicture}')
                                   : FileImage(
                                 editImage,
                               ) as ImageProvider,
@@ -119,6 +128,13 @@ class Edit_Profile extends StatelessWidget{
                     defultButton(
                         text: 'تعديل',
                         function: () {
+                          cubit.UpdateConsaltant(
+                            profilePicture: editImage?.path,
+                            About: discripcontroller.text,
+                            price: costcontroller.text,
+                            phone: phonecontroller.text,
+                            country: countrycontroller.text
+                          );
                         },
                         width: 120,
 
@@ -132,8 +148,6 @@ class Edit_Profile extends StatelessWidget{
               ),
             ),
           );
-    },  listener: (context, state) {
-
-    },);
+    },  );
   }
 }
