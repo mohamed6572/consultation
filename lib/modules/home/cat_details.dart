@@ -28,7 +28,7 @@ class Cat_Details extends StatelessWidget{
           ],
         ),
       ),
-      body: ListView.builder(itemBuilder:(context, index) =>  catItem_Detales(AppCubit.get(context).relashin[index],model,context),itemCount: AppCubit.get(context).relashin.length,)
+      body: ListView.builder(itemBuilder:(context, index) =>  catItem_Detales(model.list[index],model,context),itemCount: model.list.length,)
     );
   }
   Widget catItem_Detales(Consultants model,model1,context)=>Container(
