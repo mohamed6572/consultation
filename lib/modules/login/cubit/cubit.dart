@@ -53,7 +53,6 @@ class LoginCubit extends Cubit<LoginStates> {
     ).then((value) {
       print(value.data);
       loginC_Model = LoginC_Model.fromJson(value.data);
-      loginC_Model1 = loginC_Model;
       print(loginC_Model?.email);
       print(loginC_Model?.country);
       print(loginC_Model?.phone);

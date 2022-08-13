@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 String? token = '';
 String? ID = '';
-LoginC_Model? loginC_Model1;
 
 Widget itemregister(text) =>  Padding(
   padding: const EdgeInsets.only(right: 8.0,bottom: 9),

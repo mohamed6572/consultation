@@ -13,7 +13,7 @@ class Dio_Helper {
       {required String url,
       Map<String, dynamic>? query,
       String? token,
-      String? lang = 'en'}) async {
+      }) async {
     dio.options.headers = {
 
       'token': " Bearer $token",

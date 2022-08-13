@@ -101,12 +101,15 @@ ID = register_model_c?.savedUser?.Id;
      String? About,
      String? country,
      String? phone,
+     String? price,
   }){
     emit(RegesterCUpdateLodingeState());
 
     Dio_Helper.putData(url: UPDATEC+ID!, data: {
       "profilePicture":profilePicture,
       "About":About,
+      "price":price,
+      "rating":0.0,
       "country":country,
       "phone":phone,
     },).then((value) {

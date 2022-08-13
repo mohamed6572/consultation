@@ -11,6 +11,7 @@ class Profile_Screan extends StatelessWidget {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+       var usermodel = AppCubit.get(context).usermodel;
         return  Container(
           margin: EdgeInsets.only(top: 10),
           padding: EdgeInsets.only(top: 20),
@@ -20,7 +21,7 @@ class Profile_Screan extends StatelessWidget {
             child: Column(
               children: [
                 Image(
-                  image: NetworkImage('${loginC_Model1?.profilePicture}'),
+                  image: NetworkImage('${usermodel?.profilePicture}'),
                   height: 120,
                   fit: BoxFit.cover,
                   width: 120,
@@ -43,7 +44,7 @@ class Profile_Screan extends StatelessWidget {
                   margin: EdgeInsets.only(top: 20, right: 20, left: 20,bottom: 20),
                   width: double.infinity,
                   height: 100,
-                  child: Center(child: Text("${loginC_Model1?.about}")),
+                  child: Center(child: Text("${usermodel?.about}")),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -71,7 +72,7 @@ class Profile_Screan extends StatelessWidget {
                           Row(
                             children: [
                               Icon(Icons.star,color: Colors.orangeAccent,),
-                              Text('4.5')
+                              Text('${usermodel?.rating}.0')
                             ],
                           ),
                           Text('التقييمات ',style: TextStyle(fontSize: 18),),
