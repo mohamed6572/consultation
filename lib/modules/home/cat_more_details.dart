@@ -3,10 +3,12 @@ import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../models/all_cosultant_model.dart';
+
 class Cat_More_Details extends StatelessWidget{
 
   catItem_model model;
-  catItem_details_model? model1;
+  Consultants? model1;
   Cat_More_Details({required this.model,required this.model1});
   @override
   Widget build(BuildContext context) {
@@ -31,13 +33,13 @@ class Cat_More_Details extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('الدكتور فهد',style: TextStyle(fontSize: 28 ),),
+                Text('${model1?.username}',style: TextStyle(fontSize: 28 ),),
                 SizedBox(width: 20,),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 40),
                   child: Row(
                     children: [
-                      Text('100',style: TextStyle(fontSize: 18,color: Colors.blueAccent ),),
+                      Text('${model1?.price}',style: TextStyle(fontSize: 18,color: Colors.blueAccent ),),
                       Icon(Icons.attach_money,color: Colors.blueAccent,)
                     ],
                   ),
@@ -50,9 +52,9 @@ class Cat_More_Details extends StatelessWidget{
               child: Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: [
-                  Image(image: AssetImage('assets/images/imag.png')),
+                  Image(image: AssetImage('${model1?.profilePicture}')),
                  Container(
-                   height: 250,
+                   height: 350,
                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                    margin: EdgeInsets.symmetric(horizontal: 30),
                    decoration: BoxDecoration(
@@ -67,7 +69,7 @@ class Cat_More_Details extends StatelessWidget{
                      children: [
                        Text('نبذة',style: TextStyle(fontSize: 18),textAlign: TextAlign.end,),
                        SizedBox(height: 20,),
-                       Text('السيرة الذاتية والخبرات',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,)
+                       Text('${model1?.about}',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,)
 
                      ],
                    ),

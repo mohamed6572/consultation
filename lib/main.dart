@@ -22,6 +22,7 @@ void main() {
       await cash_helper.init();
       bool? onBoard = cash_helper.getData(key: 'onboard');
       token = cash_helper.getData(key: 'token');
+      ID = cash_helper.getData(key: 'ID');
       print(token);
       Widget widget ;
       if(onBoard !=null){
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..GetConsaltant()..GetAllConsaltant(),
       child: MaterialApp(
         title: 'consaltation',
         theme: lightTheme,

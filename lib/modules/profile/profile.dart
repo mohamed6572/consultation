@@ -21,7 +21,7 @@ class Profile_Screan extends StatelessWidget {
             child: Column(
               children: [
                 Image(
-                  image: NetworkImage('${usermodel?.profilePicture}'),
+                  image: NetworkImage('${usermodel?.others?.profilePicture}'),
                   height: 120,
                   fit: BoxFit.cover,
                   width: 120,
@@ -44,7 +44,7 @@ class Profile_Screan extends StatelessWidget {
                   margin: EdgeInsets.only(top: 20, right: 20, left: 20,bottom: 20),
                   width: double.infinity,
                   height: 100,
-                  child: Center(child: Text("${usermodel?.about}")),
+                  child: Center(child: Text("${usermodel?.others?.about}")),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class Profile_Screan extends StatelessWidget {
                           Row(
                             children: [
                               Icon(Icons.star,color: Colors.orangeAccent,),
-                              Text('${usermodel?.rating}.0')
+                              Text('${usermodel?.others?.rating}.0')
                             ],
                           ),
                           Text('التقييمات ',style: TextStyle(fontSize: 18),),

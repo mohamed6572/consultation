@@ -13,7 +13,6 @@ class Cat_Item extends StatelessWidget {
     return  InkWell(
       onTap: (){
         navigateTo(context, Cat_Details(model: model,));
-        print('object$index');
       },
       child:   Container(
         decoration: BoxDecoration(

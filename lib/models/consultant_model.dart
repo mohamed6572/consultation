@@ -1,33 +1,33 @@
-class Update_Model {
-  UpdatedUser? updatedUser;
+class Consultant_Model {
+  Others? others;
   bool? status;
 
-  Update_Model({this.updatedUser, this.status});
+  Consultant_Model({this.others, this.status});
 
-  Update_Model.fromJson(Map<String, dynamic> json) {
-    updatedUser = json['updatedUser'] != null
-        ? new UpdatedUser.fromJson(json['updatedUser'])
-        : null;
+  Consultant_Model.fromJson(Map<String, dynamic> json) {
+    others =
+    json['others'] != null ? new Others.fromJson(json['others']) : null;
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.updatedUser != null) {
-      data['updatedUser'] = this.updatedUser!.toJson();
+    if (this.others != null) {
+      data['others'] = this.others!.toJson();
     }
     data['status'] = this.status;
     return data;
   }
 }
 
-class UpdatedUser {
+class Others {
   String? profilePicture;
   String? cVPhoto;
-  String? Id;
+  String? sId;
+  int? rating;
+  String? price;
   String? username;
   String? email;
-  String? password;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -35,21 +35,18 @@ class UpdatedUser {
   String? qualification;
   String? counseling;
   String? country;
-  String? price;
-  int? rating;
   String? duration;
   int? phone;
 
-  UpdatedUser(
+  Others(
       {this.profilePicture,
         this.cVPhoto,
-        this.Id,
-        this.price,
-        this.rating,
+        this.sId,
         this.username,
         this.email,
-        this.password,
         this.createdAt,
+        this.rating,
+        this.price,
         this.updatedAt,
         this.iV,
         this.about,
@@ -57,17 +54,17 @@ class UpdatedUser {
         this.counseling,
         this.country,
         this.duration,
-        this.phone});
+        this.phone,
+      });
 
-  UpdatedUser.fromJson(Map<String, dynamic> json) {
+  Others.fromJson(Map<String, dynamic> json) {
     profilePicture = json['profilePicture'];
     cVPhoto = json['CVPhoto'];
-    Id = json['_id'];
+    sId = json['_id'];
     username = json['username'];
+    email = json['email'];
     price = json['price'];
     rating = json['rating'];
-    email = json['email'];
-    password = json['password'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -83,12 +80,11 @@ class UpdatedUser {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['profilePicture'] = this.profilePicture;
     data['CVPhoto'] = this.cVPhoto;
-    data['_id'] = this.Id;
-    data['username'] = this.username;
-    data['email'] = this.email;
+    data['_id'] = this.sId;
     data['rating'] = this.rating;
     data['price'] = this.price;
-    data['password'] = this.password;
+    data['username'] = this.username;
+    data['email'] = this.email;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

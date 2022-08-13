@@ -2,8 +2,8 @@ class LoginC_Model {
   String? profilePicture;
   String? cVPhoto;
   String? sId;
-  double? rating;
-  int? price;
+  int? rating;
+  String? price;
   String? username;
   String? email;
   String? createdAt;
