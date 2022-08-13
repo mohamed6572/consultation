@@ -15,6 +15,8 @@ class Edit_Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(builder:(context, state) {
+      var editImage = AppCubit.get(context).editprofileimage;
+
       var cubit =AppCubit.get(context);
       return
           Scaffold(
@@ -33,17 +35,37 @@ class Edit_Profile extends StatelessWidget{
                       height: 20,
                     ),
                     Center(
-                      child: Container(
-                        height: 120,
-                        width: 120,
-                        margin: EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
-                            color: Colors.grey.shade400
-                        ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            radius: 64,
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: editImage == null
+                                  ? NetworkImage('https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg')
+                                  : FileImage(
+                                editImage,
+                              ) as ImageProvider,
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                              cubit.getEditProfileImage();
+                              },
+                              icon: CircleAvatar(
+                                radius: 20,
+                                child: Icon(
+                                  Icons.camera,
+                                  size: 16,
+                                ),
+                              )),
+                        ],
                       ),
                     ),
-                    Text('رفع صورة',textAlign: TextAlign.center,),
+
                     SizedBox(
                       height: 10,
                     ),

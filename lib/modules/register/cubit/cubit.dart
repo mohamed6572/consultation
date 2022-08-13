@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:consultation/modules/register/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegesterCubit extends Cubit<RegesterStates>{
   RegesterCubit(): super(RegesterInitialeState());
@@ -65,4 +69,26 @@ void changeSelected(value){
   selectedValue = value ;
   emit(RegesterChangeSelectedState());
 }
+
+
+  File? profileimage;
+  var picker = ImagePicker();
+
+  Future<void> getProfileImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      profileimage = File(pickedFile.path);
+      print('==.>$profileimage');
+      emit(RegesterImagePickedSuccsessState());
+    } else {
+      print('no image selected');
+      emit(RegesterImagePickedErrorState());
+    }
+  }
+
+  _uploadImage() async{
+    var formData= FormData.fromMap({
+      "image" : await MultipartFile.fromFile(profileimage!.path)
+    });
+  }
 }

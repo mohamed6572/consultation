@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/modules/balance/balance.dart';
@@ -8,6 +9,7 @@ import 'package:consultation/modules/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 
 class AppCubit extends Cubit<AppStates>{
@@ -51,41 +53,19 @@ void ChangeBotomIndex(index){
   currentIndex= index;
   emit(AppchangeBotBarState());
 }
-
+///rating
 double rating=0;
 void RatingApp(rat){
   rating = rat;
   emit(AppRatingState());
 }
-
+///send email complaint
 Future sendEmailComplaint({
   required String email,
   required String opnion,
   required String complaint,
 })async{
 
-// final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-// final response = await http.post(
-//   url,
-//  headers: {
-//     'origin': 'http://localhost',
-//    'contentType': 'application/json',
-//  },
-//  body: json.encode( {
-//     'service_id':'service_oibints',
-//     'template_id':'template_6dpv03p',
-//     'user_id':'HFyf4BbHpnW_kpDC',
-//    'template_params': {
-//      'user_email': email,
-//      'user_message': complaint,
-//      'user_opinion': opnion
-//    }
-//  })
-// ).then((value) {
-//   emit(AppSendSucssesState());
-// }).catchError((e){
-//   emit(AppSendErrorState());
-// });
   const serviceId = 'service_oibints';    //serviceId from emailjs
   const templateId = 'template_6dpv03p';  //your templateId from emailjs
   const userId = 'HFyf4BbHpnW_kpDC-';     //your Public Key from emailjs
@@ -110,6 +90,19 @@ Future sendEmailComplaint({
 print(response.body);
 }
 
+  File? editprofileimage;
+  var picker = ImagePicker();
 
+  Future<void> getEditProfileImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      editprofileimage = File(pickedFile.path);
+      print('==.>$editprofileimage');
+      emit(EditImagePickedSuccsessState());
+    } else {
+      print('no image selected');
+      emit(EditImagePickedErrorState());
+    }
+  }
 
 }

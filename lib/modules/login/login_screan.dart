@@ -34,28 +34,28 @@ class Login_Screan extends StatelessWidget{
                     navigateTo(context, User_Regester_Screan());
                   },Background: Colors.blue,radius: 15),
                   SizedBox(height: 30,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 0.5,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      Text(
-                        ' أو سجل بواسطة ',
-                        style: TextStyle(fontStyle: FontStyle.italic,color: Colors.grey.shade500),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 0.5,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30,),
-                  authButton(text: 'Login with Google', logo: 'google_logo', function: (){},isUpperCase: false)
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: Container(
+                  //         height: 0.5,
+                  //         color: Colors.grey.shade400,
+                  //       ),
+                  //     ),
+                  //     Text(
+                  //       ' أو سجل بواسطة ',
+                  //       style: TextStyle(fontStyle: FontStyle.italic,color: Colors.grey.shade500),
+                  //     ),
+                  //     Expanded(
+                  //       child: Container(
+                  //         height: 0.5,
+                  //         color: Colors.grey.shade400,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 30,),
+                  // authButton(text: 'Login with Google', logo: 'google_logo', function: (){},isUpperCase: false)
                 ],
               ),
             ),
