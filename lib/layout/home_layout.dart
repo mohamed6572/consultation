@@ -1,10 +1,12 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/modules/home/category_item.dart';
+import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/notifiaction/notification.dart';
 import 'package:consultation/modules/settings/settings.dart';
 import 'package:consultation/modules/support/support.dart';
 import 'package:consultation/shared/components/components.dart';
+import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +88,11 @@ class Home_Layout extends StatelessWidget {
                       ),
                     )),
                 InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      cash_helper.removeData(key: 'token').then((value) {
+                        navigateToAndFinish(context, Login_Screan());
+                      });
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 8),

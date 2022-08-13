@@ -1,6 +1,11 @@
+import 'package:consultation/models/LoginC_Model.dart';
+import 'package:consultation/modules/login/login_screan.dart';
+import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
-
+import 'package:consultation/shared/network/local/cash_helper.dart';
 String? token = '';
+String? ID = '';
+LoginC_Model? loginC_Model1;
 
 Widget itemregister(text) =>  Padding(
   padding: const EdgeInsets.only(right: 8.0,bottom: 9),
@@ -13,3 +18,16 @@ Widget itemregister(text) =>  Padding(
   ),
 );
 
+
+bool IsValidEmail(String email) {
+  return RegExp(
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(email);
+}
+
+Widget SignOut({required context}) =>
+    defultTextButtton(text: 'SignOut', function: () {
+      cash_helper.removeData(key: 'token').then((value) {
+        navigateToAndFinish(context, Login_Screan());
+      });
+    });

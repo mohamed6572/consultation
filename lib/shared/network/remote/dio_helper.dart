@@ -5,7 +5,7 @@ class Dio_Helper {
 
   static init() {
     dio = Dio(BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: 'http://consultant1.herokuapp.com/api/',
         receiveDataWhenStatusError: true));
   }
 
@@ -15,26 +15,19 @@ class Dio_Helper {
       String? token,
       String? lang = 'en'}) async {
     dio.options.headers = {
-      'lang': lang,
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json',
+
+      'token': " Bearer $token",
+
     };
 
     return await dio.get(url, queryParameters: query);
   }
 
-  static Future<Response> postData(
-      {required String url,
-      Map<String, dynamic>? query,
-      required Map<String, dynamic> data,
-      String? token,
-      String? lang = 'en'}) async {
-    dio.options.headers = {
-      'lang': lang,
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json',
-    };
-
+  static Future<Response> postData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+  }) async {
     return await dio.post(url, queryParameters: query, data: data);
   }
 
@@ -43,14 +36,7 @@ class Dio_Helper {
       Map<String, dynamic>? query,
       required Map<String, dynamic> data,
       String? token,
-      String? lang = 'en'}) async {
-    dio.options.headers = {
-      'lang': lang,
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json',
-    };
-
+      }) async {
     return await dio.put(url, queryParameters: query, data: data);
-
   }
 }
