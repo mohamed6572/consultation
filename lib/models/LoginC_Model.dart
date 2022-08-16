@@ -16,12 +16,14 @@ class LoginC_Model {
   String? duration;
   int? phone;
   String? accessToken;
+  String? message;
   bool? status;
 
   LoginC_Model(
       {this.profilePicture,
         this.cVPhoto,
         this.sId,
+        this.message,
         this.username,
         this.email,
         this.createdAt,
@@ -39,8 +41,9 @@ class LoginC_Model {
         this.status});
 
   LoginC_Model.fromJson(Map<String, dynamic> json) {
-    profilePicture = json['profilePicture'];
-    cVPhoto = json['CVPhoto'];
+    profilePicture = json['photo'];
+    cVPhoto = json['file'];
+    message = json['message'];
     sId = json['_id'];
     username = json['username'];
     email = json['email'];
@@ -61,8 +64,9 @@ class LoginC_Model {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['profilePicture'] = this.profilePicture;
+    data['photo'] = this.profilePicture;
     data['CVPhoto'] = this.cVPhoto;
+    data['message'] = this.message;
     data['_id'] = this.sId;
     data['rating'] = this.rating;
     data['price'] = this.price;

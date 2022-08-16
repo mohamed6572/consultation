@@ -14,6 +14,8 @@ import 'package:consultation/shared/network/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/LoginC_Model.dart';
@@ -123,7 +125,6 @@ print(response.body);
   Update_Model? update_Consultant_model;
   //edit profile
   void UpdateConsaltant({
-    String? profilePicture,
     String? About,
     String? country,
     String? phone,
@@ -132,7 +133,6 @@ print(response.body);
     emit(UpdateLodingState());
 
     Dio_Helper.putData(url: UPDATEC+ID!, data: {
-      "profilePicture":profilePicture,
       "About":About,
       "price":price,
       "country":country,
@@ -148,7 +148,24 @@ print(response.body);
 
 
   }
+//change password
+  void ChangePasswrodConsaltant({
+    String? password,
+  }){
+    emit(UpdateLodingState());
+    Dio_Helper.putData(url: UPDATEC+ID!, data: {
+      "password":password,
+    },).then((value) {
+      print("$UPDATEC+'$ID'");
+      update_Consultant_model = Update_Model.fromJson(value.data);
+      emit(UpdateSuccsessState());
+    }).catchError((e){
+      print(e.toString());
+      emit(UpdateErrorState());
+    });
 
+
+  }
   Consultant_Model? usermodel;
 //get consltant data
   void GetConsaltant(){
@@ -223,7 +240,7 @@ print(response.body);
 
         print(health.length);
 
-        if(element.counseling == 'استشارة برمجية')
+        if(element.counseling == 'استشارة برميجة')
             programing.add(element);
 
         print(programing.length);
@@ -237,4 +254,45 @@ print(response.body);
     });
   }
 
+
+  void UpdateConsultantImage(
+  {
+    File? profilePicture,
+    String? About,
+    String? country,
+    String? phone,
+    String? price,
+}
+      ) {
+
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('CV/${Uri.file(profilePicture?.path ?? '').pathSegments.last}')
+        .putFile(profilePicture!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        print(value);
+        emit(UpdateLodingState());
+
+        Dio_Helper.putData(url: UPDATEC+ID!, data: {
+          "About":About,
+          "price":price,
+          "country":country,
+          "phone":phone,
+          "photo":value,
+        },).then((value) {
+          print("$UPDATEC+'$ID'");
+          update_Consultant_model = Update_Model.fromJson(value.data);
+          emit(UpdateSuccsessState());
+        }).catchError((e){
+          print(e.toString());
+          emit(UpdateErrorState());
+        });
+      }).catchError((error) {
+        emit(UpdateErrorState());
+      });
+    }).catchError((error) {
+      emit(UpdateErrorState());
+    });
+  }
 }

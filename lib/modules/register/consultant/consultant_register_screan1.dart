@@ -151,7 +151,7 @@ class Consultant_Register_Screan1 extends StatelessWidget {
                                     price: costcontroller.text,
                                     country: countrycontroller.text,
                                     About: discripcontroller.text,
-                                    profilePicture: profileImage?.path);
+                                    profilePicture: profileImage);
                               }
                             },
                             Background: Colors.red,

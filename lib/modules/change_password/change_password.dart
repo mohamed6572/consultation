@@ -35,6 +35,9 @@ var changePasswordcontroller = TextEditingController();
               defultButton(
                   text: 'تغيير',
                   function: () {
+                    cubit.ChangePasswrodConsaltant(
+                      password: changePasswordcontroller.text
+                    );
                   },
                   width: 120,
                   Background: defColor,

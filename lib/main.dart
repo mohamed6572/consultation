@@ -7,6 +7,7 @@ import 'package:consultation/shared/components/constens.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';
 import 'package:consultation/shared/styles/themes/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +19,7 @@ void main() {
   BlocOverrides.runZoned(
         () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
       Dio_Helper.init();
       await cash_helper.init();
       bool? onBoard = cash_helper.getData(key: 'onboard');

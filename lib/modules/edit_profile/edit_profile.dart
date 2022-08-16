@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:buildcondition/buildcondition.dart';
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -17,7 +18,10 @@ class Edit_Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is UpdateSuccsessState)
+          AppCubit.get(context)..GetConsaltant()..GetAllConsaltant();
+      },
       builder:(context, state) {
       var editImage = AppCubit.get(context).editprofileimage;
       var cubit =AppCubit.get(context);
@@ -28,10 +32,13 @@ class Edit_Profile extends StatelessWidget{
       discripcontroller.text =model?.others?.about ??'' ;
       //editImage = model?.others?.profilePicture as File?;
       return
-          Scaffold(
+      BuildCondition(
+          condition: model != null,
+          fallback:(context) =>  Center(child: CircularProgressIndicator(),),
+          builder:(context) =>   Scaffold(
             appBar: AppBar(
               title:
-                Text('تعديل المعلومات'),
+              Text('تعديل المعلومات'),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -40,6 +47,8 @@ class Edit_Profile extends StatelessWidget{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if(state is UpdateLodingState)
+                      LinearProgressIndicator(),
                     SizedBox(
                       height: 20,
                     ),
@@ -62,7 +71,7 @@ class Edit_Profile extends StatelessWidget{
                           ),
                           IconButton(
                               onPressed: () {
-                              cubit.getEditProfileImage();
+                                cubit.getEditProfileImage();
                               },
                               icon: CircleAvatar(
                                 radius: 20,
@@ -128,13 +137,21 @@ class Edit_Profile extends StatelessWidget{
                     defultButton(
                         text: 'تعديل',
                         function: () {
+                          if(editImage!=null){
+                            cubit.UpdateConsultantImage(
+                                About: discripcontroller.text,
+                                price: costcontroller.text,
+                                phone: phonecontroller.text,
+                                country: countrycontroller.text,
+                              profilePicture: editImage
+                            );
+                          }else{
                           cubit.UpdateConsaltant(
-                            profilePicture: editImage?.path,
-                            About: discripcontroller.text,
-                            price: costcontroller.text,
-                            phone: phonecontroller.text,
-                            country: countrycontroller.text
-                          );
+                              About: discripcontroller.text,
+                              price: costcontroller.text,
+                              phone: phonecontroller.text,
+                              country: countrycontroller.text
+                          );}
                         },
                         width: 120,
 
@@ -147,7 +164,9 @@ class Edit_Profile extends StatelessWidget{
                 ),
               ),
             ),
-          );
+          ),
+      );
+
     },  );
   }
 }

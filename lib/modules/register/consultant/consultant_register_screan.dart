@@ -177,7 +177,7 @@ class Consultant_Register_Screan extends StatelessWidget {
                                     Qualification: qualificationcontroller.text,
                                     counseling: cubit.selectedValue,
                                     duration: durationcontroller.text,
-                                    CVPhoto: CVImage?.path
+                                    CVPhoto: CVImage
                                 );
                               }
                             },

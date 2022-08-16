@@ -64,8 +64,8 @@ class Consultants {
         });
 
   Consultants.fromJson(Map<String, dynamic> json) {
-    profilePicture = json['profilePicture'];
-    cVPhoto = json['CVPhoto'];
+    profilePicture = json['photo'];
+    cVPhoto = json['file'];
     sId = json['_id'];
     username = json['username'];
     email = json['email'];
@@ -85,7 +85,7 @@ class Consultants {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['profilePicture'] = this.profilePicture;
+    data['photo'] = this.profilePicture;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
     data['rating'] = this.rating;

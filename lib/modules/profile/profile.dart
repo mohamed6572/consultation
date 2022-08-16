@@ -20,11 +20,14 @@ class Profile_Screan extends StatelessWidget {
             padding: EdgeInsets.only(top: 20, right: 5, left: 5),
             child: Column(
               children: [
-                Image(
-                  image: NetworkImage('${usermodel?.others?.profilePicture}'),
-                  height: 120,
-                  fit: BoxFit.cover,
-                  width: 120,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: Image(
+                    image: NetworkImage('${usermodel?.others?.profilePicture}'),
+                    height: 120,
+                    fit: BoxFit.cover,
+                    width: 120,
+                  ),
                 ),
                 SizedBox(
                   height: 40,
@@ -41,6 +44,7 @@ class Profile_Screan extends StatelessWidget {
                       ),
                     ],
                   ),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   margin: EdgeInsets.only(top: 20, right: 20, left: 20,bottom: 20),
                   width: double.infinity,
                   height: 100,

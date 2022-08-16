@@ -21,6 +21,20 @@ class Login_Screan1 extends StatelessWidget {
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
+          // if (state.login_model.status) {
+          //   ShowToast(
+          //       text: state.login_model.message!, state: ToastState.SUCSSES);
+          //   cash_helper
+          //       .saveData(key: 'token', value: state.login_model.data?.token)
+          //       .then((value) {
+          //     navigateToAndFinish(context, Home_Layout());
+          //   });
+          // } else {
+          //   ShowToast(
+          //       text: state.login_model.message!, state: ToastState.ERROR);
+          // }
+
+
           if (state is LoginSucssesState) {
             cash_helper
                 .saveData(key: 'token', value: state.login_model.accessToken)
@@ -29,16 +43,20 @@ class Login_Screan1 extends StatelessWidget {
             });
           }
           if (state is LoginCSucssesState) {
-            cash_helper
-                .saveData(key: 'ID', value: state.loginC_model?.sId)
-                .then((value) {
-            });
-            cash_helper
-                .saveData(key: 'token', value: state.loginC_model?.accessToken)
-                .then((value) {
-              navigateToAndFinish(context, Home_Layout());
-            });
-
+            if (state.loginC_model!.status!) {
+              cash_helper
+                  .saveData(key: 'ID', value: state.loginC_model?.sId)
+                  .then((value) {});
+              cash_helper
+                  .saveData(
+                  key: 'token', value: state.loginC_model?.accessToken)
+                  .then((value) {
+                navigateToAndFinish(context, Home_Layout());
+              });
+            }else{
+              ShowToast(
+                  text: state.loginC_model!.message!, state: ToastState.ERROR);
+            }
           }
 
         },
