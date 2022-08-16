@@ -1,4 +1,5 @@
 import 'package:consultation/layout/cubit/cubit.dart';
+import 'package:consultation/layout/homeU_layout.dart';
 import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
@@ -24,11 +25,13 @@ void main() {
       await cash_helper.init();
       bool? onBoard = cash_helper.getData(key: 'onboard');
       token = cash_helper.getData(key: 'token');
+      tokenU = cash_helper.getData(key: 'tokenU');
       ID = cash_helper.getData(key: 'ID');
       print(token);
       Widget widget ;
       if(onBoard !=null){
         if(token !=null) widget = Home_Layout();
+        if(tokenU !=null) widget = HomeU_Layout();
         else
           widget =  Login_Screan();
       }else{
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..GetConsaltant()..GetAllConsaltant(),
+      create: (context) => AppCubit()..GetAllConsaltant(),
       child: MaterialApp(
         title: 'consaltation',
         theme: lightTheme,

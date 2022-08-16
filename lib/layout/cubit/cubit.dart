@@ -166,6 +166,23 @@ print(response.body);
 
 
   }
+  //user
+  void ChangePasswrodUser({
+    String? password,
+  }){
+    emit(UpdateULodingState());
+    Dio_Helper.putData(url: UPDATEU+ID!,token: tokenU, data: {
+      "password":password,
+    },).then((value) {
+      print("$UPDATEU+'$ID'");
+      emit(UpdateUSuccsessState());
+    }).catchError((e){
+      print(e.toString());
+      emit(UpdateUErrorState());
+    });
+
+
+  }
   Consultant_Model? usermodel;
 //get consltant data
   void GetConsaltant(){
@@ -203,7 +220,7 @@ print(response.body);
     programing =[];
 
     emit(getAllCLodingState());
-    Dio_Helper.getData(url: GetAllC,token: token).then((value) {
+    Dio_Helper.getData(url: GetAllC,token: token??tokenU).then((value) {
       consultant_model_for_loist = all_consultant_model.fromJson(value.data);
       consultant_model_for_loist?.consultants?.forEach((element) {
         if(element.counseling == 'استشارة قانونية')
