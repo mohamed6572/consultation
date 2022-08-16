@@ -1,24 +1,35 @@
+import 'package:consultation/layout/cubit/cubit.dart';
+import 'package:consultation/layout/cubit/states.dart';
+import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Balance_Screan extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      padding: EdgeInsets.only(top: 20),
-      color: Colors.white,
-      child:Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
-        child: Column(
-          children: [
-            paymentwidget(pay: '0.00',text: 'الرصيد الكلي'),
-            paymentwidget(pay: '0.00',text: 'رصيد معلق'),
-            paymentwidget(pay: '0.00',text: 'أرباح يمكن سحبها'),
 
-          ],
-        ),
-      ),
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+
+        return  Container(
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.only(top: 20),
+          color: Colors.white,
+          child:Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
+            child: Column(
+              children: [
+                paymentwidget(pay: '0.00',text: 'الرصيد الكلي'),
+                paymentwidget(pay: '0.00',text: 'رصيد معلق'),
+                paymentwidget(pay: '0.00',text: 'أرباح يمكن سحبها'),
+
+              ],
+            ),
+          ),
+        );
+      },
     );
 
   }

@@ -7,6 +7,7 @@ class Dio_Helper {
     dio = Dio(BaseOptions(
         baseUrl: 'http://consultant1.herokuapp.com/api/',
         receiveDataWhenStatusError: true));
+
   }
 
   static Future<Response> getData(
@@ -15,9 +16,7 @@ class Dio_Helper {
       String? token,
       }) async {
     dio.options.headers = {
-
       'token': " Bearer $token",
-
     };
 
     return await dio.get(url, queryParameters: query);

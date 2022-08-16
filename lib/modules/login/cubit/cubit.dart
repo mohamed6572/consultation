@@ -59,8 +59,11 @@ class LoginCubit extends Cubit<LoginStates> {
       print(loginC_Model?.username);
       print(loginC_Model?.counseling);
       emit(LoginCSucssesState(loginC_Model));
+      print('dioooo is => ${Dio_Helper. dio.httpClientAdapter.hashCode}');
     }).catchError((e) {
       print(e.toString());
+      print('dioooo is => ${Dio_Helper. dio.httpClientAdapter.hashCode}');
+
       emit(LoginCErrorState());
     });
   }

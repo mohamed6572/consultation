@@ -27,65 +27,69 @@ class Cat_More_Details extends StatelessWidget{
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text('${model1?.username}',style: TextStyle(fontSize: 28 ),),
-                SizedBox(width: 20,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 40),
-                  child: Row(
-                    children: [
-                      Text('${model1?.price}',style: TextStyle(fontSize: 18,color: Colors.blueAccent ),),
-                      Icon(Icons.attach_money,color: Colors.blueAccent,)
-                    ],
-                  ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text('${model1?.username}',style: TextStyle(fontSize: 28 ),),
+              SizedBox(width: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 40),
+                child: Row(
+                  children: [
+                    Text('${model1?.price}',style: TextStyle(fontSize: 18,color: Colors.blueAccent ),),
+                    Icon(Icons.attach_money,color: Colors.blueAccent,)
+                  ],
                 ),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Container(
-              width: double.infinity,
-              child: Stack(
-                alignment: AlignmentDirectional.bottomCenter,
-                children: [
-                  Image(image: AssetImage('${model1?.profilePicture}')),
-                 Container(
-                   height: 350,
-                   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                   margin: EdgeInsets.symmetric(horizontal: 30),
-                   decoration: BoxDecoration(
-                     color: Colors.white,
-                     borderRadius: BorderRadius.only(
-                       topLeft: Radius.circular(15),
-                       topRight: Radius.circular(15),
-                     )
-                   ),
+              ),
+            ],
+          ),
+          SizedBox(height: 30,),
+          Container(
+
+            width: double.infinity,
+            child: Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                Image(image: NetworkImage('${model1?.profilePicture}'),width: double.infinity,fit: BoxFit.fill, height: 420,),
+               Container(
+                 height: 320,
+                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                 margin: EdgeInsets.symmetric(horizontal: 30),
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                   borderRadius: BorderRadius.only(
+                     topLeft: Radius.circular(15),
+                     topRight: Radius.circular(15),
+                   )
+                 ),
+                 child: SingleChildScrollView(
+                   physics: BouncingScrollPhysics(),
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
                        Text('نبذة',style: TextStyle(fontSize: 18),textAlign: TextAlign.end,),
                        SizedBox(height: 20,),
-                       Text('${model1?.about}',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,)
-
+                       Text('${model1?.about}',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,),
+                       SizedBox(height: 20,),
+                       Image(image: NetworkImage('${model1?.cVPhoto}'),height: 200,width: double.infinity,),
                      ],
                    ),
                  ),
+               ),
+//'https://consultant1.herokuapp.com${model1?.cVPhoto?.substring(6)}'
 
-                 ],
-              ),
+               ],
             ),
-            SizedBox(height: 60,),
-            defultButton(text: 'بدأ المحادثة', function: (){},width: 180,Background: Colors.green),
+          ),
+          SizedBox(height: 50,),
+          defultButton(text: 'بدأ المحادثة', function: (){},width: 180,Background: Colors.green),
 
 
 
 
-          ],
-        ),
+        ],
       )
     );
   }

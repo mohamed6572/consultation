@@ -79,7 +79,7 @@ class Cat_Details extends StatelessWidget{
               ),
               SizedBox(width: 13,),
               Image(
-                  image: AssetImage('${model.profilePicture}'),
+                  image: NetworkImage('${model.profilePicture}'),
                 height: 70,
                 width: 70,
               ),
