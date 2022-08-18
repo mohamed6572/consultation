@@ -8,6 +8,9 @@ const UPDATEU = 'users/';
 const UPDATECImage = 'upload1/';
 const GetC = 'users/find1/';
 const GetAllC = 'users/consultant';
+const createCon = 'conversations';
+const getAllConversation = 'conversations/';
+const getConversation = 'conversations/find/';
 
 
 

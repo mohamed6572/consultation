@@ -30,9 +30,12 @@ void main() {
       print(token);
       Widget widget ;
       if(onBoard !=null){
-        if(token !=null) widget = Home_Layout();
-        if(tokenU !=null) widget = HomeU_Layout();
-        else
+        if(token !=null) {
+          widget = Home_Layout();
+        }
+       else if(tokenU !=null) {
+          widget = HomeU_Layout();
+        } else
           widget =  Login_Screan();
       }else{
         widget = onBoarding();
@@ -52,8 +55,11 @@ class MyApp extends StatelessWidget {
   MyApp({required this.start});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit()..GetAllConsaltant(),
+    return MultiBlocProvider(
+
+      providers: [
+        BlocProvider(create:(context) =>  AppCubit()..GetAllConsaltant())
+      ],
       child: MaterialApp(
         title: 'consaltation',
         theme: lightTheme,

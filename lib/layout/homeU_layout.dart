@@ -18,7 +18,9 @@ class HomeU_Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..GetAllConsaltant(),
+      create: (context) => AppCubit()
+        ..GetAllConsaltant()
+        ..GetAllConversation(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -84,6 +86,7 @@ class HomeU_Layout extends StatelessWidget {
                       )),
                   InkWell(
                       onTap: () {
+                        cash_helper.removeData(key: 'ID').then((value) {});
                         cash_helper.removeData(key: 'tokenU').then((value) {
                           navigateToAndFinish(context, Login_Screan());
                         });

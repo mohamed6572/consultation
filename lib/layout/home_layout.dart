@@ -17,9 +17,11 @@ class Home_Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..GetConsaltant()..GetAllConsaltant(),
+      create: (context) => AppCubit()..GetConsaltant()..GetAllConsaltant()..GetAllConversation(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+        },
         builder: (context, state) {
           var cubit = AppCubit.get(context);
           return Scaffold(
@@ -94,6 +96,8 @@ class Home_Layout extends StatelessWidget {
                       )),
                   InkWell(
                       onTap: () {
+                        cash_helper.removeData(key: 'ID').then((value) {
+                        });
                         cash_helper.removeData(key: 'token').then((value) {
                           navigateToAndFinish(context, Login_Screan());
                         });

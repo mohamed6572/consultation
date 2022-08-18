@@ -1,5 +1,6 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
+import 'package:consultation/models/all_cosultant_model.dart';
 import 'package:consultation/models/catI_tem_model.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../models/chat_item_model.dart';
 
 class Rating_Screan extends StatelessWidget {
-  Chat_Item_Model model;
+  Consultants model;
 
   Rating_Screan({required this.model});
 
@@ -25,7 +26,7 @@ class Rating_Screan extends StatelessWidget {
                 centerTitle: true,
                 backgroundColor: Colors.white,
                 title: Text(
-                  model.name ?? '',
+                  model.username ?? '',
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28),
                 ),
               ),
@@ -76,6 +77,14 @@ class Rating_Screan extends StatelessWidget {
         },
         listener: (context, state) {
           print(AppCubit.get(context).rating);
+          if(state is AppRatingState)
+          AppCubit.get(context).rateConsaltant(
+            id: model.sId,
+              rate: AppCubit.get(context).rating.toInt()
+          );
+          if(state is RatingSuccsessState)
+          Navigator.pop(context);
+
         });
   }
 }
