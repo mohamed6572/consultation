@@ -7,41 +7,45 @@ import 'package:flutter/material.dart';
 class Cat_Item extends StatelessWidget {
   int index;
   catItem_model model;
+
   Cat_Item({required this.model, required this.index});
+
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-      onTap: (){
-        navigateTo(context, Cat_Details(model: model,));
+    return InkWell(
+      onTap: () {
+        navigateTo(
+            context,
+            Cat_Details(
+              model: model,
+            ));
       },
-      child:   Container(
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 6), // changes position of shadow
-              ),
-            ],
-            color: catColor[index],
-            borderRadius: BorderRadius.circular(0)
-        ),
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(0, 6), // changes position of shadow
+          ),
+        ], color: catColor[index], borderRadius: BorderRadius.circular(0)),
         padding: EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(image: AssetImage(model.image)),
-            SizedBox(height: 10,),
-            Text(model.text,
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              model.text,
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),)
+              style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+            )
           ],
         ),
-
       ),
     );
   }
 }
-

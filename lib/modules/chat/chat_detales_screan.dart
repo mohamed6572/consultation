@@ -1,3 +1,5 @@
+import 'package:consultation/layout/cubit/cubit.dart';
+import 'package:consultation/models/Message_Model.dart';
 import 'package:consultation/models/chat_item_model.dart';
 import 'package:consultation/modules/chat/audio_call.dart';
 import 'package:consultation/modules/chat/rating_screan.dart';
@@ -5,10 +7,13 @@ import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-class Chat_Detales_Screan extends StatelessWidget {
-  Chat_Item_Model model;
+import '../../models/all_cosultant_model.dart';
+import '../../shared/components/constens.dart';
 
-  Chat_Detales_Screan({required this.model});
+class Chat_Detales_Screan extends StatelessWidget {
+  Consultants consultant;
+
+  Chat_Detales_Screan({required this.consultant});
 
   var messagecontroller = TextEditingController();
 
@@ -18,7 +23,7 @@ class Chat_Detales_Screan extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 90,
-        title: Text(model.name ?? '',
+        title: Text(consultant.username ?? '',
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28)),
         actions: [
           IconButton(onPressed: () {
@@ -43,7 +48,7 @@ navigateTo(context, AudioCallScreen());
                 defultButton(
                     text: 'إنهاء المحادثة',
                     function: () {
-                      navigateTo(context, Rating_Screan(model:model ));
+                      navigateTo(context, Rating_Screan(model:consultant ));
                     },
                     Background: Colors.red,
                     width: 130),
@@ -67,28 +72,17 @@ navigateTo(context, AudioCallScreen());
                     Expanded(
                       child: ListView.separated(
                           itemBuilder: (context, index) {
-                            return Container(
-                              width: 300,
-                              child: Column(
-                                children: [
-                                  SendMessage(context),
-                                  SendMyMessage()
-                                ],
-                              ),
-                            );
-                            // var message =SocialCubit.get(context).messages[index];
-                            //  if(messagecontroller == 'ahmed')
-                            //SocialCubit.get(context).userModel?.uId ==message.senderId
-                            //if( )
-                            //    return SendMyMessage();
-                            //
-                            //  return SendMessage();
+                            var message =AppCubit.get(context).messages[index];
+                            if(ID ==message.senderId )
+                              return SendMyMessage(message);
+
+                            return SendMessage(message,context);
+
                           },
                           separatorBuilder: (context, index) => SizedBox(
                                 height: 15,
                               ),
-                          itemCount: 20
-                          //SocialCubit.get(context).messages.length
+                          itemCount: AppCubit.get(context).messages.length
                           ),
                     ),
                   ],
@@ -103,9 +97,17 @@ navigateTo(context, AudioCallScreen());
             color: defColor,
             child: Row(
               children: [
-                Icon(
-                  Icons.send,
-                  size: 30,
+                InkWell(
+                  onTap: (){
+                    AppCubit.get(context).sendMessage(
+                        receiverId: ID!,
+                        text: messagecontroller.text,
+                        dateTime: DateTime.now().toString());
+                  },
+                  child: Icon(
+                    Icons.send,
+                    size: 30,
+                  ),
                 ),
                 SizedBox(width: 10,),
                 Expanded(
@@ -124,15 +126,16 @@ navigateTo(context, AudioCallScreen());
     );
   }
 
-  Widget SendMessage(context) => Align(
+  Widget SendMessage(MessageModel model,context) => Align(
         widthFactor: MediaQuery.of(context).size.width * 0.80,
         alignment: AlignmentDirectional.centerStart,
         child: Row(
           children: [
+            if(model.image != null)
             ClipRRect(
                 borderRadius: BorderRadius.circular(40),
                 child: Image(
-                  image: AssetImage('assets/images/ima.png'),
+                  image: NetworkImage('${model.image}'),
                   height: 40,
                   width: 40,
                 )),
@@ -147,11 +150,11 @@ navigateTo(context, AudioCallScreen());
                   ),
                   color: Colors.grey[300]),
               child: Text(
-                'hello',
+                '${model.text}',
               ),
             ),
             Text(
-              '2.00pm',
+              '${model.dateTime}',
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 9),
             )
@@ -159,13 +162,13 @@ navigateTo(context, AudioCallScreen());
         ),
       );
 
-  Widget SendMyMessage() => Align(
+  Widget SendMyMessage(MessageModel model) => Align(
         alignment: AlignmentDirectional.centerEnd,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '20.00pm',
+              '${model.dateTime}',
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 9),
             ),
@@ -182,7 +185,7 @@ navigateTo(context, AudioCallScreen());
                     ),
                     color: defColor.withOpacity(.2)),
                 child: Text(
-                  'hi',
+                  '${model.text}',
                 ),
               ),
             ),

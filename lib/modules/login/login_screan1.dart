@@ -36,6 +36,7 @@ class Login_Screan1 extends StatelessWidget {
 
 
           if (state is LoginSucssesState) {
+            if (state.login_model.status!) {
             cash_helper
                 .saveData(key: 'ID', value: state.login_model.Id)
                 .then((value) {});
@@ -43,7 +44,10 @@ class Login_Screan1 extends StatelessWidget {
                 .saveData(key: 'tokenU', value: state.login_model.accessToken)
                 .then((value) {
               navigateToAndFinish(context, HomeU_Layout());
-            });
+            });}else{
+              ShowToast(
+                  text: state.login_model.message!, state: ToastState.ERROR);
+            }
           }
           if (state is LoginCSucssesState) {
             if (state.loginC_model!.status!) {

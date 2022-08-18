@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:consultation/layout/cubit/states.dart';
@@ -19,7 +20,10 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/LoginC_Model.dart';
+import '../../models/Message_Model.dart';
 import '../../models/catI_tem_model.dart';
+import '../../models/chat/all_conversation.dart';
+import '../../models/chat/conversation.dart';
 import '../../shared/network/remote/dio_helper.dart';
 
 
@@ -35,6 +39,9 @@ Home_Screan(),
   Profile_Screan(),
   Balance_Screan()
 ];
+
+
+
 List<Widget> titles=[
   Column(
     children: [
@@ -148,6 +155,25 @@ print(response.body);
 
 
   }
+  //rating after chat
+  void rateConsaltant({
+    int? rate,
+    String? id,
+  }){
+    emit(RatingLodingState());
+    Dio_Helper.putData(url: UPDATEC+id!, data: {
+      "rating":rate,
+    },).then((value) {
+      print("$UPDATEC+'$ID'");
+      update_Consultant_model = Update_Model.fromJson(value.data);
+      emit(RatingSuccsessState());
+    }).catchError((e){
+      print(e.toString());
+      emit(RatingErrorState());
+    });
+
+
+  }
 //change password
   void ChangePasswrodConsaltant({
     String? password,
@@ -201,6 +227,8 @@ print(response.body);
 
   //get all consultant
   all_consultant_model? consultant_model_for_loist;
+  List<Consultants> consultant =[];
+  List<Consultants> consultant1 =[];
   List<Consultants> law =[];
   List<Consultants> engeier =[];
   List<Consultants> man =[];
@@ -223,6 +251,7 @@ print(response.body);
     Dio_Helper.getData(url: GetAllC,token: token??tokenU).then((value) {
       consultant_model_for_loist = all_consultant_model.fromJson(value.data);
       consultant_model_for_loist?.consultants?.forEach((element) {
+consultant.add(element);
         if(element.counseling == 'استشارة قانونية')
             law.add(element);
 
@@ -312,4 +341,108 @@ print(response.body);
       emit(UpdateErrorState());
     });
   }
+
+  //message & chat
+  List<MessageModel> messages = [];
+
+
+  void sendMessage({
+    required String receiverId,
+    required String dateTime,
+    required String text,
+  }) {
+    // MessageModel model = MessageModel(
+    //     dateTime: dateTime,
+    //     text: text,
+    //     receiverId: receiverId,
+    //     senderId: userModel?.uId);
+// set my chats
+
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(userModel?.uId)
+    //     .collection('chats')
+    //     .doc(receiverId)
+    //     .collection('messages')
+    //     .add(model.toJson())
+    //     .then((value) {
+    //   emit(SendMessageSucsesState());
+    // }).catchError((error) {
+    //   emit(SendMessageErrorState());
+    // });
+// set reseiver chats
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(receiverId)
+//         .collection('chats')
+//         .doc(userModel?.uId)
+//         .collection('messages')
+//         .add(model.toJson())
+//         .then((value) {
+//       emit(SendMessageSucsesState());
+//     }).catchError((error) {
+//       emit(SendMessageErrorState());
+//     });
+  }
+
+  /// create conversation
+  /// get all conversation in chat screan
+  /// messages get messages by get conversation by  two users
+
+
+///first thing make the conversation
+///second get it into the chat
+///therd into to chat add two id to method messages
+///or get two conversation to add the ides to messages
+//receiverId
+//senderId
+  Conversation? conversation ;
+void createConversation({
+  required String receiverId,
+  required String senderId,
+}){
+  Dio_Helper.postData(url: createCon , data:{
+    "senderId":senderId,
+    "receiverId":receiverId,
+  } ).then((value) {
+    print(receiverId);
+    print(senderId);
+    conversation = Conversation.fromJson(value.data);
+    emit(createConversationSucsesState());
+  }).catchError((e){
+    print(e.toString());
+    emit(createConversationErrorState());
+  });
+}
+
+/////
+  All_Conversation? all_conversation1 ;
+  List<dynamic> all_Conversations = [];
+void GetAllConversation(){
+  Dio_Helper.getData(url: getAllConversation+ID!  ).then((value) {
+    // all_Conversations = All_Conversation.fromJson(value.data)as List;
+    // print(all_Conversations);
+    all_Conversations = value.data;
+    emit(getAllConversationSucsesState());
+  }).catchError((e){
+    print(e.toString());
+    emit(getAllConversationErrorState());
+  });
+}
+// void GetConversation(){
+//   Dio_Helper.getData(url: getAllConversation+ID!+  ).then((value) {
+//     //Map<dynamic, dynamic> data = new Map<dynamic, dynamic>.from(json.decode(value.data));
+//     all_Conversations = value.data;
+//     print(all_Conversations[0]['members'][0]);
+//    // print(data);
+//     // all_conversation = All_Conversation.fromJson(value.data);
+//     // print(all_conversation?.members![0]);
+//     // print(all_conversation?.members![1]);
+//     emit(getAllConversationSucsesState());
+//   }).catchError((e){
+//     print(e.toString());
+//     emit(getAllConversationErrorState());
+//   });
+// }
+
 }

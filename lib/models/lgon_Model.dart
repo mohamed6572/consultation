@@ -6,11 +6,13 @@ class Login_Model {
   String? updatedAt;
   int? iV;
   String? accessToken;
+  String? message;
   bool? status;
 
   Login_Model(
       {
         this.Id,
+        this.message,
         this.username,
         this.email,
         this.createdAt,
@@ -22,6 +24,7 @@ class Login_Model {
   Login_Model.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     Id = json['_id'];
+    message = json['message'];
     username = json['username'];
     email = json['email'];
     createdAt = json['createdAt'];
@@ -33,6 +36,7 @@ class Login_Model {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.Id;
+    data['message'] = this.message;
     data['status'] = this.status;
     data['username'] = this.username;
     data['email'] = this.email;
