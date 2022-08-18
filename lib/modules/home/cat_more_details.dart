@@ -84,7 +84,8 @@ class Cat_More_Details extends StatelessWidget{
             ),
           ),
           SizedBox(height: 50,),
-          defultButton(text: 'بدأ المحادثة', function: (){},width: 180,Background: Colors.green),
+          defultButton(text: 'بدأ المحادثة', function: (){
+          },width: 180,Background: Colors.green),
 
 
 

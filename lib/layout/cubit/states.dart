@@ -15,6 +15,10 @@ class EditImagePickedErrorState extends AppStates{}
 class UpdateLodingState extends AppStates{}
 class UpdateSuccsessState extends AppStates{}
 class UpdateErrorState extends AppStates{}
+
+class UpdateULodingState extends AppStates{}
+class UpdateUSuccsessState extends AppStates{}
+class UpdateUErrorState extends AppStates{}
 //get consaltant data
 class getCLodingState extends AppStates{}
 class getCSuccsessState extends AppStates{}

@@ -37,7 +37,10 @@ class Login_Screan1 extends StatelessWidget {
 
           if (state is LoginSucssesState) {
             cash_helper
-                .saveData(key: 'token', value: state.login_model.accessToken)
+                .saveData(key: 'ID', value: state.login_model.Id)
+                .then((value) {});
+            cash_helper
+                .saveData(key: 'tokenU', value: state.login_model.accessToken)
                 .then((value) {
               navigateToAndFinish(context, HomeU_Layout());
             });
