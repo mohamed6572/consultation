@@ -51,6 +51,7 @@ dependencies:
   permission_handler:
   firebase_storage: ^10.2.15
   firebase_core: ^1.20.1
+  cloud_firestore: ^3.1.13
 
 
 dev_dependencies:

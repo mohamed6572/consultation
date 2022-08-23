@@ -1,11 +1,11 @@
-import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/models/all_cosultant_model.dart';
 import 'package:consultation/models/consultant_model.dart';
 import 'package:consultation/models/update_model.dart';
+import 'package:consultation/models/user_model.dart';
 import 'package:consultation/modules/balance/balance.dart';
 import 'package:consultation/modules/chat/chat.dart';
 import 'package:consultation/modules/home/home.dart';
@@ -19,9 +19,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'package:image_picker/image_picker.dart';
 
-import '../../models/LoginC_Model.dart';
 import '../../models/Message_Model.dart';
-import '../../models/catI_tem_model.dart';
 import '../../models/chat/all_conversation.dart';
 import '../../models/chat/conversation.dart';
 import '../../shared/network/remote/dio_helper.dart';
@@ -224,6 +222,19 @@ print(response.body);
       emit(getCErrorState());
     });
   }
+  User_Model? modelU;
+
+  void GetUser(){
+    emit(getULodingState());
+    Dio_Helper.getData(url: GetU+ID!,token: tokenU).then((value) {
+      modelU = User_Model.fromJson(value.data);
+      print(modelU?.others?.username);
+      emit(getUSuccsessState());
+    }).catchError((e){
+      print(e.toString());
+      emit(getUErrorState());
+    });
+  }
 
   //get all consultant
   all_consultant_model? consultant_model_for_loist;
@@ -343,47 +354,85 @@ consultant.add(element);
   }
 
   //message & chat
-  List<MessageModel> messages = [];
-
-
   void sendMessage({
     required String receiverId,
     required String dateTime,
     required String text,
+    String? Image,
   }) {
-    // MessageModel model = MessageModel(
-    //     dateTime: dateTime,
-    //     text: text,
-    //     receiverId: receiverId,
-    //     senderId: userModel?.uId);
+    Message_Model model = Message_Model(
+        dateTime: dateTime,
+        text: text,
+        receiverId: receiverId,
+        image: Image,
+        senderId: ID);
 // set my chats
 
-    // FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(userModel?.uId)
-    //     .collection('chats')
-    //     .doc(receiverId)
-    //     .collection('messages')
-    //     .add(model.toJson())
-    //     .then((value) {
-    //   emit(SendMessageSucsesState());
-    // }).catchError((error) {
-    //   emit(SendMessageErrorState());
-    // });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(ID)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .add(model.toJson())
+        .then((value) {
+      emit(SendMessageSucsesState());
+    }).catchError((error) {
+      emit(SendMessageErrorState());
+    });
 // set reseiver chats
-//     FirebaseFirestore.instance
-//         .collection('users')
-//         .doc(receiverId)
-//         .collection('chats')
-//         .doc(userModel?.uId)
-//         .collection('messages')
-//         .add(model.toJson())
-//         .then((value) {
-//       emit(SendMessageSucsesState());
-//     }).catchError((error) {
-//       emit(SendMessageErrorState());
-//     });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chats')
+        .doc(ID)
+        .collection('messages')
+        .add(model.toJson())
+        .then((value) {
+      emit(SendMessageSucsesState());
+    }).catchError((error) {
+      emit(SendMessageErrorState());
+    });
   }
+
+  List<Message_Model> messages = [];
+
+  void getMessages(
+      {
+        required String reseiverId,
+      }
+  )
+  {
+    // Dio_Helper.getData(url: getmessage+ID!,).then((value) {
+    // value.data.forEach((e){
+    //   messages.add(Message_Model.fromJson(e));
+    // });
+    //   emit(getMessageSucsesState());
+    // }).catchError((e){
+    //   print(e.toString());
+    //   emit(getMessageErrorState());
+    // });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(ID)
+        .collection('chats')
+        .doc(reseiverId)
+        .collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) {
+      messages = [];
+      event.docs.forEach((element) {
+
+        messages.add(Message_Model.fromJson(element.data()));
+
+      });
+      emit(getMessageSucsesState());
+
+    });
+
+  }
+
 
   /// create conversation
   /// get all conversation in chat screan
@@ -417,12 +466,15 @@ void createConversation({
 
 /////
   All_Conversation? all_conversation1 ;
-  List<dynamic> all_Conversations = [];
+  List<All_Conversation> all_Conversations = [];
 void GetAllConversation(){
   Dio_Helper.getData(url: getAllConversation+ID!  ).then((value) {
     // all_Conversations = All_Conversation.fromJson(value.data)as List;
     // print(all_Conversations);
-    all_Conversations = value.data;
+    value.data.forEach((e){
+      all_Conversations.add(All_Conversation.fromJson(e));
+    });
+   // all_Conversations = value.data;
     emit(getAllConversationSucsesState());
   }).catchError((e){
     print(e.toString());

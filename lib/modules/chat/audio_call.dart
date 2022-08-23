@@ -79,7 +79,7 @@ class _AudioCallScreenState extends State<AudioCallScreen> {
     _engine.enableVideo();
     _engine.setEventHandler(
       RtcEngineEventHandler(
-        joinChannelSuccess: (String channel, int uid, int elapsed) {
+        joinChannelSuccess: (String channel1, int uid, int elapsed) {
           print('local user $uid joined successfully');
         },
         userJoined: (int uid, int elapsed) {

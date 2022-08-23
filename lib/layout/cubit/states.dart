@@ -27,6 +27,10 @@ class UpdateUErrorState extends AppStates{}
 class getCLodingState extends AppStates{}
 class getCSuccsessState extends AppStates{}
 class getCErrorState extends AppStates{}
+//get user data
+class getULodingState extends AppStates{}
+class getUSuccsessState extends AppStates{}
+class getUErrorState extends AppStates{}
 //get All consaltant data
 class getAllCLodingState extends AppStates{}
 class getAllCSuccsessState extends AppStates{}
@@ -38,6 +42,11 @@ class SendMessageErrorState extends AppStates{}
 class createConversationSucsesState extends AppStates{}
 class createConversationErrorState extends AppStates{}
 //get all conversation
-class cSucsesState extends AppStates{}
 class getAllConversationSucsesState extends AppStates{}
 class getAllConversationErrorState extends AppStates{}
+//create message
+class createMessageSucsesState extends AppStates{}
+class createMessageErrorState extends AppStates{}
+//get message
+class getMessageSucsesState extends AppStates{}
+class getMessageErrorState extends AppStates{}
