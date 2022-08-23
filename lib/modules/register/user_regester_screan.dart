@@ -23,12 +23,17 @@ class User_Regester_Screan extends StatelessWidget {
       create: (context) => RegesterCubit(),
       child: BlocConsumer<RegesterCubit, RegesterStates>(
         listener: (context, state) {
-          if(state is RegesterCSucssesState)
-            navigateTo(context, Consultant_Register_Screan());
-          if(state is RegesterSucssesState)
-            navigateTo(context, Login_Screan1());
+          if(RegesterCubit.get(context).isUser){
+            if(state is RegesterCSucssesState)
+              navigateTo(context, Login_Screan1());
+          }
+          if(!RegesterCubit.get(context).isUser) {
+            if (state is RegesterSucssesState)
+              navigateTo(context, Consultant_Register_Screan());
+          }
         },
         builder: (context, state) {
+
           var cubit = RegesterCubit.get(context);
           return Scaffold(
             appBar: AppBar(
@@ -109,6 +114,39 @@ class User_Regester_Screan extends StatelessWidget {
     child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Center(
+              child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  CircleAvatar(
+                    radius: 64,
+                    backgroundColor:
+                    Theme.of(context).scaffoldBackgroundColor,
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: RegesterCubit.get(context).profileimage == null
+                          ? NetworkImage(
+                          'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg')
+                          : FileImage(
+                        RegesterCubit.get(context).profileimage!,
+                      ) as ImageProvider,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        RegesterCubit.get(context).getProfileImage();
+                      },
+                      icon: CircleAvatar(
+                        radius: 20,
+                        child: Icon(
+                          Icons.camera,
+                          size: 16,
+                        ),
+                      )),
+                ],
+              ),
+            ),
+
             itemregister('الإسم'),
             defultFormField(
                 type: TextInputType.name,
@@ -194,9 +232,10 @@ class User_Regester_Screan extends StatelessWidget {
                 function: () {
                   if (formkey.currentState!.validate()) {
                     cubit.UserRegister(
-                      name: namecontroller.text,
+                        name: "${namecontroller.text} ",
                         email: emailcontroller.text,
-                        password: passcontroller.text
+                        password: passcontroller.text,
+                        profile: RegesterCubit.get(context).profileimage,
                     );
                   }
                 },

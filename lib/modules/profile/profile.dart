@@ -32,6 +32,32 @@ class Profile_Screan extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
+                  usermodel?.others?.about==null
+                      ? Container (
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 6), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    margin: EdgeInsets.only(top: 20, right: 20, left: 20,bottom: 20),
+                    width: double.infinity,
+                    height: 70,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                       children: [
+
+                         Text("${usermodel?.others?.username}"),
+                         Text("  مرحبا بك يا  "),
+                       ],
+                    ),
+                  ):
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
@@ -50,6 +76,7 @@ class Profile_Screan extends StatelessWidget {
                   height: 100,
                   child: Center(child: Text("${usermodel?.others?.about}")),
                 ),
+                if(usermodel?.others?.about!=null)
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,

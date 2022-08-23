@@ -1,5 +1,6 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/homeU_layout.dart';
+import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/models/catI_tem_model.dart';
 import 'package:consultation/models/chat/conversation.dart';
 import 'package:consultation/modules/chat/chat.dart';
@@ -25,8 +26,8 @@ class Cat_More_Details extends StatelessWidget {
       listener: (context, state) {
         if (state is createConversationSucsesState)
           AppCubit.get(context).GetAllConversation();
-       // if (state is getAllConversationSucsesState)
-         // AppCubit.get(context).ChangeBotomIndex(1);
+        if (state is getAllConversationSucsesState)
+            navigateTo(context, Home_Layout());
       },
       builder: (context, state) {
         return Scaffold(
