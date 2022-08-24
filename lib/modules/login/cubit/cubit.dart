@@ -38,7 +38,8 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
   LoginC_Model? loginC_Model;
-  void ConsultantLogin({
+  void
+  ConsultantLogin({
     required String email,
     required String password,
   }) {
