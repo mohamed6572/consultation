@@ -8,6 +8,7 @@ import 'package:consultation/modules/support/support.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/styles/colors.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,10 +101,7 @@ class Home_Layout extends StatelessWidget {
                       )),
                   InkWell(
                       onTap: () {
-                        cash_helper.removeData(key: 'ID').then((value) {});
-                        cash_helper.removeData(key: 'token').then((value) {
-                          navigateToAndFinish(context, Login_Screan());
-                        });
+                      cubit.SignOut(context);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -152,7 +150,24 @@ class Home_Layout extends StatelessWidget {
                       navigateTo(context, Notification_Screen());
                     },
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      color: Colors.lightBlue,
+                      size: 33,
+                    ),
+                    onPressed: () {
+cubit.sendNotification(
+  body: 'hi',
+  title:'mohamed',
+  fcmtoken: 'cbeUNL_sQ1GPuJ7v_AU24S:APA91bFC5LPaR0gX7kl9ogay5Ly0Y8WbaXeg4O6fPVcNetCt8YQje2gke99WKcaJ-2okakWvgiZh4JRV9-6YOKfB5aPbtCSDlPHJuQwsC94pMJQBMVeV_T_WSz4ibzEMmKu7JyITTrHe'
+);
+                    },
+                  ),
+                ),
               ],
             ),
             body: cubit.screans[cubit.currentIndex],

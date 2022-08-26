@@ -8,6 +8,7 @@ import 'package:consultation/shared/components/constens.dart';
 import 'package:consultation/shared/network/end_points.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,17 +25,18 @@ class RegesterCubit extends Cubit<RegesterStates>{
     required String email,
     required String password,
     required File? profile,
-  }){
+  })async{
     emit(RegesterCLodingeState());
     firebase_storage.FirebaseStorage.instance
         .ref()
         .child('CV/${Uri.file(profile?.path ?? '').pathSegments.last}')
         .putFile(profile!)
         .then((value) {
-      value.ref.getDownloadURL().then((value) {
+      value.ref.getDownloadURL().then((value) async {
         String photo = value;
         print(value);
         Dio_Helper.postData(url: RegisterC, data: {
+          "FCM_TOKEN": await  FirebaseMessaging.instance.getToken(),
           "username":name,
           "email":email,
           "password":password,
@@ -67,14 +69,15 @@ class RegesterCubit extends Cubit<RegesterStates>{
 
   }
    Register_Model_C? register_model_c;
-  void consultRegister({
+  Future<void> consultRegister({
     required String name,
     required String email,
     required String password,
-  }){
+  }) async {
     emit(RegesterCLodingeState());
 
     Dio_Helper.postData(url: RegisterC, data: {
+      "FCM_TOKEN": await  FirebaseMessaging.instance.getToken(),
       "username":name,
       "email":email,
       "password":password,

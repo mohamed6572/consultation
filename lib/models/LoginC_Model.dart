@@ -14,6 +14,7 @@ class LoginC_Model {
   String? counseling;
   String? country;
   String? duration;
+  String? FCM_TOKEN;
   int? phone;
   String? accessToken;
   String? message;
@@ -31,6 +32,7 @@ class LoginC_Model {
         this.price,
         this.updatedAt,
         this.iV,
+        this.FCM_TOKEN,
         this.about,
         this.qualification,
         this.counseling,
@@ -43,6 +45,7 @@ class LoginC_Model {
   LoginC_Model.fromJson(Map<String, dynamic> json) {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
+    FCM_TOKEN = json['FCM_TOKEN'];
     message = json['message'];
     sId = json['_id'];
     username = json['username'];
@@ -73,6 +76,7 @@ class LoginC_Model {
     data['username'] = this.username;
     data['email'] = this.email;
     data['createdAt'] = this.createdAt;
+    data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
     data['About'] = this.about;

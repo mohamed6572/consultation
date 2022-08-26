@@ -24,6 +24,7 @@ class Chat_Detales_Screan extends StatelessWidget {
   var messagecontroller = TextEditingController();
 
   void send(context) {
+    var user = AppCubit.get(context).usermodel;
     var now = new DateTime.now();
     // var formatter = new DateFormat('dd-MM-yyyy');
     String formattedTime = DateFormat('kk:mm:a').format(now);
@@ -37,16 +38,25 @@ class Chat_Detales_Screan extends StatelessWidget {
         receiverId: model.members![1],
         text: messagecontroller.text,
         dateTime:formattedTime);
+    AppCubit.get(context).sendNotification(
+      body: messagecontroller.text,
+      title:consultant.username!,
+        fcmtoken:"${consultant.FCM_TOKEN }"
+    );
   }
 
   if(ID ==  model.members![1]){
 
     AppCubit.get(context).sendMessage(
         Image: consultant.profilePicture ?? '',
-
         receiverId:model.members![0] ,
         text: messagecontroller.text,
         dateTime: formattedTime);
+    AppCubit.get(context).sendNotification(
+        body: messagecontroller.text,
+        title: consultant.username!,
+        fcmtoken:"${user?.others?.FCM_TOKEN }"
+    );
   }
 }
   @override
@@ -76,7 +86,8 @@ class Chat_Detales_Screan extends StatelessWidget {
                         NetworkImage("${consultant.profilePicture}"),height: 60,width: 70,),
                       ),
                       SizedBox(width: 8,),
-                      Text(consultant.username ?? '',
+                      Text(
+                          consultant.username ?? '',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 20)),
                     ],
@@ -125,56 +136,46 @@ class Chat_Detales_Screan extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                            child: BuildCondition(
-                              condition: AppCubit
-                                  .get(context)
-                                  .messages
-                                  .length >= 0,
-                              builder: (context) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: ListView.separated(
-                                            itemBuilder: (context, index) {
+                            child:  Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: ListView.separated(
+                                      itemBuilder: (context, index) {
 //
 //  if(message[index].conversationId == ID ){
 //   return SendMyMessage(message[index]);}
 //
 // return SendMessage(message[index],context);
-                                              var message = AppCubit
-                                                  .get(context)
-                                                  .messages[index];
-                                              if (ID == message.receiverId)
-                                                return SendMyMessage(message);
-                                              if (ID == message.senderId)
-                                                return SendMessage(
-                                                    message, context);
+                                        var message = AppCubit
+                                            .get(context)
+                                            .messages[index];
+                                        if (ID == message.receiverId)
+                                          return SendMyMessage(message);
+                                         if (ID == message.senderId)
+                                          return SendMessage(
+                                              message, context);
 
-                                              return Center(
-                                                child: Text('no messaeeges'),);
-                                            },
+                                        return Center(
+                                          child: Text('no messaeeges'),);
+                                      },
 
-                                            separatorBuilder: (context,
-                                                index) =>
-                                                SizedBox(
-                                                  height: 15,
-                                                ),
-                                            itemCount: AppCubit
-                                                .get(context)
-                                                .messages
-                                                .length,
-                                          physics: BouncingScrollPhysics(),
+                                      separatorBuilder: (context,
+                                          index) =>
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                      itemCount: AppCubit
+                                          .get(context)
+                                          .messages
+                                          .length,
+                                      physics: BouncingScrollPhysics(),
 
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                );
-                              },
-                              fallback: (context) =>
-                                  Center(child: CircularProgressIndicator(),),
+                                ],
+                              ),
                             )),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -185,7 +186,7 @@ class Chat_Detales_Screan extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  send(context);
+                                 send(context);
                                 },
                                 child: Icon(
                                   Icons.send,
@@ -225,17 +226,18 @@ class Chat_Detales_Screan extends StatelessWidget {
         alignment: AlignmentDirectional.centerStart,
         child: Row(
           children: [
-            // if(model.image != null)
-            // ClipRRect(
-            //     borderRadius: BorderRadius.circular(40),
-            //     child: Image(
-            //       image: NetworkImage('${model.image}'),
-            //       height: 40,
-            //       width: 40,
-            //     )),
+            if(model.image != null)
+            ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: Image(
+                  image: NetworkImage('${model.image}'),
+                  height: 40,
+                  width: 40,
+                )),
             Container(
               width: 170,
               padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadiusDirectional.only(
                     bottomEnd: Radius.circular(10.0),
@@ -270,7 +272,8 @@ class Chat_Detales_Screan extends StatelessWidget {
             Container(
               width: 170,
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
+                margin: EdgeInsets.symmetric(vertical: 10,horizontal: 8),
+
                 padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.only(
@@ -284,13 +287,14 @@ class Chat_Detales_Screan extends StatelessWidget {
                 ),
               ),
             ),
-            // ClipRRect(
-            //     borderRadius: BorderRadius.circular(40),
-            //     child: Image(
-            //       image: NetworkImage("${model.image}"),
-            //       height: 40,
-            //       width: 40,
-            //     ))
+            if(model.image!=null)
+            ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: Image(
+                  image: NetworkImage("${model.image}"),
+                  height: 40,
+                  width: 40,
+                ))
           ],
         ),
       );

@@ -26,6 +26,7 @@ class UpdatedUser {
   String? cVPhoto;
   String? Id;
   String? username;
+  String? FCM_TOKEN;
   String? email;
   String? password;
   String? createdAt;
@@ -44,6 +45,7 @@ class UpdatedUser {
       {this.profilePicture,
         this.cVPhoto,
         this.Id,
+        this.FCM_TOKEN,
         this.price,
         this.rating,
         this.username,
@@ -62,6 +64,7 @@ class UpdatedUser {
   UpdatedUser.fromJson(Map<String, dynamic> json) {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
+    FCM_TOKEN = json['FCM_TOKEN'];
     Id = json['_id'];
     username = json['username'];
     price = json['price'];
@@ -88,6 +91,7 @@ class UpdatedUser {
     data['email'] = this.email;
     data['rating'] = this.rating;
     data['price'] = this.price;
+    data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['password'] = this.password;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

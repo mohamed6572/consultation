@@ -30,6 +30,7 @@ class Others {
   String? email;
   String? createdAt;
   String? updatedAt;
+  String? FCM_TOKEN;
   int? iV;
   String? about;
   String? qualification;
@@ -53,6 +54,7 @@ class Others {
         this.qualification,
         this.counseling,
         this.country,
+        this.FCM_TOKEN,
         this.duration,
         this.phone,
       });
@@ -67,6 +69,7 @@ class Others {
     rating = json['rating'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    FCM_TOKEN = json['FCM_TOKEN'];
     iV = json['__v'];
     about = json['About'];
     qualification = json['Qualification'];
@@ -79,6 +82,7 @@ class Others {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['photo'] = this.profilePicture;
+    data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
     data['rating'] = this.rating;
