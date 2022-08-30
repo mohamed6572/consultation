@@ -1,8 +1,11 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
+import 'package:consultation/models/notification_model.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../shared/components/constens.dart';
 
 class Notification_Screen extends StatelessWidget {
   @override
@@ -23,16 +26,16 @@ class Notification_Screen extends StatelessWidget {
               ],
             ),
           ),
-          body: ListView.separated(itemBuilder:(context, index) => Notification_Item(),
+          body: ListView.separated(itemBuilder:(context, index) => Notification_Item(notication[index],context),
 
-          itemCount: 9,
+          itemCount: notication.length,
             separatorBuilder: (context, index) => SizedBox(height: 15,),
           ),
         );
       },
     );
   }
-  Widget Notification_Item()=>Container(
+  Widget Notification_Item(Notification_Model model,context)=>Container(
     padding: EdgeInsets.all(15),
     decoration: BoxDecoration(
       color: Colors.white,
@@ -46,38 +49,36 @@ class Notification_Screen extends StatelessWidget {
       ],
     ),
     margin: EdgeInsets.only(top: 15, right: 15, left: 15, bottom: 15),
-    width: double.infinity,
-    height: 190,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Image(image: AssetImage('assets/images/ima.png'),height: 50,)),
-            SizedBox(width: 9,),
-            Expanded(
-              child: Text('Ahmed asks to start a business plan with you, do you agree or not?',style: TextStyle(fontSize: 18),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+    width: MediaQuery.of(context).size.width*0.6,
+    height: 120,
+    child:   Row(
 
+      children: [
+        ClipRRect(
+            borderRadius: BorderRadius.circular(40),
+            child: Image(image: NetworkImage('${model.image}'),height: 50,)),
+        SizedBox(width: 14,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('${model.name}',style: TextStyle(fontSize: 18),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.6,
+                child: Text('${model.text}',style: TextStyle(fontSize: 18,height: 2),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+
+                ),
               ),
             )
-
-          ],
-        ),
-        Text('1 day and 10 minutes ago',style: TextStyle(fontSize: 12),
-          textAlign: TextAlign.end,
-        ),
-        SizedBox(height: 15,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            defultButton(text: 'Refuse', function: (){},Background: Colors.red,width: 90),
-            defultButton(text: 'Accept', function: (){},Background: Colors.green,width: 90),
           ],
         )
+
+
       ],
     ),
   );

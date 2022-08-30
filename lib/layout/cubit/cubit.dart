@@ -517,6 +517,7 @@ void sendNotification({
   required String fcmtoken,
   required String title,
   required String body,
+   String? Image,
 }){
 Dio_Helper.notification(data: {
   "to" :fcmtoken,
@@ -536,6 +537,9 @@ Dio_Helper.notification(data: {
     }
   },
   "data":{
+
+"text":body,
+"image":Image,
     "type":"order",
     "name":title,
     "id":"87",

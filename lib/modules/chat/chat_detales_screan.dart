@@ -40,6 +40,7 @@ class Chat_Detales_Screan extends StatelessWidget {
         dateTime:formattedTime);
     AppCubit.get(context).sendNotification(
       body: messagecontroller.text,
+        Image : user?.others?.profilePicture ?? '',
       title:consultant.username!,
         fcmtoken:"${consultant.FCM_TOKEN }"
     );
@@ -54,6 +55,7 @@ class Chat_Detales_Screan extends StatelessWidget {
         dateTime: formattedTime);
     AppCubit.get(context).sendNotification(
         body: messagecontroller.text,
+        Image : consultant.profilePicture ?? '',
         title: consultant.username!,
         fcmtoken:"${user?.others?.FCM_TOKEN }"
     );
