@@ -28,9 +28,9 @@ class Edit_Profile extends StatelessWidget{
           var editImage = AppCubit.get(context).editprofileimage;
           var cubit =AppCubit.get(context);
           var model =AppCubit.get(context).usermodel;
-          phonecontroller.text ="${model?.others?.phone}"  ;
+          phonecontroller.text ="${model?.others?.phone??""}"  ;
           countrycontroller.text =model?.others?.country ??'' ;
-          costcontroller.text ="${model?.others?.price}"  ;
+          costcontroller.text ="${model?.others?.price??""}"  ;
           discripcontroller.text =model?.others?.about ??'' ;
           return
             Scaffold(
@@ -120,7 +120,6 @@ class Edit_Profile extends StatelessWidget{
                         height: 20,
                       ),
                       itemregister('نبذة عن أعمالك'),
-
                       defultFormField(
                           suffix: Icons.edit,
                           maxlines: 4,

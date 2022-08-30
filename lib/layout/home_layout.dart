@@ -37,6 +37,7 @@ class Home_Layout extends StatelessWidget {
                   SizedBox(
                     height: 70,
                   ),
+                  if(cubit.usermodel?.others?.profilePicture!=null)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: Image(

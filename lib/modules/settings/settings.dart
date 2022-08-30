@@ -23,9 +23,9 @@ class settings extends StatelessWidget{
           ),
           body: Column(
             children: [
-              InkWell(
+              if(AppCubit.get(context).usermodel?.others?.country!=null)
+                InkWell(
                 onTap: (){
-
                   navigateTo(context, Edit_Profile());
                 },
                 child: Padding(

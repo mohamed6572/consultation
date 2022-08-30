@@ -1,3 +1,4 @@
+import 'package:buildcondition/buildcondition.dart';
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/models/catI_tem_model.dart';
@@ -43,10 +44,15 @@ class Cat_Details extends StatelessWidget {
                 ],
               ),
             ),
-            body: ListView.builder(
-              itemBuilder: (context, index) =>
-                  catItem_Detales(model.list[index], model, context),
-              itemCount: model.list.length,
+            body: BuildCondition(
+              fallback: (context) => Center(child: Text('لا يوجد مستشارين بعد'),),
+              condition: model.list.isNotEmpty,
+              builder: (context) => ListView.builder(
+                itemBuilder: (context, index) =>
+                    catItem_Detales(model.list[index], model, context),
+                itemCount: model.list.length,
+              ) ,
+
             ));
       },
       listener: (context, state) {},

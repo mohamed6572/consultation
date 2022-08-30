@@ -23,21 +23,47 @@ class RegesterCubit extends Cubit<RegesterStates>{
     required String name,
     required String email,
     required String password,
+    required File? profile,
   }){
-    emit(RegesterLodingeState());
-
-    Dio_Helper.postData(url: RegisterU, data: {
-      "username":name,
-      "email":email,
-      "password":password,
-    },).then((value) {
-      print(value.data);
-      emit(RegesterSucssesState());
-    }).catchError((e){
-      print(e);
-      emit(RegesterErrorState());
+    emit(RegesterCLodingeState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('CV/${Uri.file(profile?.path ?? '').pathSegments.last}')
+        .putFile(profile!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        String photo = value;
+        print(value);
+        Dio_Helper.postData(url: RegisterC, data: {
+          "username":name,
+          "email":email,
+          "password":password,
+        },).then((value) {
+          register_model_c = Register_Model_C.fromJson(value.data);
+          print(register_model_c?.savedUser?.Id);
+          ID = register_model_c?.savedUser?.Id;
+          emit(RegesterCUpdateSucssesState());
+          ///update
+          Dio_Helper.putData(url: UPDATEC+ID!, data: {
+            "photo":photo
+          },).then((value) {
+            print("$UPDATEC+'$ID'");
+            update_model = Update_Model.fromJson(value.data);
+            emit(RegesterCSucssesState());
+          }).catchError((e){
+            print(e.toString());
+            emit(RegesterCErrorState());
+          });
+        }).catchError((e){
+          emit(RegesterCErrorState());
+        });
+/////
+      }).catchError((error) {
+        emit(RegesterCErrorState());
+      });
+    }).catchError((error) {
+      emit(RegesterCErrorState());
     });
-
 
   }
    Register_Model_C? register_model_c;

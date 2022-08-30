@@ -68,9 +68,19 @@ class Chat_Detales_Screan extends StatelessWidget {
                 appBar: AppBar(
                   centerTitle: true,
                   toolbarHeight: 90,
-                  title: Text(consultant.username ?? '',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 28)),
+                  title: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(35),
+                        child: Image(image:
+                        NetworkImage("${consultant.profilePicture}"),height: 60,width: 70,),
+                      ),
+                      SizedBox(width: 8,),
+                      Text(consultant.username ?? '',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 20)),
+                    ],
+                  ),
                   actions: [
                     IconButton(onPressed: () {
                       navigateTo(context, AudioCallScreen());
