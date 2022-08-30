@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 class Dio_Helper {
   static late Dio dio;
   static late Dio dio_notification;
+  static late Dio dio_forgetPassword;
 
   static init() {
     dio = Dio(BaseOptions(
@@ -11,6 +12,10 @@ class Dio_Helper {
     ));
     dio_notification = Dio(BaseOptions(
         baseUrl: 'https://fcm.googleapis.com/fcm/',
+        receiveDataWhenStatusError: true,
+    ));
+    dio_forgetPassword = Dio(BaseOptions(
+        baseUrl: 'https://consultant1.herokuapp.com/api/Rpass/',
         receiveDataWhenStatusError: true,
     ));
 
@@ -46,6 +51,14 @@ class Dio_Helper {
       'Authorization':'key=AAAA3U1Y3Xs:APA91bHjjNZp-2TpP41_jiVU1igRawgiyL1PnQLM8q9cYDWjy-NKSHUMSu8Q-qidTAo_rGdtzuuvnXPVVCxYamQpzAYriCyqph4789cOY_OeGSWn0tyO5E6Ni-froCV0RA_Z1vXGGuZV'
     };
     return await dio_notification.post('send', queryParameters: query, data: data);
+  }
+
+
+  static Future<Response> Forgetpassword({
+    required Map<String, dynamic> data,
+  }) async {
+
+    return await dio_forgetPassword.post('reset', data: data);
   }
 
   static Future<Response> putData(

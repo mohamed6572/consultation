@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:consultation/layout/home_layout.dart';
+import 'package:consultation/modules/forget_password/forget_password_screen.dart';
 import 'package:consultation/modules/login/cubit/cubit.dart';
 import 'package:consultation/modules/login/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -165,11 +166,11 @@ class Login_Screan1 extends StatelessWidget {
                               return 'من فضلك ادخل الباسورد';
                             }
                           }),
-                      Text(
-                        'هل نسيت كلمة السر ؟',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            height: 3, color: Colors.grey, fontSize: 13),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: defultTextButtton(text:  'هل نسيت كلمة السر ؟', function: (){
+                          navigateTo(context, Forget_Password());
+                        }),
                       ),
                       SizedBox(
                         height: 10,
