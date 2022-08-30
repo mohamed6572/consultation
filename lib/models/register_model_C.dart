@@ -28,6 +28,7 @@ class SavedUser {
   String? cVPhoto;
   String? Id;
   String? username;
+  String? FCM_TOKEN;
   String? email;
   String? password;
   String? createdAt;
@@ -39,6 +40,7 @@ class SavedUser {
         this.cVPhoto,
         this.Id,
         this.username,
+        this.FCM_TOKEN,
         this.email,
         this.password,
         this.createdAt,
@@ -48,6 +50,7 @@ class SavedUser {
   SavedUser.fromJson(Map<String, dynamic> json) {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
+    FCM_TOKEN = json['FCM_TOKEN'];
     Id = json['_id'];
     username = json['username'];
     email = json['email'];
@@ -62,6 +65,7 @@ class SavedUser {
     data['photo'] = this.profilePicture;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.Id;
+    data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['username'] = this.username;
     data['email'] = this.email;
     data['password'] = this.password;

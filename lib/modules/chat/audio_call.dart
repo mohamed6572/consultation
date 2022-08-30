@@ -74,12 +74,12 @@ class _AudioCallScreenState extends State<AudioCallScreen> {
   }
 
   Future<void> initAgora() async {
-    await [Permission.microphone, Permission.camera].request();
+    await [Permission.microphone].request();
     _engine = await RtcEngine.create(AgoraManager.appId);
-    _engine.enableVideo();
+    _engine.enableAudio();
     _engine.setEventHandler(
       RtcEngineEventHandler(
-        joinChannelSuccess: (String channel1, int uid, int elapsed) {
+        joinChannelSuccess: (String channel11, int uid, int elapsed) {
           print('local user $uid joined successfully');
         },
         userJoined: (int uid, int elapsed) {

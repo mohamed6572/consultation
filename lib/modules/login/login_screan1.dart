@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:consultation/layout/home_layout.dart';
+import 'package:consultation/modules/forget_password/forget_password_screen.dart';
 import 'package:consultation/modules/login/cubit/cubit.dart';
 import 'package:consultation/modules/login/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -13,7 +14,7 @@ class Login_Screan1 extends StatelessWidget {
   var emailcontroller = TextEditingController();
   var passcontroller = TextEditingController();
 
-  var formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,11 +166,11 @@ class Login_Screan1 extends StatelessWidget {
                               return 'من فضلك ادخل الباسورد';
                             }
                           }),
-                      Text(
-                        'هل نسيت كلمة السر ؟',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            height: 3, color: Colors.grey, fontSize: 13),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: defultTextButtton(text:  'هل نسيت كلمة السر ؟', function: (){
+                          navigateTo(context, Forget_Password());
+                        }),
                       ),
                       SizedBox(
                         height: 10,
@@ -191,8 +192,7 @@ class Login_Screan1 extends StatelessWidget {
                             radius: 13),
                       ),
                       //
-                      // if (cubit.isUser) LoginUser(cubit, context,state),
-                      // if (!cubit.isUser) LoginConsultant(cubit, context,state),
+
 
                     ],
                   ),
@@ -204,256 +204,4 @@ class Login_Screan1 extends StatelessWidget {
       ),
     );
   }
-  // Widget LoginConsultant(LoginCubit cubit , context , state) => Column(
-  //   children: [
-  //     Text(
-  //       'مرحبا مجددا لحسابك ',
-  //       textAlign: TextAlign.center,
-  //       style: TextStyle(
-  //           fontWeight: FontWeight.w500,
-  //           height: 2,
-  //           fontSize: 14,
-  //           color: Colors.grey),
-  //     ),
-  //     SizedBox(
-  //       height: 30,
-  //     ),
-  //     Padding(
-  //       padding: const EdgeInsets.only(right: 8.0),
-  //       child: Text(
-  //         'حسابك',
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //         ),
-  //         textAlign: TextAlign.end,
-  //       ),
-  //     ),
-  //     SizedBox(
-  //       height: 9,
-  //     ),
-  //     defultFormField(
-  //         type: TextInputType.emailAddress,
-  //         controller: emailcontroller,
-  //         label: 'E-mail',
-  //         prefix: Icons.email,
-  //         validator: (v) {
-  //           if (v!.isEmpty) {
-  //             return 'من فضلك ادخل البريد الاليكتروني';
-  //           }
-  //         }),
-  //     SizedBox(
-  //       height: 30,
-  //     ),
-  //     Padding(
-  //       padding: const EdgeInsets.only(right: 8.0),
-  //       child: Text(
-  //         'كلمة السر',
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //         ),
-  //         textAlign: TextAlign.end,
-  //       ),
-  //     ),
-  //     SizedBox(
-  //       height: 9,
-  //     ),
-  //     defultFormField(
-  //         type: TextInputType.visiblePassword,
-  //         controller: passcontroller,
-  //         label: '*****************',
-  //         suffix: cubit.suffix,
-  //         isPassword: cubit.isPasword,
-  //         passwordShow: () => cubit.changePasswordVisability(),
-  //         prefix: Icons.lock,
-  //         validator: (v) {
-  //           if (v!.isEmpty) {
-  //             return 'من فضلك ادخل الباسورد';
-  //           }
-  //         }),
-  //     Text(
-  //       'هل نسيت كلمة السر ؟',
-  //       textAlign: TextAlign.end,
-  //       style: TextStyle(
-  //           height: 3, color: Colors.grey, fontSize: 13),
-  //     ),
-  //     SizedBox(
-  //       height: 10,
-  //     ),
-  //
-  //     BuildCondition(
-  //       condition: state is! LoginCLodingeState,
-  //       fallback: (context) => Center(child: CircularProgressIndicator(),),
-  //       builder:(context) =>   defultButton(
-  //           text: 'دخول',
-  //           function: () {
-  //             if (formkey.currentState!.validate()) {
-  //               cubit.ConsultantLogin(
-  //                   email: emailcontroller.text,
-  //                   password: passcontroller.text);
-  //             }
-  //           },
-  //           Background: Colors.red,
-  //           radius: 13),
-  //     ),
-  //     // SizedBox(
-  //     //   height: 30,
-  //     // ),
-  //     // Row(
-  //     //   children: [
-  //     //     Expanded(
-  //     //       child: Container(
-  //     //         height: 0.5,
-  //     //         color: Colors.grey.shade400,
-  //     //       ),
-  //     //     ),
-  //     //     Text(
-  //     //       ' أو سجل بواسطة ',
-  //     //       style: TextStyle(
-  //     //           fontStyle: FontStyle.italic,
-  //     //           color: Colors.grey.shade500),
-  //     //     ),
-  //     //     Expanded(
-  //     //       child: Container(
-  //     //         height: 0.5,
-  //     //         color: Colors.grey.shade400,
-  //     //       ),
-  //     //     ),
-  //     //   ],
-  //     // ),
-  //     // SizedBox(
-  //     //   height: 30,
-  //     // ),
-  //     // authButton(
-  //     //     text: 'Login with Google',
-  //     //     logo: 'google_logo',
-  //     //     function: () {},
-  //     //     isUpperCase: false)
-  //   ],
-  // );
-  // Widget LoginUser(LoginCubit cubit , context , state) => Column(
-  //   children: [
-  //     Text(
-  //       'مرحبا مجددا لحسابك ايها المستخدم',
-  //       textAlign: TextAlign.center,
-  //       style: TextStyle(
-  //           fontWeight: FontWeight.w500,
-  //           height: 2,
-  //           fontSize: 14,
-  //           color: Colors.grey),
-  //     ),
-  //     SizedBox(
-  //       height: 30,
-  //     ),
-  //     Padding(
-  //       padding: const EdgeInsets.only(right: 8.0),
-  //       child: Text(
-  //         'حسابك',
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //         ),
-  //         textAlign: TextAlign.end,
-  //       ),
-  //     ),
-  //     SizedBox(
-  //       height: 9,
-  //     ),
-  //     defultFormField(
-  //         type: TextInputType.emailAddress,
-  //         controller: emailcontroller,
-  //         label: 'E-mail',
-  //         prefix: Icons.email,
-  //         validator: (v) {
-  //           if (v!.isEmpty) {
-  //             return 'من فضلك ادخل البريد الاليكتروني';
-  //           }
-  //         }),
-  //     SizedBox(
-  //       height: 30,
-  //     ),
-  //     Padding(
-  //       padding: const EdgeInsets.only(right: 8.0),
-  //       child: Text(
-  //         'كلمة السر',
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //         ),
-  //         textAlign: TextAlign.end,
-  //       ),
-  //     ),
-  //     SizedBox(
-  //       height: 9,
-  //     ),
-  //     defultFormField(
-  //         type: TextInputType.visiblePassword,
-  //         controller: passcontroller,
-  //         label: '*****************',
-  //         suffix: cubit.suffix,
-  //         isPassword: cubit.isPasword,
-  //         passwordShow: () => cubit.changePasswordVisability(),
-  //         prefix: Icons.lock,
-  //         validator: (v) {
-  //           if (v!.isEmpty) {
-  //             return 'من فضلك ادخل الباسورد';
-  //           }
-  //         }),
-  //     Text(
-  //       'هل نسيت كلمة السر ؟',
-  //       textAlign: TextAlign.end,
-  //       style: TextStyle(
-  //           height: 3, color: Colors.grey, fontSize: 13),
-  //     ),
-  //     SizedBox(
-  //       height: 10,
-  //     ),
-  //
-  //     BuildCondition(
-  //       condition: state is! LoginLodingeState,
-  //       fallback: (context) => Center(child: CircularProgressIndicator(),),
-  //       builder:(context) =>   defultButton(
-  //           text: 'دخول',
-  //           function: () {
-  //             if (formkey.currentState!.validate()) {
-  //               cubit.ConsultantLogin(
-  //                   email: emailcontroller.text,
-  //                   password: passcontroller.text);
-  //             }
-  //           },
-  //           Background: Colors.red,
-  //           radius: 13),
-  //     ),
-  //     // SizedBox(
-  //     //   height: 30,
-  //     // ),
-  //     // Row(
-  //     //   children: [
-  //     //     Expanded(
-  //     //       child: Container(
-  //     //         height: 0.5,
-  //     //         color: Colors.grey.shade400,
-  //     //       ),
-  //     //     ),
-  //     //     Text(
-  //     //       ' أو سجل بواسطة ',
-  //     //       style: TextStyle(
-  //     //           fontStyle: FontStyle.italic,
-  //     //           color: Colors.grey.shade500),
-  //     //     ),
-  //     //     Expanded(
-  //     //       child: Container(
-  //     //         height: 0.5,
-  //     //         color: Colors.grey.shade400,
-  //     //       ),
-  //     //     ),
-  //     //   ],
-  //     // ),
-  //     // SizedBox(
-  //     //   height: 30,
-  //     // ),
-  //     // authButton(
-  //     //     text: 'Login with Google',
-  //     //     logo: 'google_logo',
-  //     //     function: () {},
-  //     //     isUpperCase: false)
-  //   ],
-  // );
 }

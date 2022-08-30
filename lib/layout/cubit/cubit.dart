@@ -22,7 +22,11 @@ import 'package:image_picker/image_picker.dart';
 import '../../models/Message_Model.dart';
 import '../../models/chat/all_conversation.dart';
 import '../../models/chat/conversation.dart';
+import '../../modules/login/login_screan.dart';
+import '../../modules/login/login_screan1.dart';
+import '../../shared/components/components.dart';
 import '../../shared/network/remote/dio_helper.dart';
+import 'package:consultation/shared/network/local/cash_helper.dart';
 
 
 class AppCubit extends Cubit<AppStates>{
@@ -38,7 +42,17 @@ Home_Screan(),
   Balance_Screan()
 ];
 
-
+void SignOut(context){
+  cash_helper.removeData(key: 'token').then((value) {
+  cash_helper.removeData(key: 'ID');
+  ID = cash_helper.getData(key: 'ID');
+  token = cash_helper.getData(key: 'token');
+  print('remove $ID');
+  print(token);
+    navigateToAndFinish(context, Login_Screan1());
+    emit(signoutSucssesState());
+  });
+}
 
 List<Widget> titles=[
   Column(
@@ -210,9 +224,10 @@ print(response.body);
   Consultant_Model? usermodel;
 //get consltant data
   void GetConsaltant(){
-    print("$GetC'$ID'+$token");
-    emit(getCLodingState());
-    Dio_Helper.getData(url: GetC+ID!,token: token).then((value) {
+    print(ID);
+    print(token);
+    if(ID!=null)
+      Dio_Helper.getData(url: 'users/find1/$ID',token: token).then((value) {
       usermodel = Consultant_Model.fromJson(value.data);
       print(usermodel?.others?.username);
       print("$GetC+'$ID'+$token");
@@ -428,9 +443,7 @@ consultant.add(element);
 
       });
       emit(getMessageSucsesState());
-
     });
-
   }
 
 
@@ -466,9 +479,11 @@ void createConversation({
 
 /////
   All_Conversation? all_conversation1 ;
+
   List<All_Conversation> all_Conversations = [];
 void GetAllConversation(){
-  Dio_Helper.getData(url: getAllConversation+ID!  ).then((value) {
+  if(ID!=null)
+  Dio_Helper.getData(url: 'conversations/$ID' ).then((value) {
     // all_Conversations = All_Conversation.fromJson(value.data)as List;
     // print(all_Conversations);
     value.data.forEach((e){
@@ -497,4 +512,41 @@ void GetAllConversation(){
 //   });
 // }
 
+//message
+void sendNotification({
+  required String fcmtoken,
+  required String title,
+  required String body,
+}){
+Dio_Helper.notification(data: {
+  "to" :fcmtoken,
+  "notification":{
+    "title":title,
+    "body":body,
+    "sound":"default"
+  },
+  "android":{
+    "priority":"HIGH",
+    "notification":{
+      "notification_priority":"PRIORITY_MAX",
+      "sound":"default",
+      "default_sound":true,
+      "default_vibrate_timings":true,
+      "default_light_settings":true
+    }
+  },
+  "data":{
+    "type":"order",
+    "name":title,
+    "id":"87",
+    "click_action":"FLUTTER_NOTIFICATION_CLICK"
+  }
+
+}).then((value) {
+  emit(sendNotificationSucssesState());
+}
+ ).catchError((e){
+   emit(sendNotificationErrorState());
+});
+}
 }

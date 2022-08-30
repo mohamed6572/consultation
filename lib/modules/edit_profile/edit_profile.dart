@@ -19,7 +19,7 @@ class Edit_Profile extends StatelessWidget{
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        AppCubit.get(context)..GetConsaltant()..GetAllConsaltant();
+        AppCubit.get(context)..GetConsaltant();
         return BlocConsumer<AppCubit,AppStates>(
           listener: (context, state) {
 

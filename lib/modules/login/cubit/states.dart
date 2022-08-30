@@ -19,3 +19,7 @@ class LoginCErrorState extends LoginStates{}
 
 class LoginChangeLoginState extends LoginStates{}
 class LoginChangePasswordState extends LoginStates{}
+//forget password
+class LoginForgetLoginState extends LoginStates{}
+class LoginForgetSucssesState extends LoginStates{}
+class LoginForgetErrorState extends LoginStates{}

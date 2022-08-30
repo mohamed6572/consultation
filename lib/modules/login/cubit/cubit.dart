@@ -68,7 +68,23 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(LoginCErrorState());
     });
   }
+//forget password
+  void forgetPassword({
+  required String email
+}){
+    emit(LoginForgetLoginState());
+    Dio_Helper.Forgetpassword(data:
+    {
+      "email":email
+    }
+    ).then((value) {
+      emit(LoginForgetSucssesState());
+    }).catchError((e){
+      emit(LoginForgetErrorState());
+    });
 
+
+  }
   IconData suffix = Icons.visibility;
   bool isPasword = true;
   bool isUser = true;

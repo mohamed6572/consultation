@@ -48,5 +48,11 @@ class getAllConversationErrorState extends AppStates{}
 class createMessageSucsesState extends AppStates{}
 class createMessageErrorState extends AppStates{}
 //get message
+class getMessageLodingState extends AppStates{}
 class getMessageSucsesState extends AppStates{}
 class getMessageErrorState extends AppStates{}
+//sign out
+class signoutSucssesState extends AppStates{}
+//send notification
+class sendNotificationSucssesState extends AppStates{}
+class sendNotificationErrorState extends AppStates{}

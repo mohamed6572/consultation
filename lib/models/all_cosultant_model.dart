@@ -27,6 +27,7 @@ class all_consultant_model {
 class Consultants {
   String? profilePicture;
   String? cVPhoto;
+  String? FCM_TOKEN;
   String? sId;
   int? rating;
   String? price;
@@ -48,6 +49,7 @@ class Consultants {
         this.cVPhoto,
         this.sId,
         this.username,
+        this.FCM_TOKEN,
         this.email,
         this.createdAt,
         this.rating,
@@ -69,6 +71,7 @@ class Consultants {
     sId = json['_id'];
     username = json['username'];
     email = json['email'];
+    FCM_TOKEN = json['FCM_TOKEN'];
     price = json['price'];
     rating = json['rating'];
     createdAt = json['createdAt'];
@@ -92,6 +95,7 @@ class Consultants {
     data['price'] = this.price;
     data['username'] = this.username;
     data['email'] = this.email;
+    data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

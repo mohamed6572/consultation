@@ -25,9 +25,9 @@ bool IsValidEmail(String email) {
       .hasMatch(email);
 }
 
-Widget SignOut({required context}) =>
-    defultTextButtton(text: 'SignOut', function: () {
-      cash_helper.removeData(key: 'token').then((value) {
-        navigateToAndFinish(context, Login_Screan());
-      });
-    });
+// Widget SignOut({required context}) =>
+//     defultTextButtton(text: 'SignOut', function: () {
+//       cash_helper.removeData(key: 'token').then((value) {
+//         navigateToAndFinish(context, Login_Screan());
+//       });
+//     });
