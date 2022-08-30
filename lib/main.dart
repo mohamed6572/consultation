@@ -25,7 +25,6 @@ void main() {
       await cash_helper.init();
       bool? onBoard = cash_helper.getData(key: 'onboard');
       token = cash_helper.getData(key: 'token');
-      tokenU = cash_helper.getData(key: 'tokenU');
       ID = cash_helper.getData(key: 'ID');
       print(token);
       Widget widget ;
@@ -33,9 +32,7 @@ void main() {
         if(token !=null) {
           widget = Home_Layout();
         }
-       else if(tokenU !=null) {
-          widget = HomeU_Layout();
-        } else
+       else
           widget =  Login_Screan();
       }else{
         widget = onBoarding();
@@ -65,7 +62,7 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        home: start ,
+        home: start,
       ),
     );
   }

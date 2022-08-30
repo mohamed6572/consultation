@@ -23,17 +23,20 @@ class Chat_Screan extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               var model = cubit.all_Conversations[index];
-              var con = cubit.consultant[index];
               cubit.consultant.forEach((element) {
-                if(model['members'][1] == element.sId||model['members'][0] ==ID )
+                if(model.members![1] == element.sId )
                   cubit.consultant1.add(element);
               });
+// if(token!=null)
+  return ChatItemC(model,context,cubit.consultant1[index],index);
 
-               return ChatItem(model,context,cubit.consultant1[index],index);
 
-              return Container(
-                child: Text('${model['members'][1]}+${  cubit.consultant1[index].sId}'),
-              );
+// if(tokenU!=null)
+//   return ChatItemU(model,context,cubit.consultant1[index],index);
+
+
+// return Center(child: Text('No chat Yet'));
+
             },
 
             itemCount: cubit.all_Conversations.length);
@@ -41,10 +44,10 @@ class Chat_Screan extends StatelessWidget {
     );
   }
 
-  Widget ChatItem( model,context,Consultants consultant,index) => Card(
+  Widget ChatItemC( model,context,Consultants consultant,index) => Card(
     child: InkWell(
      onTap: (){
-       navigateTo(context, Chat_Detales_Screan( consultant: consultant,));
+       navigateTo(context, Chat_Detales_Screan( consultant: consultant,model : model));
      },
       child: Container(
               height: 110,
@@ -63,7 +66,10 @@ class Chat_Screan extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                            '${consultant.username}',
+                            model.members![1] ==ID?
+                         "  ${consultant.username}":
+                            "  ${consultant.username}"
+                            ,
                             // model[index]('members')[1] == consultant.sId ?
                             // ''
                             // : consultant.username!,
@@ -78,18 +84,57 @@ class Chat_Screan extends StatelessWidget {
                   SizedBox(width: 13,),
 
 
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(50),
-                  //   child: Image(
-                  //     height: 100,
-                  //     width: 100,
-                  //     image: NetworkImage(
-                  //         consultant.profilePicture?.substring(3,3) != 'file'?
-                  //         '${consultant.profilePicture}':
-                  //             'https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg'
-                  //     ),
-                  //   ),
-                  // ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image(
+                      height: 100,
+                      width: 100,
+                      image: NetworkImage(
+
+                          '${consultant.profilePicture}'
+
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+          ),
+    ),
+  );
+  Widget ChatItemU( model,context,Consultants consultant,index) => Card(
+    child: InkWell(
+     onTap: (){
+       navigateTo(context, Chat_Detales_Screan( consultant: consultant,model : model));
+     },
+      child: Container(
+              height: 110,
+              margin: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Text(model.time, style: TextStyle(height: 2),),
+                  SizedBox(width: 13,),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                         "${AppCubit.get(context).modelU?.others?.username}",
+
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                height: 1, fontWeight: FontWeight.w500, fontSize: 20)),
+                        SizedBox(height: 10,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 13,),
+
                 ],
               ),
           ),

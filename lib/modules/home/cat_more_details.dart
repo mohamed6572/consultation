@@ -25,8 +25,8 @@ class Cat_More_Details extends StatelessWidget {
       listener: (context, state) {
         if (state is createConversationSucsesState)
           AppCubit.get(context).GetAllConversation();
-        //if (state is getAllConversationSucsesState)
-      //  navigateTo(context, HomeU_Layout);
+       // if (state is getAllConversationSucsesState)
+         // AppCubit.get(context).ChangeBotomIndex(1);
       },
       builder: (context, state) {
         return Scaffold(
