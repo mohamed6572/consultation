@@ -151,23 +151,24 @@ class Home_Layout extends StatelessWidget {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.send,
-                      color: Colors.lightBlue,
-                      size: 33,
-                    ),
-                    onPressed: () {
-cubit.sendNotification(
-  body: 'hi',
-  title:'mohamed',
-  fcmtoken: 'cbeUNL_sQ1GPuJ7v_AU24S:APA91bFC5LPaR0gX7kl9ogay5Ly0Y8WbaXeg4O6fPVcNetCt8YQje2gke99WKcaJ-2okakWvgiZh4JRV9-6YOKfB5aPbtCSDlPHJuQwsC94pMJQBMVeV_T_WSz4ibzEMmKu7JyITTrHe'
-);
-                    },
-                  ),
-                ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(right: 20.0),
+//                   child: IconButton(
+//                     icon: Icon(
+//                       Icons.send,
+//                       color: Colors.lightBlue,
+//                       size: 33,
+//                     ),
+//                     onPressed: () {
+// cubit.sendNotification(
+//   Image: 'https://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/261515859_401966121672872_696314712494114637_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AQkUGu7b2CcAX85PB_5&_nc_ht=scontent.fcai20-6.fna&oh=00_AT-KJmGVM_8sa8Oi9d5hYsTgK3SpsuWp3w1En-yMvWKb8g&oe=63126B62',
+//   body: 'hellokl',
+//   title:'mohamedjlffffffff',
+//   fcmtoken: 'cbeUNL_sQ1GPuJ7v_AU24S:APA91bFC5LPaR0gX7kl9ogay5Ly0Y8WbaXeg4O6fPVcNetCt8YQje2gke99WKcaJ-2okakWvgiZh4JRV9-6YOKfB5aPbtCSDlPHJuQwsC94pMJQBMVeV_T_WSz4ibzEMmKu7JyITTrHe'
+// );
+//                     },
+//                   ),
+//                 ),
               ],
             ),
             body: cubit.screans[cubit.currentIndex],

@@ -1,6 +1,7 @@
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/homeU_layout.dart';
 import 'package:consultation/layout/home_layout.dart';
+import 'package:consultation/models/notification_model.dart';
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
 import 'package:consultation/shared/Bloc_Observer.dart';
@@ -21,7 +22,9 @@ Future<void> backgaondMessage(RemoteMessage message)async
 {
   print('backgraond=> ${message.data.toString()}');
 
-  ShowToast(text: 'on message', state: ToastState.SUCSSES);
+  notication.add(notefications!);
+
+  // ShowToast(text: 'on message', state: ToastState.SUCSSES);
 }
 
 void main() {
@@ -41,13 +44,18 @@ void main() {
       print('==${messageToken}');
       FirebaseMessaging.onMessage.listen((event) {
         print('on message=> ${event.data.toString()}');
+        notefications = Notification_Model.fromJson(event.data);
 
-        ShowToast(text: 'on message', state: ToastState.SUCSSES);
+        notication.add(notefications!);
+
+       // ShowToast(text: 'on message', state: ToastState.SUCSSES);
 
       });
       FirebaseMessaging.onMessageOpenedApp.listen((event) {
         print(' on opend=> ${event.data.toString()}');
-        ShowToast(text: 'on message opend', state: ToastState.SUCSSES);
+        //ShowToast(text: 'on message opend', state: ToastState.SUCSSES);
+        notication.add(notefications!);
+
 
       });
 

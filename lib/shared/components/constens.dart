@@ -3,10 +3,14 @@ import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
+
+import '../../models/notification_model.dart';
 String? token = '';
 String? tokenU = '';
 String? ID = '';
-
+// Map<String,dynamic> notefications= {};
+Notification_Model? notefications;
+List<Notification_Model> notication =[];
 Widget itemregister(text) =>  Padding(
   padding: const EdgeInsets.only(right: 8.0,bottom: 9),
   child: Text(
