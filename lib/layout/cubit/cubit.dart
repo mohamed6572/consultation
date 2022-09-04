@@ -219,8 +219,30 @@ print(response.body);
       emit(UpdateUErrorState());
     });
 
+  }
+
+  void Update_Balance({
+    String? balance,
+    String? id,
+  }){
+    emit(UpdateULodingState());
+    Dio_Helper.putData(url: UPDATEC+id!, data: {
+      "balance":balance,
+    },).then((value) {
+
+      emit(UpdateSuccsessState());
+
+        print('heeloo');
+      //GetAllConsaltant();
+
+    }).catchError((e){
+      print(e.toString());
+      emit(UpdateErrorState());
+    });
 
   }
+
+
   Consultant_Model? usermodel;
 //get consltant data
   void GetConsaltant(){
