@@ -4,8 +4,9 @@ import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/models/Message_Model.dart';
 import 'package:consultation/models/chat/all_conversation.dart';
 import 'package:consultation/models/chat_item_model.dart';
-import 'package:consultation/modules/chat/audio_call.dart';
-import 'package:consultation/modules/chat/rating_screan.dart';
+import 'package:consultation/modules/chat/call/audio_call.dart';
+import 'package:consultation/modules/chat/payment/payment_screan.dart';
+import 'package:consultation/modules/chat/rating/rating_screan.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,10 @@ class Chat_Detales_Screan extends StatelessWidget {
                             children: [
                               defultButton(
                                   text: 'بدأ  خطة العمل',
-                                  function: () {},
+                                  function: () {
+                                    navigateTo(
+                                        context, Payment_Screan(model: consultant));
+                                  },
                                   Background: Colors.green,
                                   width: 130),
                               defultButton(

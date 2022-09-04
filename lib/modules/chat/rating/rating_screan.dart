@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../models/chat_item_model.dart';
+import '../../../models/chat_item_model.dart';
 
 class Rating_Screan extends StatelessWidget {
   Consultants model;

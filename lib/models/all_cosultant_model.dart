@@ -29,6 +29,7 @@ class Consultants {
   String? cVPhoto;
   String? FCM_TOKEN;
   String? sId;
+  String? balance;
   int? rating;
   String? price;
   String? username;
@@ -48,6 +49,7 @@ class Consultants {
       {this.profilePicture,
         this.cVPhoto,
         this.sId,
+        this.balance,
         this.username,
         this.FCM_TOKEN,
         this.email,
@@ -68,6 +70,7 @@ class Consultants {
   Consultants.fromJson(Map<String, dynamic> json) {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
+    balance = json['balance'];
     sId = json['_id'];
     username = json['username'];
     email = json['email'];
@@ -89,6 +92,7 @@ class Consultants {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['photo'] = this.profilePicture;
+    data['balance'] = this.balance;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
     data['rating'] = this.rating;

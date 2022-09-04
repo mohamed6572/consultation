@@ -36,6 +36,7 @@ class UpdatedUser {
   String? qualification;
   String? counseling;
   String? country;
+  String? balance;
   String? price;
   int? rating;
   String? duration;
@@ -59,6 +60,7 @@ class UpdatedUser {
         this.counseling,
         this.country,
         this.duration,
+        this.balance,
         this.phone});
 
   UpdatedUser.fromJson(Map<String, dynamic> json) {
@@ -79,6 +81,7 @@ class UpdatedUser {
     counseling = json['counseling'];
     country = json['country'];
     duration = json['duration'];
+    balance = json['balance'];
     phone = json['phone'];
   }
 
@@ -89,6 +92,7 @@ class UpdatedUser {
     data['_id'] = this.Id;
     data['username'] = this.username;
     data['email'] = this.email;
+    data['balance'] = this.balance;
     data['rating'] = this.rating;
     data['price'] = this.price;
     data['FCM_TOKEN'] = this.FCM_TOKEN;

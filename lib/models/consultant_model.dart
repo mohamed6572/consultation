@@ -26,6 +26,7 @@ class Others {
   String? sId;
   int? rating;
   String? price;
+  String? balance;
   String? username;
   String? email;
   String? createdAt;
@@ -43,6 +44,7 @@ class Others {
       {this.profilePicture,
         this.cVPhoto,
         this.sId,
+        this.balance,
         this.username,
         this.email,
         this.createdAt,
@@ -63,6 +65,7 @@ class Others {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
     sId = json['_id'];
+    balance = json['balance'];
     username = json['username'];
     email = json['email'];
     price = json['price'];
@@ -82,6 +85,7 @@ class Others {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['photo'] = this.profilePicture;
+    data['balance'] = this.balance;
     data['FCM_TOKEN'] = this.FCM_TOKEN;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;

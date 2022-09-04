@@ -15,6 +15,7 @@ class LoginC_Model {
   String? country;
   String? duration;
   String? FCM_TOKEN;
+  String? balance;
   int? phone;
   String? accessToken;
   String? message;
@@ -33,6 +34,7 @@ class LoginC_Model {
         this.updatedAt,
         this.iV,
         this.FCM_TOKEN,
+        this.balance,
         this.about,
         this.qualification,
         this.counseling,
@@ -63,6 +65,7 @@ class LoginC_Model {
     phone = json['phone'];
     accessToken = json['accessToken'];
     status = json['status'];
+    balance = json['balance'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +76,7 @@ class LoginC_Model {
     data['_id'] = this.sId;
     data['rating'] = this.rating;
     data['price'] = this.price;
+    data['balance'] = this.balance;
     data['username'] = this.username;
     data['email'] = this.email;
     data['createdAt'] = this.createdAt;

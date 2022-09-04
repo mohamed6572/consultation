@@ -26,9 +26,7 @@ class Balance_Screan extends StatelessWidget {
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
               child: Column(
                 children: [
-                  paymentwidget(pay: '0.00', text: 'الرصيد الكلي'),
-                  paymentwidget(pay: '0.00', text: 'رصيد معلق'),
-                  paymentwidget(pay: '0.00', text: 'أرباح يمكن سحبها'),
+                  paymentwidget(pay: '${AppCubit.get(context).usermodel?.others?.balance}', text: 'الرصيد الكلي'),
                 ],
               ),
             ),
