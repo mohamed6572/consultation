@@ -22,6 +22,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../models/Message_Model.dart';
 import '../../models/chat/all_conversation.dart';
 import '../../models/chat/conversation.dart';
+import '../../models/visa_payment.dart';
 import '../../modules/login/login_screan.dart';
 import '../../modules/login/login_screan1.dart';
 import '../../shared/components/components.dart';
@@ -94,7 +95,36 @@ void RatingApp(rat){
   rating = rat;
   emit(AppRatingState());
 }
-///send email complaint
+///send email payment
+Future sendEmailPayment({
+  required String email,
+  required String paypal,
+  required String price,
+})async{
+
+  const serviceId = 'service_oibints';    //serviceId from emailjs
+  const templateId = 'template_hdcwu0s';  //your templateId from emailjs
+  const userId = 'HFyf4BbHpnW_kpDC-';     //your Public Key from emailjs
+  final url = Uri.parse(
+      'https://api.emailjs.com/api/v1.0/email/send-form');
+  final response = await http.post(url, body: {
+    'service_id': serviceId,
+    'template_id': templateId,
+    'user_id': userId,
+    'accessToken': '15yju4YQPzN1tEIeWiglA',   //your Private Key from emailjs
+    'user_email': email,
+    'user_payment_email': paypal,
+    'user_price': price
+
+  },
+
+ headers: {
+     'origin': 'http://localhost',
+    'contentType': 'application/json',
+  },
+  );
+print(response.body);
+}///send email complaint
 Future sendEmailComplaint({
   required String email,
   required String opnion,
@@ -233,7 +263,45 @@ print(response.body);
       emit(UpdateSuccsessState());
 
         print('heeloo');
-      //GetAllConsaltant();
+
+    }).catchError((e){
+      print(e.toString());
+      emit(UpdateErrorState());
+    });
+
+  }
+
+void Update_Client({
+    int? clint,
+    String? id,
+  }){
+    emit(UpdateULodingState());
+    Dio_Helper.putData(url: UPDATEC+id!, data: {
+      "clinet":clint,
+    },).then((value) {
+
+      emit(UpdateSuccsessState());
+
+        print('heeloo');
+
+    }).catchError((e){
+      print(e.toString());
+      emit(UpdateErrorState());
+    });
+
+  }
+void Update_Conseling({
+    int? counseling,
+    String? id,
+  }){
+    emit(UpdateULodingState());
+    Dio_Helper.putData(url: UPDATEC+id!, data: {
+      "clinet":counseling,
+    },).then((value) {
+
+      emit(UpdateSuccsessState());
+
+        print('heeloo');
 
     }).catchError((e){
       print(e.toString());
@@ -251,8 +319,8 @@ print(response.body);
     if(ID!=null)
       Dio_Helper.getData(url: 'users/find1/$ID',token: token).then((value) {
       usermodel = Consultant_Model.fromJson(value.data);
-      print(usermodel?.others?.username);
-      print("$GetC+'$ID'+$token");
+     // print(usermodel?.others?.username);
+
       emit(getCSuccsessState());
     }).catchError((e){
       print(e.toString());
@@ -296,7 +364,7 @@ print(response.body);
     programing =[];
 
     emit(getAllCLodingState());
-    Dio_Helper.getData(url: GetAllC,token: token??tokenU).then((value) {
+    Dio_Helper.getData(url: GetAllC,token: token).then((value) {
       consultant_model_for_loist = all_consultant_model.fromJson(value.data);
       consultant_model_for_loist?.consultants?.forEach((element) {
 consultant.add(element);
@@ -440,6 +508,7 @@ consultant.add(element);
       }
   )
   {
+
     // Dio_Helper.getData(url: getmessage+ID!,).then((value) {
     // value.data.forEach((e){
     //   messages.add(Message_Model.fromJson(e));
@@ -497,6 +566,45 @@ void createConversation({
     print(e.toString());
     emit(createConversationErrorState());
   });
+
+}
+//visa payment
+
+  visa_Model? visa_model;
+void visa_Payment({
+  required String number,
+  required String name,
+  required String cvv,
+  required int expiry_month,
+  required int amount,
+  required int expiry_year,
+}){
+  Dio_Helper.postData(url: payment_visa , data:{
+
+      "number":number,
+      "expiry_month":expiry_month,
+      "amount":amount,
+      "expiry_year":expiry_year,
+      "name":name,
+      "cvv":cvv
+
+  } ).then((value) {
+    emit(paymentLoadingState());
+    print(name);
+    print(number.replaceAll(RegExp(r"\s+"), ""));
+    print(cvv);
+    print(amount);
+    print(expiry_month);
+    print(expiry_year);
+    visa_model=visa_Model.fromJson(value.data);
+    print(visa_model?.message?.length);
+    emit(paymentSucssesState(
+      model: visa_model
+    ));
+  }).catchError((e){
+    print(e.toString());
+    emit(paymentErrorState());
+  });
 }
 
 /////
@@ -504,7 +612,7 @@ void createConversation({
 
   List<All_Conversation> all_Conversations = [];
 void GetAllConversation(){
-  if(ID!=null)
+
   Dio_Helper.getData(url: 'conversations/$ID' ).then((value) {
     // all_Conversations = All_Conversation.fromJson(value.data)as List;
     // print(all_Conversations);

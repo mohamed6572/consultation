@@ -29,6 +29,7 @@ class LoginCubit extends Cubit<LoginStates> {
       },
     ).then((value) {
       print(value.data);
+      print(value.data);
       login_model = Login_Model.fromJson(value.data);
       print(login_model.email);
       emit(LoginSucssesState(login_model));
@@ -59,6 +60,7 @@ class LoginCubit extends Cubit<LoginStates> {
       print(loginC_Model?.phone);
       print(loginC_Model?.username);
       print(loginC_Model?.counseling);
+      print(loginC_Model?.FCM_TOKEN);
       emit(LoginCSucssesState(loginC_Model));
       print('dioooo is => ${Dio_Helper. dio.httpClientAdapter.hashCode}');
     }).catchError((e) {

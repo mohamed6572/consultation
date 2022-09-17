@@ -82,6 +82,10 @@ class Rating_Screan extends StatelessWidget {
             id: model.sId,
               rate: AppCubit.get(context).rating.toInt()
           );
+          AppCubit.get(context).Update_Conseling(
+              id: model.sId!,
+              counseling:  model.counseling! + 1
+          );
           if(state is RatingSuccsessState)
           Navigator.pop(context);
 

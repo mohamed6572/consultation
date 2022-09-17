@@ -4,7 +4,6 @@ import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/models/Message_Model.dart';
 import 'package:consultation/models/chat/all_conversation.dart';
 import 'package:consultation/models/chat_item_model.dart';
-import 'package:consultation/modules/chat/call/audio_call.dart';
 import 'package:consultation/modules/chat/payment/payment_screan.dart';
 import 'package:consultation/modules/chat/rating/rating_screan.dart';
 import 'package:consultation/shared/components/components.dart';
@@ -96,9 +95,7 @@ class Chat_Detales_Screan extends StatelessWidget {
                     ],
                   ),
                   actions: [
-                    IconButton(onPressed: () {
-                      navigateTo(context, AudioCallScreen());
-                    }, icon: Icon(Icons.call)),
+
                   ],
                 ),
                 body: Stack(

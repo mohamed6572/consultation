@@ -14,6 +14,7 @@ const getAllConversation = 'conversations/';
 const getConversation = 'conversations/find/';
 const createmessage = 'messages';
 const getmessage = 'messages/';
+const payment_visa = 'payment';
 
 
 

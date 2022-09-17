@@ -64,44 +64,44 @@ class Payment_Screan extends StatelessWidget{
             SizedBox(height: 20,),
             Text('من فضلك اختر طريقة الدفع المناسبة',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
             SizedBox(height: 50,),
-            Center(child: MaterialButton(onPressed: (){
-
-              int price;
-
-              price = int.parse(model.price!);
-
-              print(price);
-              navigateTo(context, Paypal(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
-
-            },child: Image(image: AssetImage('assets/images/paypal.png'),),),)
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     // MaterialButton(onPressed: (){
-            //     //
-            //     //
-            //     //   int price;
-            //     //
-            //     //   price = int.parse(model.price!);
-            //     //
-            //     //   print(price);
-            //     //   navigateTo(context, Visa_Screen(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
-            //     //
-            //     //
-            //     // },child: Image(image: AssetImage('assets/images/visa.png'),),),
-            //     SizedBox(width: 20,),
-            //     MaterialButton(onPressed: (){
+            // Center(child: MaterialButton(onPressed: (){
             //
-            //        int price;
+            //   int price;
             //
-            //        price = int.parse(model.price!);
+            //   price = int.parse(model.price!);
             //
-            //        print(price);
-            //     navigateTo(context, Paypal(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
+            //   print(price);
+            //   navigateTo(context, Paypal(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
             //
-            //     },child: Image(image: AssetImage('assets/images/paypal.png'),),),
-            //   ],
-            // ),
+            // },child: Image(image: AssetImage('assets/images/paypal.png'),),),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(onPressed: (){
+
+
+                  int price;
+
+                  price = int.parse(model.price!);
+
+                  print(price);
+                  navigateTo(context, Visa_Screen(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
+
+
+                },child: Image(image: AssetImage('assets/images/visa.png'),),),
+                SizedBox(width: 20,),
+                MaterialButton(onPressed: (){
+
+                   int price;
+
+                   price = int.parse(model.price!);
+
+                   print(price);
+                navigateTo(context, Paypal(price: price,balance:double.parse(model.balance!),ID:model.sId ,));
+
+                },child: Image(image: AssetImage('assets/images/paypal.png'),),),
+              ],
+            ),
 
 
           ],
