@@ -39,7 +39,8 @@ class Consultants {
   int? iV;
   String? about;
   String? qualification;
-  String? counseling;
+  int? counseling;
+  int? clinet;
   String? country;
   String? duration;
   int? phone;
@@ -61,6 +62,7 @@ class Consultants {
         this.about,
         this.qualification,
         this.counseling,
+        this.clinet,
         this.country,
         this.duration,
         this.phone,
@@ -83,6 +85,7 @@ class Consultants {
     about = json['About'];
     qualification = json['Qualification'];
     counseling = json['counseling'];
+    clinet = json['clinet'];
     country = json['country'];
     duration = json['duration'];
     phone = json['phone'];
@@ -95,6 +98,7 @@ class Consultants {
     data['balance'] = this.balance;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
+    data['clinet'] = this.clinet;
     data['rating'] = this.rating;
     data['price'] = this.price;
     data['username'] = this.username;

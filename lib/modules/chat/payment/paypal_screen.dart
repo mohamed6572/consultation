@@ -19,7 +19,7 @@ class Paypal extends StatelessWidget {
     return '''
       <html>
         <body onload="document.f.submit();">
-          <form id="f" name="f" method="post" action="https://consultant1.herokuapp.com/api/pay/pay">
+          <form id="f" name="f" method="post" action="https://estesharati.com/api/pay/pay">
             <input type="hidden" name="price" value="${price}" />
           </form>
         </body>

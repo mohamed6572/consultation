@@ -225,7 +225,7 @@ class User_Regester_Screan extends StatelessWidget {
               height: 35,
             ),
     BuildCondition(
-      condition: state is! RegesterLodingeState,
+      condition: state is! RegesterCLodingeState,
       fallback: (context) => Center(child: CircularProgressIndicator(),),
          builder: (context) =>  defultButton(
                 text: 'تسجيل',

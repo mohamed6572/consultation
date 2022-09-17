@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/homeU_layout.dart';
 import 'package:consultation/layout/home_layout.dart';
 import 'package:consultation/models/notification_model.dart';
+import 'package:consultation/modules/chat/payment/visa_screen.dart';
 import 'package:consultation/modules/login/login_screan.dart';
 import 'package:consultation/modules/onboard/onboarding.dart';
 import 'package:consultation/shared/Bloc_Observer.dart';
@@ -25,12 +28,20 @@ Future<void> backgaondMessage(RemoteMessage message)async
 
   // ShowToast(text: 'on message', state: ToastState.SUCSSES);
 }
-
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void main() {
   BlocOverrides.runZoned(
         () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
+      HttpOverrides.global = MyHttpOverrides();
+
 
       Dio_Helper.init();
       await cash_helper.init();
@@ -90,7 +101,9 @@ class MyApp extends StatelessWidget {
 
       providers: [
         BlocProvider(
-            create:(context) =>  AppCubit()..GetAllConsaltant())
+            create:(context) =>  AppCubit()
+              // ..GetAllConsaltant()
+        )
       ],
       child: MaterialApp(
         title: 'consaltation',

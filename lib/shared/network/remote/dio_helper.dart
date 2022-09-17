@@ -7,7 +7,7 @@ class Dio_Helper {
 
   static init() {
     dio = Dio(BaseOptions(
-        baseUrl: 'http://consultant1.herokuapp.com/api/',
+        baseUrl: 'https://estesharati.com/api/',
         receiveDataWhenStatusError: true,
     ));
     dio_notification = Dio(BaseOptions(
@@ -15,7 +15,7 @@ class Dio_Helper {
         receiveDataWhenStatusError: true,
     ));
     dio_forgetPassword = Dio(BaseOptions(
-        baseUrl: 'https://consultant1.herokuapp.com/api/Rpass/',
+        baseUrl: 'https://estesharati.com/api/Rpass/',
         receiveDataWhenStatusError: true,
     ));
 
