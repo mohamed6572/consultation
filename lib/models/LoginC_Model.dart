@@ -11,8 +11,7 @@ class LoginC_Model {
   int? iV;
   String? about;
   String? qualification;
-  int? clinet;
-  int? counseling;
+  String? counseling;
   String? country;
   String? duration;
   String? FCM_TOKEN;
@@ -35,7 +34,6 @@ class LoginC_Model {
         this.updatedAt,
         this.iV,
         this.FCM_TOKEN,
-        this.clinet,
         this.balance,
         this.about,
         this.qualification,
@@ -50,7 +48,6 @@ class LoginC_Model {
     profilePicture = json['photo'];
     cVPhoto = json['file'];
     FCM_TOKEN = json['FCM_TOKEN'];
-    clinet = json['clinet'];
     message = json['message'];
     sId = json['_id'];
     username = json['username'];
@@ -78,7 +75,6 @@ class LoginC_Model {
     data['message'] = this.message;
     data['_id'] = this.sId;
     data['rating'] = this.rating;
-    data['clinet'] = this.clinet;
     data['price'] = this.price;
     data['balance'] = this.balance;
     data['username'] = this.username;

@@ -53,14 +53,14 @@ class LoginCubit extends Cubit<LoginStates> {
         "password": password,
       },
     ).then((value) {
-      print(value.data);
+     // print(value.data);
       loginC_Model = LoginC_Model.fromJson(value.data);
-      print(loginC_Model?.email);
-      print(loginC_Model?.country);
-      print(loginC_Model?.phone);
-      print(loginC_Model?.username);
-      print(loginC_Model?.counseling);
-      print(loginC_Model?.FCM_TOKEN);
+      // print(loginC_Model?.email);
+      // print(loginC_Model?.country);
+      // print(loginC_Model?.phone);
+      // print(loginC_Model?.username);
+      // print(loginC_Model?.counseling);
+      // print(loginC_Model?.FCM_TOKEN);
       emit(LoginCSucssesState(loginC_Model));
       print('dioooo is => ${Dio_Helper. dio.httpClientAdapter.hashCode}');
     }).catchError((e) {

@@ -154,7 +154,7 @@ class Cat_More_Details extends StatelessWidget {
                           receiverId: model1!.sId!, senderId: ID!);
 AppCubit.get(context).Update_Client(
   id: model1!.sId!,
-  clint: model1!.clinet! + 1
+  clint: int.parse(model1!.counseling!) + 1
 );
                       // AppCubit.get(context).addchat(
                       //   consultants: model1!,

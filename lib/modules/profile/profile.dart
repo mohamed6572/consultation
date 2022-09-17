@@ -123,7 +123,7 @@ class Profile_Screan extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${usermodel?.others?.clinet}'),
+                          Text('${usermodel?.others?.counseling}'),
                           Text('عدد العملاء ',style: TextStyle(fontSize: 18),),
 
                         ],

@@ -35,8 +35,7 @@ class Others {
   int? iV;
   String? about;
   String? qualification;
-  int? counseling;
-  int? clinet;
+  String? counseling;
   String? country;
   String? duration;
   int? phone;
@@ -52,7 +51,6 @@ class Others {
         this.rating,
         this.price,
         this.updatedAt,
-        this.clinet,
         this.iV,
         this.about,
         this.qualification,
@@ -79,7 +77,6 @@ class Others {
     about = json['About'];
     qualification = json['Qualification'];
     counseling = json['counseling'];
-    clinet = json['clinet'];
     country = json['country'];
     duration = json['duration'];
     phone = json['phone'];
@@ -90,7 +87,6 @@ class Others {
     data['photo'] = this.profilePicture;
     data['balance'] = this.balance;
     data['FCM_TOKEN'] = this.FCM_TOKEN;
-    data['clinet'] = this.clinet;
     data['CVPhoto'] = this.cVPhoto;
     data['_id'] = this.sId;
     data['rating'] = this.rating;

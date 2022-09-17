@@ -24,8 +24,7 @@ class Update_Model {
 class UpdatedUser {
   String? profilePicture;
   String? cVPhoto;
-  int? clinet;
-  int? counseling;
+  String? counseling;
   String? Id;
   String? username;
   String? FCM_TOKEN;
@@ -59,7 +58,6 @@ class UpdatedUser {
         this.about,
         this.qualification,
         this.counseling,
-        this.clinet,
         this.country,
         this.duration,
         this.balance,
@@ -81,7 +79,6 @@ class UpdatedUser {
     about = json['About'];
     qualification = json['Qualification'];
     counseling = json['counseling'];
-    counseling = json['clinet'];
     country = json['country'];
     duration = json['duration'];
     balance = json['balance'];
@@ -107,7 +104,6 @@ class UpdatedUser {
     data['About'] = this.about;
     data['Qualification'] = this.qualification;
     data['counseling'] = this.counseling;
-    data['clinet'] = this.clinet;
     data['country'] = this.country;
     data['duration'] = this.duration;
     data['phone'] = this.phone;
