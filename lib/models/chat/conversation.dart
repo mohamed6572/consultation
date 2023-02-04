@@ -1,38 +1,81 @@
-import '../all_cosultant_model.dart';
 
 class Conversation {
-  List<String>? members;
-  String? sId;
+  Sender? sender;
+  Reciver? reciver;
+  String? Id;
   String? createdAt;
-  String? updatedAt;
-  int? iV;
+
 
   Conversation(
-      {this.members, this.sId, this.createdAt, this.updatedAt, this.iV});
+      {this.sender, this.Id, this.createdAt, this.reciver
+
+      });
 
   Conversation.fromJson(Map<String, dynamic> json) {
-    members = json['members'].cast<String>();
-    sId = json['_id'];
+    sender = Sender.fromJson(json['sender']);
+    reciver = Reciver.fromJson(json['reciver']);
+    Id = json['id'];
     createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
+
+
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['members'] = this.members;
-    data['_id'] = this.sId;
+    data['sender'] = this.sender?.toJson();
+    data['id'] = this.Id;
     data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['reciver'] = this.reciver?.toJson();
+
     return data;
   }
 }
-class list {
-  Consultants? consultants;
-  String? ID;
+class Sender {
+  String? SenderID;
+  String? Image;
+  String? Name;
 
-  list(
-      {this.consultants, this.ID});
 
+  Sender(
+      {this.SenderID, this.Image, this.Name});
+  Sender.fromJson(Map<String, dynamic> json) {
+    SenderID = json['SenderID'];
+    Image = json['Image'];
+    Name = json['Name'];
+
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['SenderID'] = this.SenderID;
+    data['Image'] = this.Image;
+    data['Name'] = this.Name;
+
+    return data;
+  }
+}
+class Reciver {
+  String? reciverID;
+  String? Image;
+  String? Name;
+
+
+  Reciver(
+      {this.reciverID, this.Image, this.Name});
+  Reciver.fromJson(Map<String, dynamic> json) {
+    reciverID = json['reciverID'];
+    Image = json['Image'];
+    Name = json['Name'];
+
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['reciverID'] = this.reciverID;
+    data['Image'] = this.Image;
+    data['Name'] = this.Name;
+    return data;
+  }
 }

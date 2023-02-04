@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../models/all_cosultant_model.dart';
+import '../../models/consultant_model.dart';
 
 class Cat_Details extends StatelessWidget {
   catItem_model model;
@@ -59,7 +60,7 @@ class Cat_Details extends StatelessWidget {
     );
   }
 
-  Widget catItem_Detales(Consultants model, model1, context) => Container(
+  Widget catItem_Detales(Consultant_Model model, model1, context) => Container(
       height: 170,
       margin: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
@@ -148,6 +149,8 @@ class Cat_Details extends StatelessWidget {
                       model: model1,
                       model1: model,
                     ));
+                AppCubit.get(context).GetConsaltant();
+                print(AppCubit.get(context).usermodel?.profilePicture);
               },
               Background: HexColor('#64B9E6'),
               width: 250)

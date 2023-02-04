@@ -146,12 +146,12 @@ class Consultant_Register_Screan1 extends StatelessWidget {
                             text: 'تسجيل',
                             function: () {
                               if (formkey.currentState!.validate()) {
-                                cubit.UpdateCRegister1(
-                                    phone: phonecontroller.text,
-                                    price: costcontroller.text,
-                                    country: countrycontroller.text,
-                                    About: discripcontroller.text,
-                                    profilePicture: profileImage);
+                                // cubit.UpdateCRegister1(
+                                //     phone: phonecontroller.text,
+                                //     price: costcontroller.text,
+                                //     country: countrycontroller.text,
+                                //     About: discripcontroller.text,
+                                //     profilePicture: profileImage);
                               }
                             },
                             Background: Colors.red,

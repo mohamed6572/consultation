@@ -11,66 +11,76 @@ import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../models/all_cosultant_model.dart';
+import '../../models/chat/conversation.dart';
+import '../../models/consultant_model.dart';
 import '../../shared/components/constens.dart';
 
 class Chat_Detales_Screan extends StatelessWidget {
-  Consultants consultant;
-  All_Conversation model;
+  //Consultant_Model consultant;
+  Conversation? model;
+  List<String> asd=[];
 
-  Chat_Detales_Screan({required this.consultant, required this.model});
+  Chat_Detales_Screan({
+   // required this.consultant,
+    required this.model});
 
   var messagecontroller = TextEditingController();
 
   void send(context) {
     var user = AppCubit.get(context).usermodel;
-    var now = new DateTime.now();
+
+    asd.add(messagecontroller.text);
+    ///var now = new DateTime.now();
     // var formatter = new DateFormat('dd-MM-yyyy');
-    String formattedTime = DateFormat('kk:mm:a').format(now);
+   /// String formattedTime = DateFormat('kk:mm:a').format(now);
     // String formattedDate = formatter.format(now);
-    print(formattedTime);
+    ///print(formattedTime);
     // print(formattedDate);
   //   DateTime now = DateTime.now();
-    if(ID ==  model.members![0]){
+    ///if(ID ==  model.members![0]){
 
     AppCubit.get(context).sendMessage(
-        receiverId: model.members![1],
-        text: messagecontroller.text,
-        dateTime:formattedTime);
-    AppCubit.get(context).sendNotification(
-      body: messagecontroller.text,
-        Image : user?.others?.profilePicture ?? '',
-      title:consultant.username!,
-        fcmtoken:"${consultant.FCM_TOKEN }"
+      id: model!.Id!,
+        ///receiverId: model.members![1],
+        text: asd,
+        ///dateTime:formattedTime
     );
-  }
+    print(asd);
+    // AppCubit.get(context).sendNotification(
+    //   body: messagecontroller.text,
+    //     Image : user?.profilePicture ?? '',
+    //   title:consultant.username!,
+    //     fcmtoken:"${consultant.FCM_TOKEN }"
+    // );
+  //}
 
-  if(ID ==  model.members![1]){
-
-    AppCubit.get(context).sendMessage(
-        Image: consultant.profilePicture ?? '',
-        receiverId:model.members![0] ,
-        text: messagecontroller.text,
-        dateTime: formattedTime);
-    AppCubit.get(context).sendNotification(
-        body: messagecontroller.text,
-        Image : consultant.profilePicture ?? '',
-        title: consultant.username!,
-        fcmtoken:"${user?.others?.FCM_TOKEN }"
-    );
-  }
+  // if(ID ==  model.members![1]){
+  //
+  //   AppCubit.get(context).sendMessage(
+  //       Image: consultant.profilePicture ?? '',
+  //       receiverId:model.members![0] ,
+  //       text: messagecontroller.text,
+  //       dateTime: formattedTime);
+  //   AppCubit.get(context).sendNotification(
+  //       body: messagecontroller.text,
+  //       Image : consultant.profilePicture ?? '',
+  //       title: consultant.username!,
+  //       fcmtoken:"${user?.FCM_TOKEN }"
+  //   );
+  // }
 }
   @override
   Widget build(BuildContext context) {
     return Builder(
         builder: (context) {
-          AppCubit.get(context).getMessages(
-              reseiverId: model.members![0]
+          AppCubit.get(context).getMessages(id: model!.Id!
           );
-          AppCubit.get(context).getMessages(
-            reseiverId: model.members![1]
-          );
+          // AppCubit.get(context).getMessages(
+          //   reseiverId: model.members![1]
+          // );
 
           return BlocConsumer<AppCubit, AppStates>(
             listener: (context, state) {
@@ -85,11 +95,11 @@ class Chat_Detales_Screan extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(35),
                         child: Image(image:
-                        NetworkImage("${consultant.profilePicture}"),height: 60,width: 70,),
+                        NetworkImage("${model?.reciver?.Image}"),height: 60,width: 70,),
                       ),
                       SizedBox(width: 8,),
                       Text(
-                          consultant.username ?? '',
+                          model?.reciver?.Name ?? '',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 20)),
                     ],
@@ -122,16 +132,16 @@ class Chat_Detales_Screan extends StatelessWidget {
                               defultButton(
                                   text: 'بدأ  خطة العمل',
                                   function: () {
-                                    navigateTo(
-                                        context, Payment_Screan(model: consultant));
+                                    // navigateTo(
+                                    //     context, Payment_Screan(model: consultant));
                                   },
                                   Background: Colors.green,
                                   width: 130),
                               defultButton(
                                   text: 'إنهاء المحادثة',
                                   function: () {
-                                    navigateTo(
-                                        context, Rating_Screan(model: consultant));
+                                    // navigateTo(
+                                    //     context, Rating_Screan(model: model));
                                   },
                                   Background: Colors.red,
                                   width: 130),
@@ -143,8 +153,10 @@ class Chat_Detales_Screan extends StatelessWidget {
                               padding: const EdgeInsets.all(20.0),
                               child: Column(
                                 children: [
+
                                   Expanded(
                                     child: ListView.separated(
+
                                       itemBuilder: (context, index) {
 //
 //  if(message[index].conversationId == ID ){
@@ -154,14 +166,17 @@ class Chat_Detales_Screan extends StatelessWidget {
                                         var message = AppCubit
                                             .get(context)
                                             .messages[index];
-                                        if (ID == message.receiverId)
-                                          return SendMyMessage(message);
-                                         if (ID == message.senderId)
-                                          return SendMessage(
-                                              message, context);
-
-                                        return Center(
-                                          child: Text('no messaeeges'),);
+                                        // if (ID == message.receiverId)
+                                          return SendMyMessage(
+                                              //message,
+                                              message,
+                                              index);
+                                         // if (ID == message.senderId)
+                                        //   return SendMessage(
+                                        //       message, context);
+                                        //
+                                        // return Center(
+                                        //   child: Text('no messaeeges'),);
                                       },
 
                                       separatorBuilder: (context,
@@ -169,6 +184,7 @@ class Chat_Detales_Screan extends StatelessWidget {
                                           SizedBox(
                                             height: 15,
                                           ),
+
                                       itemCount: AppCubit
                                           .get(context)
                                           .messages
@@ -220,7 +236,7 @@ class Chat_Detales_Screan extends StatelessWidget {
     );
   }
 
-  Widget SendMessage(Message_Model model, context) =>
+  Widget SendMessage(Message_Model model, context,index) =>
       Align(
         widthFactor: MediaQuery
             .of(context)
@@ -229,14 +245,14 @@ class Chat_Detales_Screan extends StatelessWidget {
         alignment: AlignmentDirectional.centerStart,
         child: Row(
           children: [
-            if(model.image != null)
-            ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Image(
-                  image: NetworkImage('${model.image}'),
-                  height: 40,
-                  width: 40,
-                )),
+            // if(model.image != null)
+            // ClipRRect(
+            //     borderRadius: BorderRadius.circular(40),
+            //     child: Image(
+            //       image: NetworkImage('${model.image}'),
+            //       height: 40,
+            //       width: 40,
+            //     )),
             Container(
               width: 170,
               padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
@@ -249,29 +265,32 @@ class Chat_Detales_Screan extends StatelessWidget {
                   ),
                   color: Colors.grey[300]),
               child: Text(
-                '${model.text}',
+                '${model.messege!}',
               ),
             ),
-            Text(
-              '${model.dateTime}',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 9),
-            )
+            // Text(
+            //   '${model.dateTime}',
+            //   textAlign: TextAlign.right,
+            //   style: TextStyle(fontSize: 9),
+            // )
           ],
         ),
       );
 
-  Widget SendMyMessage(Message_Model model) =>
+  Widget SendMyMessage(
+    //  Message_Model model,
+      message,
+      index) =>
       Align(
         alignment: AlignmentDirectional.centerEnd,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              '${model.dateTime}',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 9),
-            ),
+            // Text(
+            //   '${model.dateTime}',
+            //   textAlign: TextAlign.right,
+            //   style: TextStyle(fontSize: 9),
+            // ),
             Container(
               width: 170,
               child: Container(
@@ -286,18 +305,18 @@ class Chat_Detales_Screan extends StatelessWidget {
                     ),
                     color: defColor.withOpacity(.2)),
                 child: Text(
-                  '${model.text}',
+                  '${message!}',
                 ),
               ),
             ),
-            if(model.image!=null)
-            ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Image(
-                  image: NetworkImage("${model.image}"),
-                  height: 40,
-                  width: 40,
-                ))
+            // if(model.image!=null)
+            // ClipRRect(
+            //     borderRadius: BorderRadius.circular(40),
+            //     child: Image(
+            //       image: NetworkImage("${model.image}"),
+            //       height: 40,
+            //       width: 40,
+            //     ))
           ],
         ),
       );

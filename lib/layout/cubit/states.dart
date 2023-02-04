@@ -22,6 +22,7 @@ class EditImagePickedErrorState extends AppStates {}
 
 //update C
 class UpdateLodingState extends AppStates {}
+class Update_CV_LodingState extends AppStates {}
 
 class UpdateSuccsessState extends AppStates {}
 
@@ -40,7 +41,12 @@ class UpdateULodingState extends AppStates {}
 class UpdateUSuccsessState extends AppStates {}
 
 class UpdateUErrorState extends AppStates {}
+// CVImage
+class CVImagePickedSuccsessState extends AppStates {}
+class CVImagePickedErrorState extends AppStates {}
 
+//change consuling
+class ChangeSelected_Consuling_State extends AppStates {}
 //get consaltant data
 class getCLodingState extends AppStates {}
 

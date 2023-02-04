@@ -4,6 +4,7 @@ import 'package:consultation/modules/change_password/change_password.dart';
 import 'package:consultation/modules/edit_profile/edit_profile.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/components/constens.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +15,7 @@ class settings extends StatelessWidget{
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        AppCubit.get(context).GetConsaltant();
+       //AppCubit.get(context).GetConsaltant();
         return BlocConsumer<AppCubit,AppStates>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -27,7 +28,6 @@ class settings extends StatelessWidget{
               ),
               body: Column(
                 children: [
-                  if(cubit?.others?.country!=null||cubit?.others?.price!=null)
                     InkWell(
                       onTap: (){
                         navigateTo(context, Edit_Profile());
@@ -43,6 +43,7 @@ class settings extends StatelessWidget{
                         ),
                       ),
                     ),
+
                   InkWell(
                     onTap: (){
                       navigateTo(context, change_password());

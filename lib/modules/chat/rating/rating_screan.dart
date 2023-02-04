@@ -9,9 +9,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../models/chat_item_model.dart';
+import '../../../models/consultant_model.dart';
 
 class Rating_Screan extends StatelessWidget {
-  Consultants model;
+  Consultant_Model model;
 
   Rating_Screan({required this.model});
 
@@ -78,14 +79,14 @@ class Rating_Screan extends StatelessWidget {
         listener: (context, state) {
           print(AppCubit.get(context).rating);
           if(state is AppRatingState)
-          AppCubit.get(context).rateConsaltant(
-            id: model.sId,
-              rate: AppCubit.get(context).rating.toInt()
-          );
-          AppCubit.get(context).Update_Conseling(
-              id: model.sId!,
-              counseling: int.parse(model!.counseling!) + 1
-          );
+          // AppCubit.get(context).rateConsaltant(
+          //   id: model.sId,
+          //     rate: AppCubit.get(context).rating.toInt()
+          // );
+          // AppCubit.get(context).Update_Conseling(
+          //     id: model.sId!,
+          //     counseling: int.parse(model!.counseling!) + 1
+          // );
           if(state is RatingSuccsessState)
           Navigator.pop(context);
 

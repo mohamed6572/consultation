@@ -1,3 +1,5 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation/layout/cubit/cubit.dart';
 import 'package:consultation/layout/cubit/states.dart';
 import 'package:consultation/modules/home/category_item.dart';
@@ -11,123 +13,38 @@ import 'package:consultation/shared/styles/colors.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/catI_tem_model.dart';
+import '../modules/drawer/drawer.dart';
+import '../policey.dart';
 import '../shared/components/constens.dart';
 
 class Home_Layout extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppCubit()
         ..GetConsaltant()
         ..GetAllConsaltant()
-        ..GetAllConversation()
+      ..GetAllConversation()
       ,
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is signoutSucssesState) {
+            ShowToast(text: 'نلقاق قريبا', state: ToastState.ERROR);
+            navigateToAndFinish(context, Login_Screan());
+          }
+        },
         builder: (context, state) {
           var cubit = AppCubit.get(context);
+          final _pageController = PageController(initialPage: cubit.currentIndex);
+
+
           return Scaffold(
-            backgroundColor: Colors.grey.shade400,
-            drawer: Drawer(
-              backgroundColor: Color.fromRGBO(100, 185, 230, 1.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 70,
-                  ),
-                  if(cubit.usermodel?.others?.profilePicture!=null)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image(
-                      image: NetworkImage(
-                          '${cubit.usermodel?.others?.profilePicture}'),
-                      height: 100,
-                      width: 100,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        navigateTo(context, settings());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.settings,
-                              size: 35,
-                            ),
-                            Text(
-                              'الاعدادات',
-                              style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  InkWell(
-                      onTap: () {
-                        navigateTo(context, support());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.headset_mic_rounded,
-                              size: 35,
-                            ),
-                            Text(
-                              'اتصل بنا',
-                              style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  InkWell(
-                      onTap: () {
-                      cubit.SignOut(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.logout,
-                              size: 35,
-                              color: Colors.red.shade400,
-                            ),
-                            Text(
-                              'تسجيل الخروج',
-                              style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                ],
-              ),
-            ),
+            backgroundColor: Colors.grey.shade200,
+            drawer: drawer_Widget(),
             appBar: AppBar(
               iconTheme: IconThemeData(size: 30),
               toolbarHeight: 100,
@@ -144,42 +61,55 @@ class Home_Layout extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(
                       Icons.notifications_none,
-                      color:Colors.lightBlue,
+                      color: Color.fromARGB(255, 14, 73, 105),
                       size: 33,
                     ),
                     onPressed: () {
-                      navigateTo(context, Notification_Screen());
+                      cubit.ChaIndex();
+                     // navigateTo(context, Notification_Screen());
                     },
                   ),
                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(right: 20.0),
-//                   child: IconButton(
-//                     icon: Icon(
-//                       Icons.send,
-//                       color: Colors.lightBlue,
-//                       size: 33,
-//                     ),
-//                     onPressed: () {
-// cubit.sendNotification(
-//   Image: 'https://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/261515859_401966121672872_696314712494114637_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AQkUGu7b2CcAX85PB_5&_nc_ht=scontent.fcai20-6.fna&oh=00_AT-KJmGVM_8sa8Oi9d5hYsTgK3SpsuWp3w1En-yMvWKb8g&oe=63126B62',
-//   body: 'hellokl',
-//   title:'mohamedjlffffffff',
-//   fcmtoken: 'cbeUNL_sQ1GPuJ7v_AU24S:APA91bFC5LPaR0gX7kl9ogay5Ly0Y8WbaXeg4O6fPVcNetCt8YQje2gke99WKcaJ-2okakWvgiZh4JRV9-6YOKfB5aPbtCSDlPHJuQwsC94pMJQBMVeV_T_WSz4ibzEMmKu7JyITTrHe'
-// );
-//                     },
-//                   ),
-//                 ),
+
               ],
             ),
             body: cubit.screans[cubit.currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
-              onTap: (v) {
-                cubit.ChangeBotomIndex(v);
-              },
-              items: cubit.botItems,
-            ),
+
+            bottomNavigationBar: AnimatedNotchBottomBar(
+                pageController: _pageController,
+
+                onTap: (v) {
+                  cubit.ChangeBotomIndex(v);
+
+                  //_pageController.animateToPage(v, duration: Duration(microseconds: 500), curve: Curves.bounceIn);
+                },
+                showShadow: true,
+                showBlurBottomBar: true,
+                notchColor: Colors.blueGrey.shade400,
+
+                showLabel: false,
+                bottomBarItems:cubit.botItems),
+            // bottomNavigationBar: AwesomeBottomNav(
+            //   // icons: [
+            //   //   Icons.home_outlined,
+            //   //   Icons.shopping_cart_outlined,
+            //   //   Icons.category_outlined,
+            //   //   Icons.account_circle_outlined,
+            //   // ],
+            //   // highlightedIcons: [
+            //   //   Icons.home,
+            //   //   Icons.message,
+            //   //   Icons.person,
+            //   //   Icons.attach_money,
+            //   // ],
+            //   onTapped: (v) {
+            //     cubit.ChangeBotomIndex(v);
+            //   },
+            //   bodyBgColor: Color.fromARGB(255, 14, 73, 105),
+            //   highlightColor: Color(0xFFFF9944),
+            //   navFgColor: Colors.grey.withOpacity(0.5),
+            //   navBgColor: Colors.white,
+            // ),
           );
         },
       ),

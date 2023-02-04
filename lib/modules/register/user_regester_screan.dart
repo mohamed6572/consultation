@@ -5,8 +5,11 @@ import 'package:consultation/modules/register/cubit/cubit.dart';
 import 'package:consultation/modules/register/cubit/states.dart';
 import 'package:consultation/shared/components/components.dart';
 import 'package:consultation/shared/components/constens.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../layout/home_layout.dart';
 
 class User_Regester_Screan extends StatelessWidget {
   var namecontroller = TextEditingController();
@@ -22,19 +25,21 @@ class User_Regester_Screan extends StatelessWidget {
     return BlocProvider(
       create: (context) => RegesterCubit(),
       child: BlocConsumer<RegesterCubit, RegesterStates>(
-        listener: (context, state) {
-          if(RegesterCubit.get(context).isUser){
-            if(state is RegesterCSucssesState)
-              navigateTo(context, Login_Screan1());
-          }
-          if(!RegesterCubit.get(context).isUser) {
-            if (state is RegesterSucssesState)
-              navigateTo(context, Consultant_Register_Screan());
+        listener: (context, state) async{
+
+          if (state is RegesterSucssesState) {
+            UserID = await FirebaseAuth.instance.currentUser!.uid;
+              ShowToast(text: 'تم التسجيل بنجاح', state: ToastState.SUCSSES);
+                print('when register  =  $UserID');
+                ShowToast(
+                    text: 'مرحبا بك مجددا', state: ToastState.SUCSSES);
+                navigateToAndFinish(context, Home_Layout());
+
           }
         },
         builder: (context, state) {
-
           var cubit = RegesterCubit.get(context);
+
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -67,38 +72,39 @@ class User_Regester_Screan extends StatelessWidget {
                     SizedBox(
                       height: 40,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        defultButton(
-                            text: 'مستخدم',
-                            width: 120,
-                            function: () {
-                              cubit.changeUserRegister();
-                              print(cubit.isUser);
-                            },
-                            radius: 0.0,
-                            Background: cubit.isUser
-                                ? Colors.blue
-                                : Colors.grey.shade400),
-                        defultButton(
-                            text: 'مستشار',
-                            radius: 0.0,
-                            width: 120,
-                            function: () {
-                              cubit.changeUserRegister();
-                              print(cubit.isUser);
-                            },
-                            Background: cubit.isUser
-                                ? Colors.grey.shade400
-                                : Colors.blue)
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     defultButton(
+                    //         text: 'مستخدم',
+                    //         width: 120,
+                    //         function: () {
+                    //           cubit.changeUserRegister();
+                    //           print(cubit.isUser);
+                    //         },
+                    //         radius: 0.0,
+                    //         Background: cubit.isUser
+                    //             ? Colors.blue
+                    //             : Colors.grey.shade400),
+                    //     defultButton(
+                    //         text: 'مستشار',
+                    //         radius: 0.0,
+                    //         width: 120,
+                    //         function: () {
+                    //           cubit.changeUserRegister();
+                    //           print(cubit.isUser);
+                    //         },
+                    //         Background: cubit.isUser
+                    //             ? Colors.grey.shade400
+                    //             : Colors.blue)
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 30,
                     ),
-                    if (cubit.isUser) User_regster(cubit, context,state),
-                    if (!cubit.isUser) consultant_regster(cubit, context,state),
+                    if (cubit.isUser) User_regster(cubit, context, state),
+                    if (!cubit.isUser)
+                      consultant_regster(cubit, context, state),
                   ],
                 ),
               ),
@@ -109,145 +115,149 @@ class User_Regester_Screan extends StatelessWidget {
     );
   }
 
-  Widget User_regster(RegesterCubit cubit, context,state) => Form(
-    key: formkey,
-    child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Center(
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  CircleAvatar(
-                    radius: 64,
-                    backgroundColor:
-                    Theme.of(context).scaffoldBackgroundColor,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: RegesterCubit.get(context).profileimage == null
-                          ? NetworkImage(
-                          'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg')
-                          : FileImage(
-                        RegesterCubit.get(context).profileimage!,
-                      ) as ImageProvider,
-                    ),
+  Widget User_regster(RegesterCubit cubit, context, state) {
+    var profileImage = RegesterCubit.get(context).profileimage;
+    return Form(
+      key: formkey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Stack(
+              alignment: AlignmentDirectional.bottomEnd,
+              children: [
+                CircleAvatar(
+                  radius: 64,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundImage: profileImage == null
+                        ? NetworkImage(
+                            'https://firebasestorage.googleapis.com/v0/b/consultant-359115.appspot.com/o/810-8105695_person-icon-grey-person-icon-grey-png.png?alt=media&token=32d90711-f96d-4f93-91d8-fc7c0c41cffa')
+                        : FileImage(
+                            profileImage,
+                          ) as ImageProvider,
                   ),
-                  IconButton(
-                      onPressed: () {
-                        RegesterCubit.get(context).getProfileImage();
-                      },
-                      icon: CircleAvatar(
-                        radius: 20,
-                        child: Icon(
-                          Icons.camera,
-                          size: 16,
-                        ),
-                      )),
-                ],
-              ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      RegesterCubit.get(context).getProfileImage();
+                    },
+                    icon: CircleAvatar(
+                      radius: 20,
+                      child: Icon(
+                        Icons.camera,
+                        size: 16,
+                      ),
+                    )),
+              ],
             ),
-
-            itemregister('الإسم'),
-            defultFormField(
-                type: TextInputType.name,
-                controller: namecontroller,
-                label: 'الإسم ',
-                prefix: Icons.person,
-                validator: (v) {
-                  if (v!.isEmpty) {
-                    return 'من فضلك ادخل الاسم';
-                  }
-                }),
-            SizedBox(
-              height: 20,
-            ),
-            itemregister('البريد الإلكتروني'),
-            defultFormField(
-                type: TextInputType.emailAddress,
-                controller: emailcontroller,
-                onChanged: (text) {
-                  email = text;
-                },
-                label: 'البريد الإلكتروني',
-                prefix: Icons.email,
-                validator: (v) {
-                  if (v == null || v.trim().isEmpty) {
-                    return 'من فضلك ادخل البريد الاليكتروني';
-                  }
-                  if (!IsValidEmail(email)) {
-                    return 'من فضلك ادخل بريد اليكتروني صالج';
-                  }
-                  return null;
-                }),
-            SizedBox(
-              height: 20,
-            ),
-            itemregister('كلمة السر'),
-            defultFormField(
-                type: TextInputType.visiblePassword,
-                controller: passcontroller,
-                label: '*****************',
-                suffix: cubit.suffix,
-                isPassword: cubit.isPasword,
-                passwordShow: () => cubit.changePasswordVisability(),
-                prefix: Icons.lock,
-                validator: (v) {
-                  RegExp regex = RegExp(
-                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                  if (v!.isEmpty) {
-                    return 'من فضلك ادخل الباسورد';
+          ),
+          itemregister('الإسم'),
+          defultFormField(
+              type: TextInputType.name,
+              controller: namecontroller,
+              label: 'الإسم ',
+              prefix: Icons.person,
+              validator: (v) {
+                if (v!.isEmpty) {
+                  return 'من فضلك ادخل الاسم';
+                }
+              }),
+          SizedBox(
+            height: 20,
+          ),
+          itemregister('البريد الإلكتروني'),
+          defultFormField(
+              type: TextInputType.emailAddress,
+              controller: emailcontroller,
+              onChanged: (text) {
+                email = text;
+              },
+              label: 'البريد الإلكتروني',
+              prefix: Icons.email,
+              validator: (v) {
+                if (v == null || v.trim().isEmpty) {
+                  return 'من فضلك ادخل البريد الاليكتروني';
+                }
+                if (!IsValidEmail(email)) {
+                  return 'من فضلك ادخل بريد اليكتروني صالج';
+                }
+                return null;
+              }),
+          SizedBox(
+            height: 20,
+          ),
+          itemregister('كلمة السر'),
+          defultFormField(
+              type: TextInputType.visiblePassword,
+              controller: passcontroller,
+              label: '*****************',
+              suffix: cubit.suffix,
+              isPassword: cubit.isPasword,
+              passwordShow: () => cubit.changePasswordVisability(),
+              prefix: Icons.lock,
+              validator: (v) {
+                RegExp regex = RegExp(
+                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                if (v!.isEmpty) {
+                  return 'من فضلك ادخل الباسورد';
+                } else {
+                  if (!regex.hasMatch(v)) {
+                    return 'Password must be at least 8 characters,\n include an uppercase letter ,\n number and symbol like [@,#.*]';
                   } else {
-                    if (!regex.hasMatch(v)) {
-                      return 'Password must be at least 8 characters,\n include an uppercase letter ,\n number and symbol like [@,#.*]';
-                    } else {
-                      return null;
-                    }
+                    return null;
                   }
-                }),
-            SizedBox(
-              height: 20,
+                }
+              }),
+          SizedBox(
+            height: 20,
+          ),
+          itemregister('إعادة إدخال كلمة السر'),
+          defultFormField(
+              type: TextInputType.visiblePassword,
+              controller: re_passcontroller,
+              label: '*****************',
+              suffix: cubit.suffix,
+              isPassword: cubit.isPasword,
+              passwordShow: () => cubit.changePasswordVisability(),
+              prefix: Icons.lock,
+              validator: (v) {
+                if (v != passcontroller.text) {
+                  return 'الباسورد ليس متشايه';
+                }
+              }),
+          SizedBox(
+            height: 35,
+          ),
+          BuildCondition(
+            condition: state is !RegesterLodingeState && state is !RegesterLoding_uploadImageState,
+            fallback: (context) => Center(
+              child: CircularProgressIndicator(),
             ),
-            itemregister('إعادة إدخال كلمة السر'),
-            defultFormField(
-                type: TextInputType.visiblePassword,
-                controller: re_passcontroller,
-                label: '*****************',
-                suffix: cubit.suffix,
-                isPassword: cubit.isPasword,
-                passwordShow: () => cubit.changePasswordVisability(),
-                prefix: Icons.lock,
-                validator: (v) {
-                  if (v != passcontroller.text) {
-                    return 'الباسورد ليس متشايه';
-                  }
-                }),
-            SizedBox(
-              height: 35,
-            ),
-    BuildCondition(
-      condition: state is! RegesterCLodingeState,
-      fallback: (context) => Center(child: CircularProgressIndicator(),),
-         builder: (context) =>  defultButton(
+            builder: (context) => defultButton(
                 text: 'تسجيل',
                 function: () {
                   if (formkey.currentState!.validate()) {
                     cubit.UserRegister(
-                        name: "${namecontroller.text} ",
-                        email: emailcontroller.text,
-                        password: passcontroller.text,
-                        profile: RegesterCubit.get(context).profileimage,
+                      name: "${namecontroller.text} ",
+                      email: emailcontroller.text,
+                      password: passcontroller.text,
+                      photo: profileImage
                     );
                   }
                 },
                 Background: Colors.red,
-                radius: 13),),
-          ],
-        ),
-  );
+                radius: 13),
+          ),
+        ],
+      ),
+    );
+  }
 
-  Widget consultant_regster(RegesterCubit cubit, context,state) => Form(
-    key: formkey,
-    child: Column(
+  Widget consultant_regster(RegesterCubit cubit, context, state) => Form(
+        key: formkey,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             itemregister('الإسم الأول'),
@@ -324,26 +334,25 @@ class User_Regester_Screan extends StatelessWidget {
               height: 35,
             ),
             BuildCondition(
-              condition: state is! RegesterLodingeState,
-              fallback: (context) => Center(child: CircularProgressIndicator(),),
-              builder: (context) =>  defultButton(
+              condition: state is RegesterLodingeState && state is RegesterLoding_uploadImageState,
+              fallback: (context) => Center(
+                child: CircularProgressIndicator(),
+              ),
+              builder: (context) => defultButton(
                   text: 'التالي',
                   function: () {
                     if (formkey.currentState!.validate()) {
-                      cubit.consultRegister(
-                          name: "${namecontroller.text} " + name2controller.text,
-                          email: emailcontroller.text,
-                          password: passcontroller.text
-                      );
+                      // cubit.consultRegister(
+                      //     name:
+                      //         "${namecontroller.text} " + name2controller.text,
+                      //     email: emailcontroller.text,
+                      //     password: passcontroller.text);
                     }
-
                   },
                   Background: Colors.red,
                   radius: 13),
             ),
-
-
           ],
         ),
-  );
+      );
 }
