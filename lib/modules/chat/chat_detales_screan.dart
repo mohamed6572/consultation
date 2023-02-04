@@ -39,7 +39,7 @@ class Chat_Detales_Screan extends StatelessWidget {
     // String formattedDate = formatter.format(now);
     ///print(formattedTime);
     // print(formattedDate);
-  //   DateTime now = DateTime.now();
+  ///   DateTime now = DateTime.now();
     ///if(ID ==  model.members![0]){
 
     AppCubit.get(context).sendMessage(
