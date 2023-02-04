@@ -1,58 +1,34 @@
-class User_Model {
-  Others? others;
-  bool? status;
+class User_Model{
 
-  User_Model({this.others, this.status});
-
-  User_Model.fromJson(Map<String, dynamic> json) {
-    others =
-    json['others'] != null ? new Others.fromJson(json['others']) : null;
-    status = json['status'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.others != null) {
-      data['others'] = this.others!.toJson();
-    }
-    data['status'] = this.status;
-    return data;
-  }
-}
-
-class Others {
-  String? sId;
-  String? username;
+  String? name;
   String? email;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+  String? image;
+  String? password;
+  String? uid;
 
-  Others(
-      {this.sId,
-        this.username,
-        this.email,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+  User_Model({
+    this.email,
+    this.image,
+    this.name,
+    this.uid,
+    this.password
+  });
 
-  Others.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    username = json['username'];
+  User_Model.fromJson(Map<String,dynamic> json){
+    name = json['name'];
     email = json['email'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
+    image = json['image'];
+    password = json['password'];
+    uid = json['uid'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    return data;
+  Map<String,dynamic> toMap(){
+    return {
+      'name' : name,
+      'uid' : uid,
+      'email' : email,
+      'password' : password,
+      'image' : image,
+    };
   }
 }

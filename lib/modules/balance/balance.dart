@@ -17,7 +17,7 @@ class Balance_Screan extends StatelessWidget {
 
       },
       builder: (context, state) {
-        var model = AppCubit.get(context).usermodel?.others;
+        var model = AppCubit.get(context).usermodel;
         var cubit = AppCubit.get(context);
         return BuildCondition(
           fallback: (context) => Center(

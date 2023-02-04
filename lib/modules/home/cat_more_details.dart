@@ -5,18 +5,20 @@ import 'package:consultation/models/catI_tem_model.dart';
 import 'package:consultation/models/chat/conversation.dart';
 import 'package:consultation/modules/chat/chat.dart';
 import 'package:consultation/shared/components/components.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../layout/cubit/states.dart';
 import '../../models/all_cosultant_model.dart';
+import '../../models/consultant_model.dart';
 import '../../shared/components/constens.dart';
 import '../chat/chat_detales_screan.dart';
 
 class Cat_More_Details extends StatelessWidget {
   catItem_model model;
-  Consultants? model1;
+  Consultant_Model? model1;
 
   Cat_More_Details({required this.model, required this.model1});
 
@@ -30,6 +32,9 @@ class Cat_More_Details extends StatelessWidget {
             navigateTo(context, Home_Layout());
       },
       builder: (context, state) {
+        var usermodel = AppCubit
+            .get(context)
+            .usermodel;
         return Scaffold(
             appBar: AppBar(
               toolbarHeight: 65,
@@ -150,13 +155,33 @@ class Cat_More_Details extends StatelessWidget {
                 defultButton(
                     text: 'بدأ المحادثة',
                     function: () {
+                      print(usermodel?.sId);
+
                       AppCubit.get(context).createConversation(
-                          receiverId: model1!.sId!, senderId: ID!);
-AppCubit.get(context).Update_Client(
-  id: model1!.sId!,
-  clint: int.parse(model1!.counseling!) + 1
-);
-                      // AppCubit.get(context).addchat(
+                        reciver: Reciver(
+                          Image:model1!.profilePicture ,
+
+                          Name: model1!.username,
+                          reciverID: model1!.sId
+                        ),
+                        sender: Sender(
+                          Image: usermodel?.profilePicture,
+
+                          Name: usermodel?.username,
+                          SenderID: usermodel?.sId??FirebaseAuth.instance.currentUser!.uid
+                        )
+                      );
+                      //
+
+
+
+                      // AppCubit.get(context).createConversation(
+                      //     receiverId: model1!.sId!, senderId: ID!);
+// AppCubit.get(context).Update_Client(
+//   id: model1!.sId!,
+//   clint: int.parse(model1!.counseling!) + 1
+// );
+//                       // AppCubit.get(context).addchat(
                       //   consultants: model1!,
                       //   id: ID!
                       // );

@@ -25,15 +25,7 @@ ThemeData darkTheme = ThemeData(
             color: Colors.white
         )
     ),
-    bottomNavigationBarTheme:  BottomNavigationBarThemeData(
-      type: BottomNavigationBarType.fixed,
-      elevation: 20.0,
-      backgroundColor: HexColor('333749'),
-      unselectedItemColor: Colors.grey,
-      selectedItemColor: defColor,
-    ),
-    textTheme: TextTheme(
-    )
+
 );
 
 
@@ -59,12 +51,6 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black
     )
   ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    elevation: 20.0,
-    backgroundColor: Color.fromRGBO(100, 185, 230, 1.0),
-    unselectedItemColor:  Color.fromRGBO(0, 82, 125, 1.0),
-    selectedItemColor: Colors.white,
-  ),
+
 
 );

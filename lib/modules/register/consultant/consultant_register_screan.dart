@@ -173,12 +173,12 @@ class Consultant_Register_Screan extends StatelessWidget {
                             function: () {
                               if (formkey.currentState!.validate()) {
                                 print(cubit.selectedValue);
-                                cubit.UpdateCRegister(
-                                    Qualification: qualificationcontroller.text,
-                                    counseling: cubit.selectedValue,
-                                    duration: durationcontroller.text,
-                                    CVPhoto: CVImage
-                                );
+                                // cubit.UpdateCRegister(
+                                //     Qualification: qualificationcontroller.text,
+                                //     counseling: cubit.selectedValue,
+                                //     duration: durationcontroller.text,
+                                //     CVPhoto: CVImage
+                                // );
                               }
                             },
                             Background: Colors.red,

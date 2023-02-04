@@ -7,6 +7,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:950485441915:android:f5868e9a20c7c228b1f1de",
+        "android_client_info": {
+          "package_name": "com.estesharti.consultation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950485441915-j6teb8rf2eehi0gdun50mrav7s40tknf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.estesharti.consultation",
+            "certificate_hash": "d61d57d7259aa25b75a211e7b6235d85b715df12"
+          }
+        },
+        {
+          "client_id": "950485441915-vmr77dgf47vdrmre2u27h02ivm15v8p8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBosurJ1evlYqfwHzJ6k29VJAmJiIzXE7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950485441915-vmr77dgf47vdrmre2u27h02ivm15v8p8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "950485441915-goke5l0m5l6jjc3dn1qlgfpfj98dhmro.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.consultation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:950485441915:android:87e576cc12e282fab1f1de",
         "android_client_info": {
           "package_name": "com.example.consultation"
@@ -37,6 +81,13 @@
             {
               "client_id": "950485441915-vmr77dgf47vdrmre2u27h02ivm15v8p8.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "950485441915-goke5l0m5l6jjc3dn1qlgfpfj98dhmro.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.consultation"
+              }
             }
           ]
         }

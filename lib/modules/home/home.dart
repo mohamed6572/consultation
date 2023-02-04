@@ -6,6 +6,9 @@ import 'package:consultation/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/components/components.dart';
+import 'cat_details.dart';
+
 class Home_Screan extends StatelessWidget{
 
   @override
@@ -64,13 +67,28 @@ class Home_Screan extends StatelessWidget{
       },
       builder: (context, state) {
         return      Container(
-          margin: EdgeInsets.only(top: 10),
-          padding: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10,bottom: 10),
+          padding: EdgeInsets.only(top: 10,right: 7,left: 7),
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 6), // changes position of shadow
+                ), BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(6, 0), // changes position of shadow
+                ),
+              ],
               color: Colors.white,
               borderRadius: BorderRadiusDirectional.only(
                 topEnd: Radius.circular(25),
                 topStart: Radius.circular(25),
+                bottomEnd: Radius.circular(25),
+                bottomStart: Radius.circular(25),
 
               )
           ),
@@ -84,11 +102,55 @@ class Home_Screan extends StatelessWidget{
               crossAxisSpacing: 15.0,
               childAspectRatio: 1 / 1.42,
               children: List.generate(cat_item.length,
-                      (index) => Cat_Item(model: cat_item[index], index: index)),
+                      (index) => Cat_Item(model: cat_item[index], index: index,context: context)),
             ),
           ),
         );
       },
     );
   }
+  Cat_Item ({required int index,
+  required catItem_model model,context})=> InkWell(
+    onTap: () {
+      navigateTo(
+          context,
+          Cat_Details(
+            model: model,
+          ));
+
+      print(AppCubit.get(context).usermodel?.profilePicture);
+    },
+    child: Container(
+
+      decoration: BoxDecoration(
+
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 6), // changes position of shadow
+            ),
+          ], color: catColor[index],
+          borderRadius: BorderRadius.circular(20)),
+      padding: EdgeInsets.all(15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(image: AssetImage(model.image)),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            model.text,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15,
+              // color: Colors.white
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }

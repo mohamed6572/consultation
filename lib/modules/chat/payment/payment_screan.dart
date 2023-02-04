@@ -8,9 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../models/all_cosultant_model.dart';
+import '../../../models/consultant_model.dart';
 
 class Payment_Screan extends StatelessWidget{
-  Consultants model;
+  Consultant_Model model;
 
   Payment_Screan({required this.model});
   @override

@@ -12,12 +12,14 @@ import 'package:consultation/shared/components/constens.dart';
 import 'package:consultation/shared/network/local/cash_helper.dart';
 import 'package:consultation/shared/network/remote/dio_helper.dart';
 import 'package:consultation/shared/styles/themes/themes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'layout/home_layout.dart';
+import 'modules/login/cubit/cubit.dart';
 import 'modules/login/login_screan.dart';
 import 'modules/onboard/onboarding.dart';
 Future<void> backgaondMessage(RemoteMessage message)async
@@ -71,21 +73,12 @@ void main() {
 
       FirebaseMessaging.onBackgroundMessage(backgaondMessage);
       ////
-      print(token);
-      Widget widget ;
-      if(onBoard !=null){
-        if(token !=null) {
-          widget = Home_Layout();
-        }
-       else
-          widget =  Login_Screan();
-      }else{
-        widget = onBoarding();
-      }
 
 
 
-      runApp(MyApp(start: widget,));
+
+
+      runApp(MyApp(onBorad: onBoard??false,));
     },
     blocObserver: MyBlocObserver(),
   );
@@ -93,8 +86,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Widget start ;
-  MyApp({required this.start});
+  bool? onBorad ;
+  MyApp({required this.onBorad});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -102,7 +95,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create:(context) =>  AppCubit()
-              // ..GetAllConsaltant()
+        ) ,
+      BlocProvider(
+            create:(context) =>  LoginCubit()
         )
       ],
       child: MaterialApp(
@@ -110,8 +105,10 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        home: start,
+
+        home: onBorad! ?  FirebaseAuth.instance.currentUser !=null? Home_Layout():Login_Screan(): onBoarding(),
       ),
     );
+
   }
 }

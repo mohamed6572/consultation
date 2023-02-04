@@ -6,9 +6,7 @@ abstract class LoginStates{}
 class LoginInitialeState extends LoginStates{}
 //user login
 class LoginLodingeState extends LoginStates{}
-class LoginSucssesState extends LoginStates{
-  Login_Model login_model;
-  LoginSucssesState(this.login_model);}
+class LoginSucssesState extends LoginStates{}
 class LoginErrorState extends LoginStates{}
 //consultant login
 class LoginCLodingeState extends LoginStates{}
